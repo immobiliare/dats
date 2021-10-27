@@ -1,0 +1,24 @@
+{
+    "name": "benchmark",
+    "version": "1.0.0",
+    "description": "<!-- toc -->",
+    "main": "base.js",
+    "scripts": {
+        "autocannon": "autocannon -d 30 --warmup [ -c 10 -d 10 ] http://localhost:3000",
+        "bench:base": "concurrently -k -s first 'node base' npm:autocannon",
+        "bench:dats": "concurrently -k -s first 'node dats' npm:autocannon",
+        "bench:dats_buffered": "concurrently -k -s first 'node dats_buffered' npm:autocannon",
+        "bench:hot_shots": "concurrently -k -s first 'node hot_shots' npm:autocannon",
+        "bench:node_statsd": "concurrently -k -s first 'node node_statsd' npm:autocannon",
+        "bench:statsd_client": "concurrently -k -s first 'node statsd_client' npm:autocannon"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "autocannon": "^7.0.0",
+        "concurrently": "^6.3.0",
+        "hot-shots": "^8.5.2",
+        "node-statsd": "^0.1.1",
+        "statsd-client": "^0.4.7"
+    }
+}
