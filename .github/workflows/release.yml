@@ -1,0 +1,44 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    test:
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macos-latest, windows-latest]
+                node-version: [12.x, 14.x, 16.x]
+
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - uses: bahmutov/npm-install@v1
+            - run: npm t
+
+    release:
+        needs: [test]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 16
+            - uses: actions/checkout@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - uses: bahmutov/npm-install@v1
+            - run: npm run build
+
+            # - name: Semantic release
+            #   uses: codfish/semantic-release-action@v1
+            #   env:
+            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            #     NPM_TOKEN: ${{ secrets.npm_token }}
