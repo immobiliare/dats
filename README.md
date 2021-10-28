@@ -33,18 +33,18 @@ You can install it with `npm`
 
 ```bash
 # lastest stable version
-$ npm i -S @immobiliare/dats
+$ npm i -S @immobiliarelabs/dats
 # latest development version
-$ npm i -S @immobiliare/dats@next
+$ npm i -S @immobiliarelabs/dats@next
 ```
 
 or `yarn`
 
 ```bash
 # lastest stable version
-$ yarn add @immobiliare/dats
+$ yarn add @immobiliarelabs/dats
 # latest development version
-$ yarn @immobiliare/dats@next
+$ yarn @immobiliarelabs/dats@next
 ```
 
 ## Usage
@@ -52,7 +52,7 @@ $ yarn @immobiliare/dats@next
 ### Generic
 
 ```ts
-import Client from '@immobiliare/dats';
+import Client from '@immobiliarelabs/dats';
 
 const stats = new Client({
     host: 'udp://someip:someport',
@@ -82,7 +82,7 @@ stats.set('some.set', 765);
 
 ```ts
 // Scope your stats per hostname and/or pid
-import Client from '@immobiliare/dats';
+import Client from '@immobiliarelabs/dats';
 
 const stats = new Client({
     host: 'udp://someip:someport',
