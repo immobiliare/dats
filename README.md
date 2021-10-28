@@ -57,9 +57,9 @@ import Client from '@immobiliarelabs/dats';
 const stats = new Client({
     host: 'udp://someip:someport',
     namespace: 'myGrafanaNamespace',
-    // Optionally register a global handler to track every send.
-    afterSend: (error) => {
-        if (error) processError(error);
+    // Optionally register a global handler to track errors.
+    onError: (error) => {
+        processError(error);
     },
 });
 
@@ -155,7 +155,7 @@ This module exports:
 -   `value`: Optional. The metric value (`Number`). Defaults to `1`.
 -   `sampling`: Optional. The metric sampling.
 
-You can check for sending errors by using the `afterSend` callback.
+All sending errors are handled by the `onError` callback.
 
 #### `Client#timing(string, value[, sampling])`
 
@@ -165,7 +165,7 @@ You can check for sending errors by using the `afterSend` callback.
 -   `value`: The metric value (`Number`).
 -   `sampling`: Optional. The metric sampling.
 
-You can check for sending errors by using the `afterSend` callback.
+All sending errors are handled by the `onError` callback.
 
 #### `Client#gauge(string, value)`
 
@@ -174,7 +174,7 @@ You can check for sending errors by using the `afterSend` callback.
 -   `string`: The metric string
 -   `value`: The metric value (`Number`).
 
-You can check for sending errors by using the `afterSend` callback.
+All sending errors are handled by the `onError` callback.
 
 #### `Client#set(string, value)`
 
@@ -183,7 +183,7 @@ You can check for sending errors by using the `afterSend` callback.
 -   `string`: The metric string
 -   `value`: The metric value (`Number`).
 
-You can check for sending errors by using the `afterSend` callback.
+All sending errors are handled by the `onError` callback.
 
 ## Benchmarks
 
