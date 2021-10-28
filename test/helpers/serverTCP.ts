@@ -30,14 +30,14 @@ export default class StatsdMock extends EventEmitter {
         });
     }
 
-    disconnectSocket() {
-        for (let sock of this.sockets) {
+    disconnectSocket(): void {
+        for (const sock of this.sockets) {
             sock.destroy();
         }
     }
 
-    stop() {
-        return new Promise((resolve, reject) => {
+    stop(): Promise<null> {
+        return new Promise((resolve) => {
             // Here, The close method in the old code takes as input the error, but is always undefined
             this.disconnectSocket();
             this.server.close(() => {

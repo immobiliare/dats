@@ -25,8 +25,8 @@ export default class StatsdMock extends EventEmitter {
             this.server.bind(0);
         });
     }
-    stop() {
-        return new Promise((resolve, reject) => {
+    stop(): Promise<null> {
+        return new Promise((resolve) => {
             // Here, The close method in the old code takes as input the error, but is always undefined
             this.server.close(() => {
                 resolve(null);

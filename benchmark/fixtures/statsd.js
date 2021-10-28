@@ -39,10 +39,8 @@ module.exports = { StatsdMock };
 if (require.main === module) {
     const mock = new StatsdMock();
 
-    mock.start()
-        .then(() => {})
-        .catch((error) => {
-            console.error(error);
-            process.exit(1);
-        });
+    mock.start().catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
 }
