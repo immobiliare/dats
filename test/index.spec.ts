@@ -13,6 +13,7 @@ import buildLookupFunction from '../src/dns-cache';
 
 import { promisify } from 'util';
 const sleep = promisify(setTimeout);
+const nodeVersion = process.version.split('.')[0];
 
 const test = anyTest as TestInterface<{
     hostname: string;
@@ -48,13 +49,13 @@ test.afterEach(async (t) => {
 
 test('should throw an error with invalid options', (t) => {
     const list: Array<Array<any>> = [
-        [{ namespace: 'ns' }, 'Invalid URL: undefined'],
+        [{ namespace: 'ns' }, 'Invalid URL: undefined', 'Invalid URL'],
         [
             { host: 'udp://127.0.0.1:123', namespace: 123 },
             'A namespace string is required',
         ],
         [{ host: 'udp://127.0.0.1', namespace: 'ns' }, 'A port is required'],
-        [undefined, 'Invalid URL: undefined'],
+        [undefined, 'Invalid URL: undefined', 'Invalid URL'],
         [{ bufferSize: -1 }, 'bufferSize must be a number >= 0'],
         [{ bufferFlushTimeout: -1 }, 'bufferFlushTimeout must be a number > 0'],
     ];
@@ -64,7 +65,7 @@ test('should throw an error with invalid options', (t) => {
             () => {
                 const client = new Client(pair[0]);
             },
-            { message: pair[1] }
+            { message: nodeVersion === 'v16' && pair[2] ? pair[2] : pair[1] }
         );
     }
 });
@@ -221,10 +222,14 @@ test.cb('hostname and pid substitution', (t) => {
 test.cb('error', (t) => {
     const namespace = 'ns1';
     let timer;
+    let called = nodeVersion !== 'v12';
     const onError = (error) => {
         clearInterval(timer);
-        t.is('ENOTFOUND', error.code);
-        t.end();
+        if (nodeVersion === 'v12' && called) {
+            t.is('ERR_SOCKET_CANNOT_SEND', error.code);
+        } else t.is('ENOTFOUND', error.code);
+        if (called) t.end();
+        called = true;
     };
     const client = new Client({
         host: 'udp://xfdfsfsdfs.xyzv.:4343',
