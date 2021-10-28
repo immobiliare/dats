@@ -12,7 +12,6 @@ import isCI from 'is-ci';
 import buildLookupFunction from '../src/dns-cache';
 
 import { promisify } from 'util';
-const sleep = promisify(setTimeout);
 const nodeVersion = process.version.split('.')[0];
 
 const test = anyTest as TestInterface<{
@@ -607,11 +606,10 @@ test('TCP _connect function doesnt create new connections if there is another co
 });
 
 test('if TCP connect fail then the socket should not reconnect', async (t) => {
-    const host = new URL(`tcp://127.1.0.100:${10}`);
+    const host = new URL(`tcp://someinvalidhost:9090`);
     const sockMock = sinon.fake(net.createConnection);
     const socket = new SocketTcp(host, undefined, null, sockMock);
     await t.throwsAsync(socket.connect());
-    await sleep(1000);
 
     t.true(sockMock.calledOnce);
     socket.close();
