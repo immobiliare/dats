@@ -47,7 +47,7 @@ export class SocketTcp extends Socket {
 
     constructor(
         url: URL,
-        onError: (error: Error) => void,
+        onError?: (error: Error) => void,
         debug: typeof console.log = null,
         createConnection = net.createConnection
     ) {
@@ -138,7 +138,7 @@ export class SocketUdp extends Socket {
 
     constructor(
         url: URL,
-        onError: (error: Error) => void,
+        onError?: (error: Error) => void,
         dnsCache = true,
         dnsCacheTTL = 120,
         debug: typeof console.log = null,
