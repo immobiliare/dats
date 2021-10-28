@@ -49,7 +49,7 @@ $ yarn @immobiliarelabs/dats@next
 
 ## Usage
 
-### Generic
+### Generic
 
 ```ts
 import Client from '@immobiliarelabs/dats';
