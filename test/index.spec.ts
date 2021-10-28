@@ -10,6 +10,9 @@ import { URL } from 'url';
 import net from 'net';
 import isCI from 'is-ci';
 import buildLookupFunction from '../src/dns-cache';
+import { promisify } from 'util';
+
+const sleep = promisify(setTimeout);
 
 const nodeVersion = process.version.split('.')[0];
 
@@ -609,6 +612,8 @@ test('if TCP connect fail then the socket should not reconnect', async (t) => {
     const sockMock = sinon.fake(net.createConnection);
     const socket = new SocketTcp(host, undefined, null, sockMock);
     await t.throwsAsync(socket.connect());
+    // Wait a second to be sure that there is no reconnection attempt.
+    await sleep(1000);
 
     t.true(sockMock.calledOnce);
     socket.close();
