@@ -11,7 +11,6 @@ import net from 'net';
 import isCI from 'is-ci';
 import buildLookupFunction from '../src/dns-cache';
 
-import { promisify } from 'util';
 const nodeVersion = process.version.split('.')[0];
 
 const test = anyTest as TestInterface<{
