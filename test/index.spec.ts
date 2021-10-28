@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import anyTest, { TestInterface } from 'ava';
 import Client from './../src/index';
 import StatsdMock from './helpers/server';
-import { AddressInfo, LookupFunction } from 'net';
+import { AddressInfo } from 'net';
 import { SocketTcp, SocketUdp } from './../src/socket';
 import StatsdMockTCP from './helpers/serverTCP';
 import { URL } from 'url';
@@ -64,7 +64,7 @@ test('should throw an error with invalid options', (t) => {
     for (const pair of list) {
         t.throws(
             () => {
-                const client = new Client(pair[0]);
+                new Client(pair[0]);
             },
             { message: nodeVersion === 'v16' && pair[2] ? pair[2] : pair[1] }
         );
@@ -222,7 +222,9 @@ test.cb('hostname and pid substitution', (t) => {
 
 test.cb('error', (t) => {
     const namespace = 'ns1';
-    let timer;
+    const timer = setInterval(() => {
+        client.set('some.metric', 1);
+    }, 200);
     let called = nodeVersion !== 'v12';
     const onError = (error) => {
         clearInterval(timer);
@@ -237,13 +239,9 @@ test.cb('error', (t) => {
         namespace,
         onError,
     });
-    timer = setInterval(() => {
-        client.set('some.metric', 1);
-    }, 200);
 });
 
 test.cb('onError is noop by default', (t) => {
-    const host = new URL(`udp://127.0.0.5:${t.context.address.port + 1}`);
     const namespace = 'ns1';
 
     const client = new Client({
@@ -625,7 +623,7 @@ test.cb('TCP reconnect should not create UnhandledRejection', (t) => {
     );
     const sockMock = sinon.fake(net.createConnection);
     const socket = new SocketTcp(host, undefined, null, sockMock);
-    socket.connect().then((_) => {
+    socket.connect().then(() => {
         t.context.serverTcp.stop().then(() => {
             setTimeout(() => {
                 socket.close();
@@ -635,7 +633,7 @@ test.cb('TCP reconnect should not create UnhandledRejection', (t) => {
         });
     });
 
-    process.on('unhandledRejection', (e) => {
+    process.on('unhandledRejection', () => {
         t.fail();
     });
 });
@@ -711,7 +709,7 @@ test.cb('UDP dns cache TTL should work', (t) => {
         }
     });
 
-    const cachable = (_) => {
+    const cachable = () => {
         return buildLookupFunction(1, host.hostname, mock);
     };
 
