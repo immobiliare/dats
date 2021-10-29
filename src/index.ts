@@ -99,10 +99,7 @@ class Client {
     }
 
     connect(): Promise<boolean> {
-        if (!this.socket.isConnected())
-            return this.socket.connect().then((b) => {
-                return b;
-            });
+        if (!this.socket.isConnected()) return this.socket.connect();
         return Promise.resolve(true);
     }
 
