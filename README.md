@@ -187,12 +187,12 @@ All sending errors are handled by the `onError` callback.
 
 ## Benchmarks
 
-The tests were done using autocannon pointing to an HTTP node.js Server that sends at each request a count metric.
+The tests were done using [autocannon](https://github.com/mcollina/autocannon) pointing to an HTTP node.js Server that sends at each request a count metric.
 With this kind of test, we evaluate how much the library influences the application performance.
 
 Below are reported the benchmarks with the most famous node.js statsd clients:
 
-| LIBRARY       | Req/Sec (97.5%) | Req/Sec (avg) |
+| LIBRARY       | Req/Sec (97.5th) | Req/Sec (avg) |
 | ------------- | --------------- | ------------- |
 | Dats          | 45503           | 43174.4       |
 | Hot-shots     | 46975           | 43319.47      |
