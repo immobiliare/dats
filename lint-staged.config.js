@@ -5,6 +5,6 @@ module.exports = {
     '*.ts': [
         'npm run style:lint',
         'npm run style:prettier',
-        'tsc -p tsconfig.json --noEmit',
+        () => 'tsc -p tsconfig.json --noEmit',
     ],
 };

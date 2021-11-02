@@ -4,11 +4,11 @@ import anyTest, { TestInterface } from 'ava';
 import Client from './../src/index';
 import StatsdMock from './helpers/server';
 import { AddressInfo } from 'net';
+import { lookup } from 'dns';
 import { SocketTcp, SocketUdp } from './../src/socket';
 import StatsdMockTCP from './helpers/serverTCP';
 import { URL } from 'url';
 import net from 'net';
-import isCI from 'is-ci';
 import buildLookupFunction from '../src/dns-cache';
 import { promisify } from 'util';
 
@@ -680,7 +680,6 @@ test.cb('UDP dns cache can be disabled', (t) => {
         return mock;
     };
 
-    // @ts-ignore
     const socket = new SocketUdp(
         host,
         (error) => console.log(error),
@@ -710,10 +709,13 @@ test.cb('UDP dns cache TTL should work', (t) => {
     });
 
     const cachable = () => {
-        return buildLookupFunction(1, host.hostname, mock);
+        return buildLookupFunction(
+            1,
+            host.hostname,
+            mock as unknown as typeof lookup
+        );
     };
 
-    // @ts-ignore
     const socket = new SocketUdp(
         host,
         (error) => console.log(error),
@@ -763,21 +765,50 @@ test.cb('dns-cache should work', (t) => {
     });
 });
 
-// IPv6 test
-if (!isCI) {
-    test.cb('should work udp6', (t) => {
-        const host = new URL(`udp6://localhost:${t.context.addressUdp6.port}`);
-        const namespace = 'ns1';
-        const client = new Client({ host, namespace });
-        t.context.serverUdp6.on('metric', (metric) => {
-            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-            t.end();
-        });
-        client.counter('some.metric', 1, 10);
+// IPv6 tests
+test.cb('should work udp6', (t) => {
+    const host = new URL(`udp6://localhost:${t.context.addressUdp6.port}`);
+    const namespace = 'ns1';
+    const client = new Client({ host, namespace });
+    t.context.serverUdp6.on('metric', (metric) => {
+        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+        t.end();
     });
+    client.counter('some.metric', 1, 10);
+});
 
-    test.cb('should work udp6 with ip', (t) => {
-        const host = new URL(`udp6://[::1]:${t.context.addressUdp6.port}`);
+test.cb('should work udp6 with ip', (t) => {
+    const host = new URL(`udp6://[::1]:${t.context.addressUdp6.port}`);
+    const namespace = 'ns1';
+    const client = new Client({
+        host,
+        namespace,
+    });
+    t.context.serverUdp6.on('metric', (metric) => {
+        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+        t.end();
+    });
+    client.counter('some.metric', 1, 10);
+});
+
+test.cb('should work udp6 with ip without passing udp version', (t) => {
+    const host = new URL(`udp://[::1]:${t.context.addressUdp6.port}`);
+    const namespace = 'ns1';
+    const client = new Client({
+        host,
+        namespace,
+    });
+    t.context.serverUdp6.on('metric', (metric) => {
+        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+        t.end();
+    });
+    client.counter('some.metric', 1, 10);
+});
+
+test.cb(
+    'If udp version and ip address mismatch should follow the IP version',
+    (t) => {
+        const host = new URL(`udp4://[::1]:${t.context.addressUdp6.port}`);
         const namespace = 'ns1';
         const client = new Client({
             host,
@@ -788,36 +819,5 @@ if (!isCI) {
             t.end();
         });
         client.counter('some.metric', 1, 10);
-    });
-
-    test.cb('should work udp6 with ip without passing udp version', (t) => {
-        const host = new URL(`udp://[::1]:${t.context.addressUdp6.port}`);
-        const namespace = 'ns1';
-        const client = new Client({
-            host,
-            namespace,
-        });
-        t.context.serverUdp6.on('metric', (metric) => {
-            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-            t.end();
-        });
-        client.counter('some.metric', 1, 10);
-    });
-
-    test.cb(
-        'If udp version and ip address mismatch should follow the IP version',
-        (t) => {
-            const host = new URL(`udp4://[::1]:${t.context.addressUdp6.port}`);
-            const namespace = 'ns1';
-            const client = new Client({
-                host,
-                namespace,
-            });
-            t.context.serverUdp6.on('metric', (metric) => {
-                t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-                t.end();
-            });
-            client.counter('some.metric', 1, 10);
-        }
-    );
-}
+    }
+);
