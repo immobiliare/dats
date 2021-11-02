@@ -308,7 +308,7 @@ test.cb('flushing buffer timeout', (t) => {
         flush();
         const interval = diff[0] * 1e9 + diff[1];
         t.log(`flush called after: ${interval} nanosecods`);
-        t.true(interval >= 1e8 && interval <= 2e8);
+        t.true(interval >= 1e8 - 1e5 && interval <= 2e8 + 1e5);
         t.is(0, (client as any).buffer.length);
         t.is('', (client as any).buffer.data);
         t.false((client as any).timeoutActive);
@@ -369,13 +369,13 @@ test.cb('buffering mode', (t) => {
         const interval = diff[0] * 1e9 + diff[1];
         if (count === 0) {
             t.log(`flush called after: ${interval} nanosecods`);
-            t.true(interval >= 1e8 && interval <= 2e8);
+            t.true(interval >= 1e8 - 1e5 && interval <= 2e8 + 1e5);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
         } else if (count === 1) {
             t.log(`flush called after: ${interval} nanosecods`);
-            t.true(interval >= 3e8 + 1e8 && interval <= 3e8 + 2e8);
+            t.true(interval >= 2e8 && interval <= 3e8 + 4e8);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
@@ -712,7 +712,7 @@ test.cb('UDP dns cache TTL should work', (t) => {
         return buildLookupFunction(
             1,
             host.hostname,
-            mock as unknown as typeof lookup
+            (mock as unknown) as typeof lookup
         );
     };
 
