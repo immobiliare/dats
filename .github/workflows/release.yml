@@ -21,6 +21,8 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
             - run: npm t
 
     release:
