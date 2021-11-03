@@ -1,8 +1,16 @@
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 # dats
 
+![release workflow](https://img.shields.io/github/workflow/status/immobiliare/dats/release)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat-square)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+![npm vertsion](https://img.shields.io/npm/v/@immobiliarelabs/dats?style=flat-square)
+![license](https://img.shields.io/github/license/immobiliare/dats)
+
 > Minimalistic zero-dependencies [statsd](https://github.com/statsd/statsd) client for Node.js
+
+There are times when you have to gather metrics and you want something simple without writing too much boilerplate, `dats` to your aid!
+
+This client aims to have a simple [statsd](https://github.com/statsd/statsd) compliant API with some optional flavour for advanced usage, like: buffered metrics and either UDP/TCP transports!
 
 <!-- toc -->
 
@@ -193,13 +201,13 @@ With this kind of test, we evaluate how much the library influences the applicat
 Below are reported the benchmarks with the most famous node.js statsd clients:
 
 | LIBRARY       | Req/Sec (97.5th) | Req/Sec (avg) |
-| ------------- | --------------- | ------------- |
-| Dats          | 45503           | 43174.4       |
-| Hot-shots     | 46975           | 43319.47      |
-| Node-statsd   | 14935           | 11632.34      |
-| statsd-client | 42463           | 35790.67      |
-|               |                 |               |
-| Base          | 50271           | 43312.54      |
+| ------------- | ---------------- | ------------- |
+| Dats          | 45503            | 43174.4       |
+| Hot-shots     | 46975            | 43319.47      |
+| Node-statsd   | 14935            | 11632.34      |
+| statsd-client | 42463            | 35790.67      |
+|               |                  |               |
+| Base          | 50271            | 43312.54      |
 
 **Base** is the HTTP server without metrics.
 
