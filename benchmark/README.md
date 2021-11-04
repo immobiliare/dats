@@ -4,8 +4,8 @@
 
 -   [Setup](#setup)
 -   [Base](#base)
--   [Dats](#dats)
--   [Dats buffered](#dats-buffered)
+-   [dats](#dats)
+-   [dats buffered](#dats-buffered)
 
 <!-- tocstop -->
 
@@ -24,7 +24,7 @@ This benchmark tests a barebone http server.
 $ npm run bench:base
 ```
 
-## Dats
+## dats
 
 This benchmark tests a server that uses `dats` to send metrics.
 
@@ -32,7 +32,7 @@ This benchmark tests a server that uses `dats` to send metrics.
 $ npm run bench:dats
 ```
 
-## Dats buffered
+## dats buffered
 
 This benchmark tests a server that uses `dats` setup with a buffer to send metrics.
 
