@@ -1,12 +1,14 @@
 # dats
 
+<p align="center"><img src="./logo.png" alt="logo" width="200px" /></p>
+
 ![release workflow](https://img.shields.io/github/workflow/status/immobiliare/dats/release)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat-square)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 ![npm vertsion](https://img.shields.io/npm/v/@immobiliarelabs/dats?style=flat-square)
 ![license](https://img.shields.io/github/license/immobiliare/dats)
 
-> Minimalistic zero-dependencies [statsd](https://github.com/statsd/statsd) client for Node.js
+> Minimalistic zero-dependencies UDP/TCP [statsd](https://github.com/statsd/statsd) client for Node.js
 
 There are times when you have to gather metrics and you want something simple without writing too much boilerplate, `dats` to your aid!
 
@@ -29,7 +31,9 @@ This client aims to have a simple [statsd](https://github.com/statsd/statsd) com
         -   [`Client#gauge(string, value)`](#client%23gaugestring-value)
         -   [`Client#set(string, value)`](#client%23setstring-value)
 -   [Benchmarks](#benchmarks)
--   [Contributing](#contributing)
+-   [Powered Apps](#powered-apps)
+-   [Support & Contribute](#support--contribute)
+-   [License](#license)
 
 <!-- tocstop -->
 
@@ -132,7 +136,7 @@ This module exports:
 #### `new Client(options)`
 
 -   `options`: configuration object.
-    -   `host`: statsd host (udp://someip:port or tcp://someip:port), you can use also ipv6. If you want to force udp6 usage use: `udp6://hostname:port`, when using TCP, you have to call the [`Client#connect`](#Client#connect) method.
+    -   `host`: statsd host (`udp://{ip}:{port}` or `tcp://{ip}:{port}`), you can use also ipv6. If you want to force udp6 usage use: `udp6://{host}:{port}`, when using TCP, you have to call the [`Client#connect`](#clientconnect) method.
     -   `namespace`: Optional. Prefix to use for the metrics. The metric will be sent as `namespace.` + the metric string. Optionally you can use `${hostname}` and `${pid}` placeholders in the namespace and have them substituted with the machine hostname and the process id.
     -   `bufferSize`: Optional. Default is `0`. Setting this value to a number greather than zero will activate buffered mode, which instead of sending metrics on each call, it will buffer them and send them when one of this conditions occurs: the buffer is full, or the `bufferFlushTimeout` has expired. Using this approach is more performant, but you must be careful to use a value compatible to the MTU available on your network, otherwise your packets might get dropped silently. See https://github.com/statsd/statsd/blob/v0.8.6/docs/metric_types.md#multi-metric-packets.
     -   `bufferFlushTimeout`: Optional. Default is `100`. Timeout in milliseconds to wait before flushing the metrics buffer.
@@ -200,17 +204,33 @@ With this kind of test, we evaluate how much the library influences the applicat
 
 Below are reported the benchmarks with the most famous node.js statsd clients:
 
-| LIBRARY       | Req/Sec (97.5th) | Req/Sec (avg) |
-| ------------- | ---------------- | ------------- |
-| Dats          | 45503            | 43174.4       |
-| Hot-shots     | 46975            | 43319.47      |
-| Node-statsd   | 14935            | 11632.34      |
-| statsd-client | 42463            | 35790.67      |
-|               |                  |               |
-| Base          | 50271            | 43312.54      |
+| LIBRARY                                                      | Req/Sec (97.5th) | Req/Sec (avg) |
+| ------------------------------------------------------------ | ---------------- | ------------- |
+| DATS                                                         | 45503            | 43174.4       |
+| [hot-shots](https://github.com/brightcove/hot-shots)         | 46975            | 43319.47      |
+| [node-statsd](https://github.com/sivy/node-statsd)           | 14935            | 11632.34      |
+| [statsd-client](https://www.npmjs.com/package/statsd-client) | 42463            | 35790.67      |
+|                                                              |                  |               |
+| Base                                                         | 50271            | 43312.54      |
 
 **Base** is the HTTP server without metrics.
 
-## Contributing
+## Powered Apps
 
-See [the contributing section](./CONTRIBUTING.md).
+Dats was created by the amazing Node.js team at ImmobiliareLabs, the Tech dept of [Immobiliare.it](https://www.immobiliare.it), the #1 real estate company in Italy.
+
+We are currently using Dats in our products as well as our internal toolings.
+
+**If you are using Dats in production [drop us a message](mailto://opensource@immobiliare.it)**.
+
+## Support & Contribute
+
+Made with ❤️ by [ImmobiliareLabs](https://github.com/immobiliare) & [Contributors](./CONTRIBUTING.md#contributors)
+
+We'd love for you to contribute to Dats!
+If you have any questions on how to use Dats, bugs and enhancement please feel free to reach out by opening a [GitHub Issue](https://github.com/immobiliare/dats/issues).
+
+## License
+
+Dats is licensed under the MIT license.  
+See the [LICENSE](./LICENSE) file for more information.

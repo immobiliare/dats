@@ -1,5 +1,11 @@
 # Contributing
 
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'feat(scope): some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
 ### npm scripts
 
 ```bash
@@ -17,7 +23,7 @@ $ npm run release
 
 ### Commit Convention
 
-Angular, enforced with [commitizen](https://github.com/commitizen/cz-cli) and [commitlint](https://github.com/conventional-changelog/commitlint).
+This projects uses [commitlint](https://commitlint.js.org/) with Angular configuration so be sure to use standard commit format or PR won't be accepted
 
 ### Quality
 
@@ -45,3 +51,10 @@ Style and lint errors should be fixed with
 ```bash
 $ npm run lint
 ```
+
+## Contributors
+
+@JellyBellyDev
+@simonecorsi
+@dnlup
+@antoniomuso
