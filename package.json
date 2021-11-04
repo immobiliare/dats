@@ -5,7 +5,6 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "keywords": [
-        "github",
         "nodejs",
         "javascript",
         "client",
@@ -15,7 +14,11 @@
         "metrics",
         "udp",
         "statsd",
-        "ipv6-support apn"
+        "ipv6-support apn",
+        "timing",
+        "gauge",
+        "counter",
+        "sampling"
     ],
     "scripts": {
         "build": "tsc -p tsconfig.json",
