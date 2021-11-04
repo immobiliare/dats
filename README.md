@@ -1,4 +1,4 @@
-<p align="center"><img src="./logo.png" alt="logo" width="250px" /></p>
+<p align="center"><img src="./logo.png" alt="logo" width="200px" /></p>
 
 <h1 align="center">dats</h1>
 
