@@ -12,7 +12,7 @@
 
 There are times when you have to gather metrics and you want something simple without writing too much boilerplate, `dats` to your aid!
 
-This client aims to have a simple [statsd](https://github.com/statsd/statsd) compliant API with some optional flavour for advanced usage, like: buffered metrics and either UDP/TCP transports!
+This client aims to have a simple [statsd](https://github.com/statsd/statsd) yet compliant API with some optional flavour for advanced usage, like: buffered metrics and either UDP/TCP transports!
 
 ## Table of Content
 

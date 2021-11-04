@@ -54,7 +54,7 @@ $ npm run lint
 
 ## Contributors
 
-@JellyBellyDev  
-@simonecorsi  
-@dnlup  
-@antoniomuso
+[@JellyBellyDev](https://github.com/JellyBellyDev)  
+[@simonecorsi](https://github.com/simonecorsi)  
+[@dnlup](https://github.com/dnlup)  
+[@antoniomuso](https://github.com/antoniomuso)
