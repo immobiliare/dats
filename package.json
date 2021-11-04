@@ -1,9 +1,22 @@
 {
     "name": "@immobiliarelabs/dats",
     "version": "1.0.0-0",
-    "description": "A simple statsd client",
+    "description": "Minimalistic zero-dependencies UDP/TCP statsd client for Node.js",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "keywords": [
+        "github",
+        "nodejs",
+        "javascript",
+        "client",
+        "npm",
+        "typescript",
+        "tcp",
+        "metrics",
+        "udp",
+        "statsd",
+        "ipv6-support apn"
+    ],
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "build:watch": "npm run build -- -w",
