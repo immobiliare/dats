@@ -208,7 +208,7 @@ Below are reported the benchmarks with the most famous node.js statsd clients:
 
 | LIBRARY                                                      | Req/Sec (97.5th) | Req/Sec (avg) |
 | ------------------------------------------------------------ | ---------------- | ------------- |
-| dats                                                         | 45503            | 43174.4       |
+| [dats](https://github.com/immobiliare/dats)                  | 45503            | 43174.4       |
 | [hot-shots](https://github.com/brightcove/hot-shots)         | 46975            | 43319.47      |
 | [node-statsd](https://github.com/sivy/node-statsd)           | 14935            | 11632.34      |
 | [statsd-client](https://www.npmjs.com/package/statsd-client) | 42463            | 35790.67      |
