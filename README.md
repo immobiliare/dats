@@ -24,12 +24,12 @@ This client aims to have a simple [statsd](https://github.com/statsd/statsd) com
 -   [API](#api)
     -   [`Client`](#client)
         -   [`new Client(options)`](#new-clientoptions)
-        -   [`Client#close([cb])`](#client%23closecb)
-        -   [`Client#connect()`](#client%23connect)
-        -   [`Client#counter(string[, value, sampling])`](#client%23counterstring-value-sampling)
-        -   [`Client#timing(string, value[, sampling])`](#client%23timingstring-value-sampling)
-        -   [`Client#gauge(string, value)`](#client%23gaugestring-value)
-        -   [`Client#set(string, value)`](#client%23setstring-value)
+        -   [`Client.close([cb])`](#clientclosecb)
+        -   [`Client.connect()`](#clientconnect)
+        -   [`Client.counter(string[, value, sampling])`](#clientcounterstring-value-sampling)
+        -   [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
+        -   [`Client.gauge(string, value)`](#clientgaugestring-value)
+        -   [`Client.set(string, value)`](#clientsetstring-value)
 -   [Benchmarks](#benchmarks)
 -   [Powered Apps](#powered-apps)
 -   [Support & Contribute](#support--contribute)
@@ -136,7 +136,7 @@ This module exports:
 #### `new Client(options)`
 
 -   `options`: configuration object.
-    -   `host`: statsd host (`udp://{ip}:{port}` or `tcp://{ip}:{port}`), you can use also ipv6. If you want to force udp6 usage use: `udp6://{host}:{port}`, when using TCP, you have to call the [`Client#connect`](#clientconnect) method.
+    -   `host`: statsd host (`udp://{ip}:{port}` or `tcp://{ip}:{port}`), you can use also ipv6. If you want to force udp6 usage use: `udp6://{host}:{port}`, when using TCP, you have to call the [`Client.connect`](#clientconnect) method.
     -   `namespace`: Optional. Prefix to use for the metrics. The metric will be sent as `namespace.` + the metric string. Optionally you can use `${hostname}` and `${pid}` placeholders in the namespace and have them substituted with the machine hostname and the process id.
     -   `bufferSize`: Optional. Default is `0`. Setting this value to a number greather than zero will activate buffered mode, which instead of sending metrics on each call, it will buffer them and send them when one of this conditions occurs: the buffer is full, or the `bufferFlushTimeout` has expired. Using this approach is more performant, but you must be careful to use a value compatible to the MTU available on your network, otherwise your packets might get dropped silently. See https://github.com/statsd/statsd/blob/v0.8.6/docs/metric_types.md#multi-metric-packets.
     -   `bufferFlushTimeout`: Optional. Default is `100`. Timeout in milliseconds to wait before flushing the metrics buffer.
@@ -145,7 +145,7 @@ This module exports:
     -   `udpDnsCacheTTL`: Optional. Default `120`. Dns cache Time to live in seconds.
     -   `onError`: Optional. Default `(err) => void`. Called when there is an error. Allows you to check also send errors.
 
-#### `Client#close([cb])`
+#### `Client.close([cb])`
 
 > close the client socket
 
@@ -153,13 +153,13 @@ This module exports:
 
 **Returns**: a `Promise` if no `cb` is passed.
 
-#### `Client#connect()`
+#### `Client.connect()`
 
 > connect the TCP socket. Calling this function is required only on TCP.
 
 **Returns**: a `Promise`.
 
-#### `Client#counter(string[, value, sampling])`
+#### `Client.counter(string[, value, sampling])`
 
 > send a metric of type counter
 
@@ -169,7 +169,7 @@ This module exports:
 
 All sending errors are handled by the `onError` callback.
 
-#### `Client#timing(string, value[, sampling])`
+#### `Client.timing(string, value[, sampling])`
 
 > send a metric of type timing
 
@@ -179,7 +179,7 @@ All sending errors are handled by the `onError` callback.
 
 All sending errors are handled by the `onError` callback.
 
-#### `Client#gauge(string, value)`
+#### `Client.gauge(string, value)`
 
 > send a metric of type gauge
 
@@ -188,7 +188,7 @@ All sending errors are handled by the `onError` callback.
 
 All sending errors are handled by the `onError` callback.
 
-#### `Client#set(string, value)`
+#### `Client.set(string, value)`
 
 > send a metric of type set
 
