@@ -1,6 +1,6 @@
-# dats
+<p align="center"><img src="./logo.png" alt="logo" width="250px" /></p>
 
-<p align="center"><img src="./logo.png" alt="logo" width="200px" /></p>
+<h1 align="center">dats</h1>
 
 ![release workflow](https://img.shields.io/github/workflow/status/immobiliare/dats/release)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier?style=flat-square)
