@@ -59,7 +59,7 @@ export class SocketTcp extends Socket {
         this.reconnectCb = () => {
             if (this.closing) return;
             this.connected = false;
-            this.debug && this.debug(`DATS: Socket reconnecting`);
+            this.debug && this.debug(`dats: Socket reconnecting`);
             setTimeout(() => this._connect().catch(() => undefined), 500);
         };
         this.createConnection = createConnection;

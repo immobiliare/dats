@@ -25,7 +25,7 @@ Req/Bytes counts sampled once per second.
 
 1299k requests in 30s, 182 MB read
 
-# Dats - noBuffer
+# dats - noBuffer
 
 ```
 Running 10s warmup @ http://localhost:3000
@@ -52,7 +52,7 @@ Req/Bytes counts sampled once per second.
 671k requests in 30s, 93.9 MB read
 ```
 
-# DATS - Buffer
+# dats - Buffer
 
 ```
 Running 10s warmup @ http://localhost:3000

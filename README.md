@@ -206,7 +206,7 @@ Below are reported the benchmarks with the most famous node.js statsd clients:
 
 | LIBRARY                                                      | Req/Sec (97.5th) | Req/Sec (avg) |
 | ------------------------------------------------------------ | ---------------- | ------------- |
-| DATS                                                         | 45503            | 43174.4       |
+| dats                                                         | 45503            | 43174.4       |
 | [hot-shots](https://github.com/brightcove/hot-shots)         | 46975            | 43319.47      |
 | [node-statsd](https://github.com/sivy/node-statsd)           | 14935            | 11632.34      |
 | [statsd-client](https://www.npmjs.com/package/statsd-client) | 42463            | 35790.67      |
@@ -217,20 +217,20 @@ Below are reported the benchmarks with the most famous node.js statsd clients:
 
 ## Powered Apps
 
-Dats was created by the amazing Node.js team at ImmobiliareLabs, the Tech dept of [Immobiliare.it](https://www.immobiliare.it), the #1 real estate company in Italy.
+dats was created by the amazing Node.js team at ImmobiliareLabs, the Tech dept of [Immobiliare.it](https://www.immobiliare.it), the #1 real estate company in Italy.
 
-We are currently using Dats in our products as well as our internal toolings.
+We are currently using dats in our products as well as our internal toolings.
 
-**If you are using Dats in production [drop us a message](mailto://opensource@immobiliare.it)**.
+**If you are using dats in production [drop us a message](mailto://opensource@immobiliare.it)**.
 
 ## Support & Contribute
 
 Made with ❤️ by [ImmobiliareLabs](https://github.com/immobiliare) & [Contributors](./CONTRIBUTING.md#contributors)
 
-We'd love for you to contribute to Dats!
-If you have any questions on how to use Dats, bugs and enhancement please feel free to reach out by opening a [GitHub Issue](https://github.com/immobiliare/dats/issues).
+We'd love for you to contribute to dats!
+If you have any questions on how to use dats, bugs and enhancement please feel free to reach out by opening a [GitHub Issue](https://github.com/immobiliare/dats/issues).
 
 ## License
 
-Dats is licensed under the MIT license.  
+dats is licensed under the MIT license.  
 See the [LICENSE](./LICENSE) file for more information.
