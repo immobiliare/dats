@@ -1,0 +1,86 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="150" height="150" rx="10" fill="white" />
+    <circle class="datagram x4 d1 ease-in" cx="-5" cy="36" r="10" fill="#6BA1F2" />
+    <circle class="datagram x3" cx="-5" cy="46" r="10" fill="#6BA1F2" />
+    <circle class="datagram x3 d1 ease-out" cx="-5" cy="60" r="10" fill="#6BA1F2" />
+    <circle class="datagram x4" cx="-5" cy="95" r="10" fill="#6BA1F2" />
+    <circle class="datagram x3 d2 ease-in-out" cx="-5" cy="115" r="10" fill="#6BA1F2"/>
+    <circle class="datagram x2 d1" cx="-5" cy="125" r="10" fill="#6BA1F2"/>
+    <rect x="2.5" y="2.5" width="145" height="145" rx="7.5" stroke="black" stroke-width="5" />
+    <path class="dance" fill-rule="evenodd" clip-rule="evenodd"
+        d="M104 95.4074C119.333 86.5547 119.333 64.4229 104 55.5702L75.5 39.1157C60.1667 30.263 41 41.3289 41 59.0343V91.9433C41 109.649 60.1667 120.715 75.5 111.862L104 95.4074ZM75.5 93.4888C84.8888 93.4888 92.5 85.6538 92.5 75.9888C92.5 66.3238 84.8888 58.4888 75.5 58.4888C66.1112 58.4888 58.5 66.3238 58.5 75.9888C58.5 85.6538 66.1112 93.4888 75.5 93.4888Z"
+        fill="#625A5A" />
+    <style>
+        .dance {
+            --base-duration: 3s;
+
+            animation: dance var(--base-duration) ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        .datagram {
+            --base-duration: 1.4s;
+
+            animation: launch var(--base-duration) linear;
+            animation-iteration-count: infinite;
+            stroke: #666;
+            stroke-width: 1px;
+        }
+
+        .d1 {
+            animation-delay: var(--base-duration);
+        }
+        
+        .d2 {
+            animation-delay: calc(var(--base-duration) * 2);
+        }
+
+        .x2 {
+            animation-duration: calc(var(--base-duration) * 2);
+        }
+
+        .x3 {
+            animation-duration: calc(var(--base-duration) * 3);
+        }
+
+        .x4 {
+            animation-duration: calc(var(--base-duration) * 4);
+        }
+
+        .ease-in-out {
+            animation-timing-function: ease-in-out;
+        }
+
+        .ease-in {
+             animation-timing-function: ease-in;
+        }
+
+        .ease-out {
+             animation-timing-function: ease-out;
+        }
+
+        @keyframes launch {
+            0 {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(110%);
+            }
+        }
+
+        @keyframes dance {
+            0 {
+                transform: translateY(-3px);
+            }
+
+            50% {
+                transform: translateY(3px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</svg>

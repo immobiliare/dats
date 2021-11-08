@@ -1,4 +1,6 @@
-<p align="center"><img src="./logo.png" alt="logo" width="200px" /></p>
+<p align="center">
+    <img src="./logo.svg" alt="logo" width="150" height="150" />
+</p>
 
 <h1 align="center">dats</h1>
 
