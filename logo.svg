@@ -1,0 +1,48 @@
+<svg width="308" height="318" viewBox="0 0 308 318" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+        .bar {
+            --base-duration: .6s;
+            transform-origin: center;
+            animation: dance var(--base-duration) cubic-bezier(0.42, 0, 0.41, 1.35);
+            animation-iteration-count: infinite;
+        }
+
+        .d1 {
+            animation-delay: var(--base-duration);
+        }
+
+        .x2 {
+            animation-duration: calc(var(--base-duration) * 2);
+        }
+
+        .x3 {
+            animation-duration: calc(var(--base-duration) * 3);
+        }
+
+        .x4 {
+            animation-duration: calc(var(--base-duration) * 4);
+        }
+
+        .x8 {
+            animation-duration: calc(var(--base-duration) * 8);
+        }
+
+        @keyframes dance {
+            0 {
+                transform: scaleY(1.1);
+            }
+
+            50% {
+                transform: scaleY(0.75);
+            }
+
+            100% {
+                transform: scaleY(1);
+            }
+        }
+</style>
+<rect class="bar x3" x="132.888" y="121.014" width="33" height="54" fill="#FFC961"/>
+<rect class="bar x4" x="173.888" y="96.0138" width="33" height="82" fill="#82C56A"/>
+<rect class="bar x8" x="214.888" y="68.0138" width="33" height="107" fill="#FF8383"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M252.644 172.959C226.925 202.305 184.901 208.999 151.487 191.526L94.5386 256.503C94.5317 256.511 94.5248 256.519 94.5178 256.527C85.452 266.871 71.5262 269.492 63.4137 262.382C55.3011 255.272 56.0739 241.123 65.1397 230.779L121.96 165.947C99.6705 135.052 100.591 92.0307 126.533 62.4315C156.753 27.9515 209.481 24.7425 244.306 55.2639C279.13 85.7853 282.863 138.479 252.644 172.959ZM154.023 158.276C176.184 177.699 210.072 175.275 229.715 152.863C249.357 130.451 247.316 96.5376 225.155 77.1149C202.994 57.6922 169.105 60.1155 149.462 82.5275C129.82 104.939 131.861 138.853 154.023 158.276Z" fill="#52907A"/>
+</svg>
