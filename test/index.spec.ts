@@ -1,4 +1,4 @@
-import { hostname } from 'os';
+import os from 'os';
 import sinon from 'sinon';
 import anyTest, { TestInterface } from 'ava';
 import Client from './../src/index';
@@ -28,7 +28,6 @@ const test = anyTest as TestInterface<{
 }>;
 
 test.before((t) => {
-    t.context.hostname = hostname();
     t.context.pid = process.pid;
 });
 
@@ -184,12 +183,29 @@ test.cb('set should ignore sampling', (t) => {
     client.set('some.metric', 1, 10);
 });
 
-test.cb('hostname substitution', (t) => {
+test.serial.cb('hostname substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}';
+    const hostname = sinon.stub(os, 'hostname');
+    hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
     t.context.server.on('metric', (metric) => {
-        t.is(`ns1.${t.context.hostname}.some.metric:1|s`, metric.toString());
+        t.is(`ns1.some-host.some.metric:1|s`, metric.toString());
+        hostname.restore();
+        t.end();
+    });
+    client.set('some.metric', 1);
+});
+
+test.serial.cb('hostname with dots substitution', (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1.${hostname}';
+    const hostname = sinon.stub(os, 'hostname');
+    hostname.onCall(0).returns('some.host');
+    const client = new Client({ host, namespace });
+    t.context.server.on('metric', (metric) => {
+        t.is(`ns1.some_host.some.metric:1|s`, metric.toString());
+        hostname.restore();
         t.end();
     });
     client.set('some.metric', 1);
@@ -206,15 +222,18 @@ test.cb('pid substitution', (t) => {
     client.set('some.metric', 1);
 });
 
-test.cb('hostname and pid substitution', (t) => {
+test.serial.cb('hostname and pid substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}.${pid}';
+    const hostname = sinon.stub(os, 'hostname');
+    hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
     t.context.server.on('metric', (metric) => {
         t.is(
-            `ns1.${t.context.hostname}.${t.context.pid}.some.metric:1|s`,
+            `ns1.some-host.${t.context.pid}.some.metric:1|s`,
             metric.toString()
         );
+        hostname.restore();
         t.end();
     });
     client.set('some.metric', 1);
@@ -712,7 +731,7 @@ test.cb('UDP dns cache TTL should work', (t) => {
         return buildLookupFunction(
             1,
             host.hostname,
-            (mock as unknown) as typeof lookup
+            mock as unknown as typeof lookup
         );
     };
 
