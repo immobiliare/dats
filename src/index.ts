@@ -61,7 +61,7 @@ class Client {
         }
         namespace = namespace.replace(/^\.+/, '');
         const vars = {
-            hostname: hostname(),
+            hostname: hostname().replace('.', '_'),
             pid: process.pid,
         };
         this.host = host instanceof URL ? host : new URL(host);
