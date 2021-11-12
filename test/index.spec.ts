@@ -746,7 +746,7 @@ test.cb('UDP dns cache TTL should work', (t) => {
         return buildLookupFunction(
             1,
             host.hostname,
-            mock as unknown as typeof lookup
+            (mock as unknown) as typeof lookup
         );
     };
 

@@ -1,6 +1,11 @@
 import { hostname } from 'os';
 import { URL } from 'url';
 import { SocketTcp, SocketUdp, Socket } from './socket';
+import { debuglog, DebugLoggerFunction } from 'util';
+
+interface DebugLogger extends DebugLoggerFunction {
+    enabled?: boolean;
+}
 
 /**
  * Enum of metrics types
@@ -19,7 +24,7 @@ export interface Options {
     bufferSize?: number;
     bufferFlushTimeout?: number;
     onError?: (error: Error) => void;
-    debug?: typeof console.log;
+    debug?: DebugLoggerFunction;
     udpDnsCache?: boolean;
     udpDnsCacheTTL?: number;
 }
@@ -39,6 +44,8 @@ class Client {
 
     private host: URL;
     private namespace: string;
+    private debug: DebugLogger;
+    private isDebug: boolean;
 
     constructor({
         host,
@@ -70,6 +77,17 @@ class Client {
             throw new Error('A port is required');
         }
 
+        this.isDebug = false;
+
+        this.debug = debuglog('dats', (logger) => {
+            this.debug = logger;
+        });
+
+        this.isDebug = this.debug.enabled;
+        if (this.isDebug && debug) this.debug = debug;
+
+        this.debug('Debug mode active');
+
         this.namespace = namespace.replace(
             /\$\{(hostname|pid)\}/g,
             (_, p) => vars[p]
@@ -78,13 +96,14 @@ class Client {
             this.namespace += '.';
         }
         if (this.host.protocol === 'tcp:') {
-            this.socket = new SocketTcp(this.host, onError, debug);
+            this.socket = new SocketTcp(this.host, onError, this.debug);
         } else {
             this.socket = new SocketUdp(
                 this.host,
                 onError,
                 udpDnsCache,
-                udpDnsCacheTTL
+                udpDnsCacheTTL,
+                this.debug
             );
             this.socket.connect();
         }
@@ -166,6 +185,11 @@ class Client {
         value?: number,
         sampling?: number
     ) {
+        /* istanbul ignore next */
+        if (this.isDebug && Types.timing === type && !Number.isInteger(value))
+            this.debug(
+                `${key} has not an integer value, the passed value is: ${value}`
+            );
         const metric = this.buildMetric(type, key, value, sampling);
         if (this.bufferSize === 0) {
             this.send(metric);
