@@ -2,6 +2,7 @@ import { createSocket, Socket as SocketUDP, SocketType } from 'dgram';
 import net, { Socket as SocketTCP, isIP } from 'net';
 import { URL } from 'url';
 import buildLookupFunction from './dns-cache';
+import { debuglog, DebugLoggerFunction } from 'util';
 export abstract class Socket {
     protected hostname: string;
     protected port: number;
@@ -12,7 +13,7 @@ export abstract class Socket {
     protected constructor(
         url: URL,
         onError: (error: Error) => void = () => undefined,
-        debug: typeof console.log = null
+        debug: DebugLoggerFunction = debuglog('dats')
     ) {
         if (!url.port) {
             throw new Error('A port is required');
@@ -48,7 +49,7 @@ export class SocketTcp extends Socket {
     constructor(
         url: URL,
         onError?: (error: Error) => void,
-        debug: typeof console.log = null,
+        debug?: DebugLoggerFunction,
         createConnection = net.createConnection
     ) {
         super(url, onError, debug);
@@ -141,7 +142,7 @@ export class SocketUdp extends Socket {
         onError?: (error: Error) => void,
         dnsCache = true,
         dnsCacheTTL = 120,
-        debug: typeof console.log = null,
+        debug?: DebugLoggerFunction,
         buildLookup = buildLookupFunction
     ) {
         super(url, onError, debug);

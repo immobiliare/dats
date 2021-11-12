@@ -144,7 +144,7 @@ This module exports:
     -   `namespace`: Optional. Prefix to use for the metrics. The metric will be sent as `namespace.` + the metric string. Optionally you can use `${hostname}` and `${pid}` placeholders in the namespace and have them substituted with the machine hostname and the process id.
     -   `bufferSize`: Optional. Default is `0`. Setting this value to a number greather than zero will activate buffered mode, which instead of sending metrics on each call, it will buffer them and send them when one of this conditions occurs: the buffer is full, or the `bufferFlushTimeout` has expired. Using this approach is more performant, but you must be careful to use a value compatible to the MTU available on your network, otherwise your packets might get dropped silently. See [multi-metric-packets](https://github.com/statsd/statsd/blob/v0.8.6/docs/metric_types.md#multi-metric-packets).
     -   `bufferFlushTimeout`: Optional. Default is `100`. Timeout in milliseconds to wait before flushing the metrics buffer.
-    -   `debug`: Optional. Default `null`. The logger function.
+    -   `debug`: Optional. Default `debuglog('dats')`. The logger function.
     -   `udpDnsCache`: Optional. Default true. Activate the cache DNS lookup for udp.
     -   `udpDnsCacheTTL`: Optional. Default `120`. Dns cache Time to live in seconds.
     -   `onError`: Optional. Default `(err) => void`. Called when there is an error. Allows you to check also send errors.
