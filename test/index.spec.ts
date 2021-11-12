@@ -312,8 +312,9 @@ test('close with promise multiple times', async (t) => {
     t.pass();
 });
 
-test.cb('flushing buffer timeout', (t) => {
+test.serial.cb('flushing buffer timeout', (t) => {
     t.plan(8);
+    const clock = sinon.useFakeTimers();
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const client = new Client({
         host,
@@ -327,10 +328,11 @@ test.cb('flushing buffer timeout', (t) => {
         flush();
         const interval = diff[0] * 1e9 + diff[1];
         t.log(`flush called after: ${interval} nanosecods`);
-        t.true(interval >= 1e8 - 1e5 && interval <= 2e8 + 1e5);
+        t.true(interval === 1e8);
         t.is(0, (client as any).buffer.length);
         t.is('', (client as any).buffer.data);
         t.false((client as any).timeoutActive);
+        clock.restore();
         t.end();
     };
     t.is(null, (client as any).timeout);
@@ -339,10 +341,12 @@ test.cb('flushing buffer timeout', (t) => {
     const metric = 'hits:1|c';
     t.is(Buffer.byteLength(metric), (client as any).buffer.length);
     t.is(metric, (client as any).buffer.data);
+    clock.tick(150);
 });
 
-test.cb('flushing full buffer', (t) => {
+test.serial.cb('flushing full buffer', (t) => {
     t.plan(8);
+    const clock = sinon.useFakeTimers();
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const client = new Client({
         host,
@@ -358,10 +362,11 @@ test.cb('flushing full buffer', (t) => {
         flush();
         const interval = diff[0] * 1e9 + diff[1];
         t.log(`flush called after: ${interval} nanosecods`);
-        t.true(interval > 0 && interval < 1e8);
+        t.true(interval === 0);
         t.is(0, (client as any).buffer.length);
         t.is('', (client as any).buffer.data);
         t.false((client as any).timeoutActive);
+        clock.restore();
         t.end();
     };
     t.is(null, (client as any).timeout);
@@ -370,10 +375,12 @@ test.cb('flushing full buffer', (t) => {
     const metric = 'hits:1|c';
     t.is(Buffer.byteLength(metric), (client as any).buffer.length);
     t.is(metric, (client as any).buffer.data);
+    clock.tick(10);
 });
 
-test.cb('buffering mode', (t) => {
-    t.plan(18);
+test.serial.cb('buffering mode', (t) => {
+    t.plan(17);
+    const clock = sinon.useFakeTimers();
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const client = new Client({
         host,
@@ -388,13 +395,13 @@ test.cb('buffering mode', (t) => {
         const interval = diff[0] * 1e9 + diff[1];
         if (count === 0) {
             t.log(`flush called after: ${interval} nanosecods`);
-            t.true(interval >= 1e8 - 1e5 && interval <= 2e8 + 1e5);
+            t.true(interval === 1e8);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
         } else if (count === 1) {
             t.log(`flush called after: ${interval} nanosecods`);
-            t.true(interval >= 2e8 && interval <= 3e8 + 4e8);
+            t.true(interval === 4e8);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
@@ -402,25 +409,33 @@ test.cb('buffering mode', (t) => {
         count++;
     };
     t.is(null, (client as any).timeout);
-    const metric = 'hits:1|c\nhits:1|c';
-    t.context.server.once('metric', (value) => t.is(metric, value.toString()));
+    const firstPart = 'hits:1|c\nhits:1|c';
+    const secondPart = 'hits:1|c';
     client.counter('hits');
     client.counter('hits');
-    t.true((client as any).timeoutActive);
-    t.is(Buffer.byteLength(metric), (client as any).buffer.length);
-    t.is(metric, (client as any).buffer.data);
     setTimeout(() => {
-        t.is(false, (client as any).timeoutActive);
-        const metric = 'hits:1|c';
-        t.context.server.once('metric', (value) => {
-            t.is(metric, value.toString());
-            t.end();
-        });
         client.counter('hits');
-        t.true((client as any).timeout !== null);
-        t.is(Buffer.byteLength(metric), (client as any).buffer.length);
-        t.is(metric, (client as any).buffer.data);
+        t.is(Buffer.byteLength(secondPart), (client as any).buffer.length);
+        t.is(secondPart, (client as any).buffer.data);
     }, 300);
+    t.true((client as any).timeoutActive);
+    t.is(Buffer.byteLength(firstPart), (client as any).buffer.length);
+    t.is(firstPart, (client as any).buffer.data);
+    let received = 0;
+    t.context.server.on('metric', (v) => {
+        console.log('metric', v.toString());
+        if (received === 0) {
+            t.is(firstPart, v.toString());
+            received++;
+        } else {
+            t.is(secondPart, v.toString());
+            t.true((client as any).timeout !== null);
+            t.context.server.removeAllListeners('metric');
+            clock.restore();
+            t.end();
+        }
+    });
+    clock.tick(1000);
 });
 
 test('getSupportedTypes test', (t) => {
