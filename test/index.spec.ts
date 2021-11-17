@@ -731,8 +731,9 @@ test.cb('UDP dns cache can be disabled', (t) => {
     socket.send('some.metric');
 });
 
-test.cb('UDP dns cache TTL should work', (t) => {
+test.serial('UDP dns cache TTL should work', async (t) => {
     t.plan(8);
+    const clock = sinon.useFakeTimers();
     const host = new URL(`udp://localhost:${t.context.address.port}`);
     const mock = sinon.fake(function () {
         for (const cb of arguments) {
@@ -742,50 +743,44 @@ test.cb('UDP dns cache TTL should work', (t) => {
         }
     });
 
-    const cachable = () => {
-        return buildLookupFunction(
-            1,
-            host.hostname,
-            (mock as unknown) as typeof lookup
-        );
-    };
+    const ttl = 1;
+
+    const cachable = (ttl, hostname) =>
+        buildLookupFunction(ttl, hostname, (mock as unknown) as typeof lookup);
 
     const socket = new SocketUdp(
         host,
         (error) => console.log(error),
         true,
-        0,
+        ttl,
         null,
         cachable
     );
 
-    socket.connect();
-    socket.send('some.metric');
-    setTimeout(() => {
-        socket.send('some.metric');
-        t.true(mock.calledOnce);
-    }, 400);
-
-    setTimeout(() => {
-        socket.send('some.metric');
-        process.nextTick(() => {
-            t.true(mock.calledOnce);
-        });
-    }, 600);
-    setTimeout(() => {
-        socket.send('some.metric');
-        t.true(mock.calledTwice);
-    }, 1200);
-
-    setTimeout(() => {
-        socket.send('some.metric');
-        t.true(mock.calledTwice);
-        t.end();
-    }, 1300);
-
     t.context.server.on('metric', (metric) => {
         t.is(`some.metric`, metric.toString());
     });
+
+    clock.tick(100);
+    socket.connect();
+    socket.send('some.metric');
+    t.true(mock.calledOnce);
+
+    clock.tick(300);
+    socket.send('some.metric');
+    t.true(mock.calledOnce);
+
+    clock.tick(700);
+    // Date.now is 1100 ms than is greater than TTL of 1 second then the entry should be expired.
+    socket.send('some.metric');
+    t.true(mock.calledTwice);
+
+    clock.tick(200);
+    socket.send('some.metric');
+    t.true(mock.calledTwice);
+
+    await sleep(100);
+    clock.restore();
 });
 
 test.cb('dns-cache should work', (t) => {
