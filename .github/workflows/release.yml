@@ -17,7 +17,7 @@ jobs:
             - uses: actions/checkout@v2
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-            - uses: actions/setup-node@v2.4.1
+            - uses: actions/setup-node@v2.5.0
               with:
                   node-version: ${{ matrix.node-version }}
             - uses: bahmutov/npm-install@v1
@@ -29,7 +29,7 @@ jobs:
         needs: [test]
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/setup-node@v2.4.1
+            - uses: actions/setup-node@v2.5.0
               with:
                   node-version: 16
             - uses: actions/checkout@v2
