@@ -1,4 +1,4 @@
-<p align="center"><img src="./logo.png" alt="logo" width="200px" /></p>
+<p align="center"><img src="./logo.svg?sanitize=true#gh-light-mode-only" alt="logo" width="200px" /><img src="./logo-on-dark.svg?sanitize=true#gh-dark-mode-only" alt="logo" width="200px" /></p>
 
 <h1 align="center">dats</h1>
 
@@ -18,24 +18,24 @@ This client aims to have a simple [statsd](https://github.com/statsd/statsd) yet
 
 <!-- toc -->
 
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Generic](#generic)
-    -   [Namespacing with Hostname/PID](#namespacing-with-hostnamepid)
-    -   [TCP Client](#tcp-client)
--   [API](#api)
-    -   [`Client`](#client)
-        -   [`new Client(options)`](#new-clientoptions)
-        -   [`Client.close([cb])`](#clientclosecb)
-        -   [`Client.connect()`](#clientconnect)
-        -   [`Client.counter(string[, value, sampling])`](#clientcounterstring-value-sampling)
-        -   [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
-        -   [`Client.gauge(string, value)`](#clientgaugestring-value)
-        -   [`Client.set(string, value)`](#clientsetstring-value)
--   [Benchmarks](#benchmarks)
--   [Powered Apps](#powered-apps)
--   [Support & Contribute](#support--contribute)
--   [License](#license)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Generic](#generic)
+  - [Namespacing with Hostname/PID](#namespacing-with-hostnamepid)
+  - [TCP Client](#tcp-client)
+- [API](#api)
+  - [`Client`](#client)
+    - [`new Client(options)`](#new-clientoptions)
+    - [`Client.close([cb])`](#clientclosecb)
+    - [`Client.connect()`](#clientconnect)
+    - [`Client.counter(string[, value, sampling])`](#clientcounterstring-value-sampling)
+    - [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
+    - [`Client.gauge(string, value)`](#clientgaugestring-value)
+    - [`Client.set(string, value)`](#clientsetstring-value)
+- [Benchmarks](#benchmarks)
+- [Powered Apps](#powered-apps)
+- [Support & Contribute](#support--contribute)
+- [License](#license)
 
 <!-- tocstop -->
 
