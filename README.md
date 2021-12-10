@@ -1,4 +1,4 @@
-<p align="center"><img src="./logo.svg?sanitize=true#gh-light-mode-only" alt="logo" width="200px" /><img src="./logo-on-dark.svg?sanitize=true#gh-dark-mode-only" alt="logo" width="200px" /></p>
+<p align="center"><img src="./logo.svg?sanitize=true" alt="logo" width="200px" /></p>
 
 <h1 align="center">dats</h1>
 
