@@ -18,6 +18,8 @@ enum Types {
     set = 's',
 }
 
+Object.freeze(Types);
+
 export interface Options {
     host?: string | URL;
     namespace?: string;
