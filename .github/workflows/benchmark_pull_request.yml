@@ -1,0 +1,33 @@
+name: benchmarks pull request
+
+on:
+    pull_request:
+        branches:
+            - develop
+
+jobs:
+    benchmark:
+        name: benchmark
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+            - uses: bahmutov/npm-install@v1
+            - name: build
+              run: npm run build
+            - name: Run benchmark
+              run: cd benchmark && npm ci && node bench.js | tee output.txt
+            - name: insert benchmark result comment
+              uses: benchmark-action/github-action-benchmark@v1
+              with:
+                  name: Benchmark.js Benchmark
+                  tool: 'benchmarkjs'
+                  output-file-path: benchmark/output.txt
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  auto-push: false
+                  comment-always: true
+                  benchmark-data-dir-path: dev/bench
+                  # Show alert with commit comment on detecting possible performance regression
+                  alert-threshold: '200%'
+                  comment-on-alert: true
+                  fail-on-alert: true
