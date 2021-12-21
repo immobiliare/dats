@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1640092875261,
+  "lastUpdate": 1640094542630,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmark.js Benchmark": [
@@ -124,6 +124,68 @@ window.BENCHMARK_DATA = {
             "range": "±2.89%",
             "unit": "ops/sec",
             "extra": "85 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "immobiliare",
+            "username": "immobiliare"
+          },
+          "committer": {
+            "name": "immobiliare",
+            "username": "immobiliare"
+          },
+          "id": "83c3f6863aaa7796f1033c66da26f48609f18e55",
+          "message": "chore: added benchmarks",
+          "timestamp": "2021-12-21T09:21:11Z",
+          "url": "https://github.com/immobiliare/dats/pull/93/commits/83c3f6863aaa7796f1033c66da26f48609f18e55"
+        },
+        "date": 1640094541760,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter base",
+            "value": 386348,
+            "range": "±4.15%",
+            "unit": "ops/sec",
+            "extra": "67 samples"
+          },
+          {
+            "name": "dats tcp",
+            "value": 1948503,
+            "range": "±2.29%",
+            "unit": "ops/sec",
+            "extra": "81 samples"
+          },
+          {
+            "name": "dats buff counter",
+            "value": 2047818,
+            "range": "±3.35%",
+            "unit": "ops/sec",
+            "extra": "80 samples"
+          },
+          {
+            "name": "dats buff gauge",
+            "value": 2171121,
+            "range": "±3.17%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
+          },
+          {
+            "name": "dats buff set",
+            "value": 2203499,
+            "range": "±3.35%",
+            "unit": "ops/sec",
+            "extra": "71 samples"
+          },
+          {
+            "name": "dats buff timing",
+            "value": 2061424,
+            "range": "±3.18%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
           }
         ]
       }
