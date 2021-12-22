@@ -28,7 +28,7 @@ jobs:
               uses: benchmark-action/github-action-benchmark@v1
               if: ${{ (github.ref_name == 'develop' || github.ref_name == 'main') && github.event_name == 'push' }}
               with:
-                  name: Benchmark.js Benchmark
+                  name: Benchmarks
                   tool: 'benchmarkjs'
                   output-file-path: benchmark/output.txt
                   github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -43,12 +43,12 @@ jobs:
               uses: benchmark-action/github-action-benchmark@v1
               if: ${{ github.event_name == 'pull_request' }}
               with:
-                  name: Benchmark.js Benchmark
+                  name: Benchmarks
                   tool: 'benchmarkjs'
                   output-file-path: benchmark/output.txt
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   auto-push: false
-                  comment-always: true
+                  comment-always: ${{ github.base_ref == 'main' }}
                   benchmark-data-dir-path: ${{ github.base_ref }}/bench
                   # Show alert with commit comment on detecting possible performance regression
                   alert-threshold: '200%'

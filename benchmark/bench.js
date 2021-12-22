@@ -29,25 +29,24 @@ const suite = new Benchmark.Suite();
     await clientTcp.connect();
 
     suite
-        .add('dats counter base', () => {
-            client.counter('test', 1);
+        .add('dats counter udp base', () => {
+            client.counter('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-        .add('dats tcp', () => {
-            clientTcp.counter('test', 1);
+        .add('dats counter udp buffered', () => {
+            clientBuff.counter('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-        .add('dats buff counter', () => {
-            clientBuff.counter('test', 1);
+        .add('dats gauge udp buffered', () => {
+            clientBuff.gauge('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-        .add('dats buff gauge', () => {
-            clientBuff.gauge('test', 1);
+        .add('dats set udp buffered', () => {
+            clientBuff.set('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-        .add('dats buff set', () => {
-            clientBuff.set('test', 1);
+        .add('dats timing udp buffered', () => {
+            clientBuff.timing('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-        .add('dats buff timing', () => {
-            clientBuff.timing('test', 1);
+        .add('dats counter tcp buffered', () => {
+            clientTcp.counter('test_some_string', Number.MAX_SAFE_INTEGER);
         })
-
         .on('cycle', (event) => {
             console.log(String(event.target));
         })
