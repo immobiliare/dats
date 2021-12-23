@@ -1,0 +1,56 @@
+name: benchmarks
+
+on:
+    push:
+        branches:
+            - develop
+            - main
+    pull_request:
+        branches:
+            - develop
+            - main
+
+jobs:
+    benchmark:
+        name: benchmark
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: '16'
+            - uses: bahmutov/npm-install@v1
+            - name: build
+              run: npm run build
+            - name: Run benchmark
+              run: cd benchmark && npm ci && node bench.js | tee output.txt
+            - name: Store benchmark result
+              uses: benchmark-action/github-action-benchmark@v1
+              if: ${{ (github.ref_name == 'develop' || github.ref_name == 'main') && github.event_name == 'push' }}
+              with:
+                  name: Benchmarks
+                  tool: 'benchmarkjs'
+                  output-file-path: benchmark/output.txt
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  benchmark-data-dir-path: ${{ github.ref_name }}/bench
+                  auto-push: true
+                  # Show alert with commit comment on detecting possible performance regression
+                  alert-threshold: '200%'
+                  comment-on-alert: true
+                  fail-on-alert: true
+                  alert-comment-cc-users: '@simonecorsi, @dnlup, @antoniomuso'
+            - name: insert benchmark result comment
+              uses: benchmark-action/github-action-benchmark@v1
+              if: ${{ github.event_name == 'pull_request' }}
+              with:
+                  name: Benchmarks
+                  tool: 'benchmarkjs'
+                  output-file-path: benchmark/output.txt
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  auto-push: false
+                  comment-always: ${{ github.base_ref == 'main' }}
+                  benchmark-data-dir-path: ${{ github.base_ref }}/bench
+                  # Show alert with commit comment on detecting possible performance regression
+                  alert-threshold: '200%'
+                  comment-on-alert: true
+                  fail-on-alert: true
