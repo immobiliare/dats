@@ -225,7 +225,7 @@ dats was created by the amazing Node.js team at ImmobiliareLabs, the Tech dept o
 
 We are currently using dats in our products as well as our internal toolings.
 
-**If you are using dats in production [drop us a message](mailto://opensource@immobiliare.it)**.
+**If you are using dats in production [drop us a message](mailto:opensource@immobiliare.it)**.
 
 ## Support & Contribute
 
