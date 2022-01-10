@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1641831117229,
+  "lastUpdate": 1641831126364,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -660,6 +660,72 @@ window.BENCHMARK_DATA = {
             "range": "±7.40%",
             "unit": "ops/sec",
             "extra": "76 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "d76cdcfa5d1ca7cc68c40bcc009c80ceef5fcb5e",
+          "message": "chore(deps-dev): bump @commitlint/cli from 16.0.1 to 16.0.2\n\nBumps [@commitlint/cli](https://github.com/conventional-changelog/commitlint/tree/HEAD/@commitlint/cli) from 16.0.1 to 16.0.2.\n- [Release notes](https://github.com/conventional-changelog/commitlint/releases)\n- [Changelog](https://github.com/conventional-changelog/commitlint/blob/master/@commitlint/cli/CHANGELOG.md)\n- [Commits](https://github.com/conventional-changelog/commitlint/commits/v16.0.2/@commitlint/cli)\n\n---\nupdated-dependencies:\n- dependency-name: \"@commitlint/cli\"\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-10T17:10:17+01:00",
+          "tree_id": "265b9a8e2c6ad44819253c9bf769a54b38b5611e",
+          "url": "https://github.com/immobiliare/dats/commit/d76cdcfa5d1ca7cc68c40bcc009c80ceef5fcb5e"
+        },
+        "date": 1641831125716,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 101792,
+            "range": "±1.16%",
+            "unit": "ops/sec",
+            "extra": "89 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 918140,
+            "range": "±1.69%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 913729,
+            "range": "±1.98%",
+            "unit": "ops/sec",
+            "extra": "90 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 914883,
+            "range": "±1.76%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 892749,
+            "range": "±1.90%",
+            "unit": "ops/sec",
+            "extra": "88 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1538199,
+            "range": "±5.96%",
+            "unit": "ops/sec",
+            "extra": "78 samples"
           }
         ]
       }
