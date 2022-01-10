@@ -95,202 +95,234 @@ test('should clean the namespace string from dots at the beginning', (t) => {
     }
 });
 
-test.cb('counter', (t) => {
+test('counter', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|c`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|c`, metric.toString());
+            return resolve(0);
+        });
+        client.counter('some.metric');
     });
-    client.counter('some.metric');
 });
 
-test.cb('counter with sampling', (t) => {
+test('counter with sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+            return resolve(0);
+        });
+        client.counter('some.metric', 1, 10);
     });
-    client.counter('some.metric', 1, 10);
 });
 
-test.cb('timing', (t) => {
+test('timing', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|ms`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|ms`, metric.toString());
+            return resolve(0);
+        });
+        client.timing('some.metric', 1);
     });
-    client.timing('some.metric', 1);
 });
 
-test.cb('timing with sampling', (t) => {
+test('timing with sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|ms|@10`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|ms|@10`, metric.toString());
+            return resolve(0);
+        });
+        client.timing('some.metric', 1, 10);
     });
-    client.timing('some.metric', 1, 10);
 });
 
-test.cb('gauge', (t) => {
+test('gauge', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|g`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|g`, metric.toString());
+            return resolve(0);
+        });
+        client.gauge('some.metric', 1);
     });
-    client.gauge('some.metric', 1);
 });
 
-test.cb('gauge should ignore sampling', (t) => {
+test('gauge should ignore sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|g`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|g`, metric.toString());
+            return resolve(0);
+        });
+        client.gauge('some.metric', 1, 10);
     });
-    client.gauge('some.metric', 1, 10);
 });
 
-test.cb('set', (t) => {
+test('set', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|s`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|s`, metric.toString());
+            return resolve(0);
+        });
+        client.set('some.metric', 1);
     });
-    client.set('some.metric', 1);
 });
 
-test.cb('set should ignore sampling', (t) => {
+test('set should ignore sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|s`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|s`, metric.toString());
+            return resolve(0);
+        });
+        client.set('some.metric', 1, 10);
     });
-    client.set('some.metric', 1, 10);
 });
 
-test.serial.cb('hostname substitution', (t) => {
+test.serial('hostname substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}';
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`ns1.some-host.some.metric:1|s`, metric.toString());
-        hostname.restore();
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`ns1.some-host.some.metric:1|s`, metric.toString());
+            hostname.restore();
+            return resolve(0);
+        });
+        client.set('some.metric', 1);
     });
-    client.set('some.metric', 1);
 });
 
-test.serial.cb('hostname with dots substitution', (t) => {
+test.serial('hostname with dots substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}';
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some.host');
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`ns1.some_host.some.metric:1|s`, metric.toString());
-        hostname.restore();
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`ns1.some_host.some.metric:1|s`, metric.toString());
+            hostname.restore();
+            return resolve(0);
+        });
+        client.set('some.metric', 1);
     });
-    client.set('some.metric', 1);
 });
 
-test.cb('pid substitution', (t) => {
+test('pid substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${pid}';
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(`ns1.${t.context.pid}.some.metric:1|s`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`ns1.${t.context.pid}.some.metric:1|s`, metric.toString());
+            return resolve(0);
+        });
+        client.set('some.metric', 1);
     });
-    client.set('some.metric', 1);
 });
 
-test.serial.cb('hostname and pid substitution', (t) => {
+test.serial('hostname and pid substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}.${pid}';
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
-    t.context.server.on('metric', (metric) => {
-        t.is(
-            `ns1.some-host.${t.context.pid}.some.metric:1|s`,
-            metric.toString()
-        );
-        hostname.restore();
-        t.end();
-    });
-    client.set('some.metric', 1);
-});
-
-test.cb('error', (t) => {
-    const namespace = 'ns1';
-    const timer = setInterval(() => {
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(
+                `ns1.some-host.${t.context.pid}.some.metric:1|s`,
+                metric.toString()
+            );
+            hostname.restore();
+            return resolve(0);
+        });
         client.set('some.metric', 1);
-    }, 200);
-    let called = nodeVersion !== 'v12';
-    const onError = (error) => {
-        clearInterval(timer);
-        if (nodeVersion === 'v12' && called) {
-            t.is('ERR_SOCKET_CANNOT_SEND', error.code);
-        } else t.is('ENOTFOUND', error.code);
-        if (called) t.end();
-        called = true;
-    };
-    const client = new Client({
-        host: 'udp://xfdfsfsdfs.xyzv.:4343',
-        namespace,
-        onError,
     });
 });
 
-test.cb('onError is noop by default', (t) => {
-    const namespace = 'ns1';
-
-    const client = new Client({
-        host: 'udp://xfdfsfsdfs.xyzv.:4343',
-        namespace,
+test('error', (t) => {
+    return new Promise((resolve) => {
+        const namespace = 'ns1';
+        const timer = setInterval(() => {
+            client.set('some.metric', 1);
+        }, 200);
+        let called = nodeVersion !== 'v12';
+        const onError = (error) => {
+            clearInterval(timer);
+            if (nodeVersion === 'v12' && called) {
+                t.is('ERR_SOCKET_CANNOT_SEND', error.code);
+            } else t.is('ENOTFOUND', error.code);
+            if (called) return resolve(0);
+            called = true;
+        };
+        const client = new Client({
+            host: 'udp://xfdfsfsdfs.xyzv.:4343',
+            namespace,
+            onError,
+        });
     });
-    setTimeout(() => {
-        client.set('some.metric', 1);
-    }, 200);
-
-    setTimeout(() => {
-        t.end();
-    }, 400);
 });
 
-test.cb('close with callback', (t) => {
+test('onError is noop by default', (t) => {
+    return new Promise((resolve) => {
+        const namespace = 'ns1';
+
+        const client = new Client({
+            host: 'udp://xfdfsfsdfs.xyzv.:4343',
+            namespace,
+        });
+        setTimeout(() => {
+            client.set('some.metric', 1);
+        }, 200);
+
+        setTimeout(() => {
+            t.pass();
+            resolve(0);
+        }, 400);
+    });
+});
+
+test('close with callback', async (t) => {
     const host = new URL(`udp://localhost:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}.${pid}';
     const client = new Client({ host, namespace });
-    client.close(t.end);
+    await new Promise((resolve) => {
+        client.close(() => resolve(0));
+    });
+    t.pass();
 });
 
-test.cb('close with callback multiple times', (t) => {
+test('close with callback multiple times', async (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}.${pid}';
     const client = new Client({ host, namespace });
+    await promisify(client.close);
     client.close(() => undefined);
     t.notThrows(() => client.close(() => undefined));
     t.notThrows(() => client.timing('time', 1));
-    t.end();
 });
 
 test('close with promise', async (t) => {
@@ -312,129 +344,136 @@ test('close with promise multiple times', async (t) => {
     t.pass();
 });
 
-test.serial.cb('flushing buffer timeout', (t) => {
-    t.plan(8);
-    const clock = sinon.useFakeTimers();
-    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
-    const client = new Client({
-        host,
-        bufferSize: 1024,
-    });
-    const time = process.hrtime();
-    const flush = (client as any).flush.bind(client);
-    // Flush should be called approximately 100ms later
-    (client as any).flush = () => {
-        const diff = process.hrtime(time);
-        flush();
-        const interval = diff[0] * 1e9 + diff[1];
-        t.log(`flush called after: ${interval} nanosecods`);
-        t.true(interval === 1e8);
-        t.is(0, (client as any).buffer.length);
-        t.is('', (client as any).buffer.data);
-        t.false((client as any).timeoutActive);
-        clock.restore();
-        t.end();
-    };
-    t.is(null, (client as any).timeout);
-    client.counter('hits');
-    t.true((client as any).timeoutActive);
-    const metric = 'hits:1|c';
-    t.is(Buffer.byteLength(metric), (client as any).buffer.length);
-    t.is(metric, (client as any).buffer.data);
-    clock.tick(150);
-});
-
-test.serial.cb('flushing full buffer', (t) => {
-    t.plan(8);
-    const clock = sinon.useFakeTimers();
-    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
-    const client = new Client({
-        host,
-        bufferSize: 1,
-    });
-    client.connect();
-    // here the flow is strange
-    const time = process.hrtime();
-    const flush = (client as any).flush.bind(client);
-    // Flush should be called before the timeout
-    (client as any).flush = () => {
-        const diff = process.hrtime(time);
-        flush();
-        const interval = diff[0] * 1e9 + diff[1];
-        t.log(`flush called after: ${interval} nanosecods`);
-        t.true(interval === 0);
-        t.is(0, (client as any).buffer.length);
-        t.is('', (client as any).buffer.data);
-        t.false((client as any).timeoutActive);
-        clock.restore();
-        t.end();
-    };
-    t.is(null, (client as any).timeout);
-    client.counter('hits');
-    t.true((client as any).timeoutActive);
-    const metric = 'hits:1|c';
-    t.is(Buffer.byteLength(metric), (client as any).buffer.length);
-    t.is(metric, (client as any).buffer.data);
-    clock.tick(10);
-});
-
-test.serial.cb('buffering mode', (t) => {
-    t.plan(17);
-    const clock = sinon.useFakeTimers();
-    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
-    const client = new Client({
-        host,
-        bufferSize: 20,
-    });
-    const time = process.hrtime();
-    const flush = (client as any).flush.bind(client);
-    let count = 0;
-    (client as any).flush = () => {
-        const diff = process.hrtime(time);
-        flush();
-        const interval = diff[0] * 1e9 + diff[1];
-        if (count === 0) {
+test.serial('flushing buffer timeout', (t) => {
+    return new Promise((resolve) => {
+        t.plan(8);
+        const clock = sinon.useFakeTimers();
+        const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+        const client = new Client({
+            host,
+            bufferSize: 1024,
+        });
+        const time = process.hrtime();
+        const flush = (client as any).flush.bind(client);
+        // Flush should be called approximately 100ms later
+        (client as any).flush = () => {
+            const diff = process.hrtime(time);
+            flush();
+            const interval = diff[0] * 1e9 + diff[1];
             t.log(`flush called after: ${interval} nanosecods`);
             t.true(interval === 1e8);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
-        } else if (count === 1) {
+            clock.restore();
+            return resolve(0);
+        };
+        t.is(null, (client as any).timeout);
+        client.counter('hits');
+        t.true((client as any).timeoutActive);
+        const metric = 'hits:1|c';
+        t.is(Buffer.byteLength(metric), (client as any).buffer.length);
+        t.is(metric, (client as any).buffer.data);
+        clock.tick(150);
+    });
+});
+
+test.serial('flushing full buffer', (t) => {
+    return new Promise((resolve) => {
+        t.plan(8);
+        const clock = sinon.useFakeTimers();
+        const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+        const client = new Client({
+            host,
+            bufferSize: 1,
+        });
+        client.connect();
+        // here the flow is strange
+        const time = process.hrtime();
+        const flush = (client as any).flush.bind(client);
+        // Flush should be called before the timeout
+        (client as any).flush = () => {
+            const diff = process.hrtime(time);
+            flush();
+            const interval = diff[0] * 1e9 + diff[1];
             t.log(`flush called after: ${interval} nanosecods`);
-            t.true(interval === 4e8);
+            t.true(interval === 0);
             t.is(0, (client as any).buffer.length);
             t.is('', (client as any).buffer.data);
             t.false((client as any).timeoutActive);
-        }
-        count++;
-    };
-    t.is(null, (client as any).timeout);
-    const firstPart = 'hits:1|c\nhits:1|c';
-    const secondPart = 'hits:1|c';
-    client.counter('hits');
-    client.counter('hits');
-    setTimeout(() => {
-        client.counter('hits');
-        t.is(Buffer.byteLength(secondPart), (client as any).buffer.length);
-        t.is(secondPart, (client as any).buffer.data);
-    }, 300);
-    t.true((client as any).timeoutActive);
-    t.is(Buffer.byteLength(firstPart), (client as any).buffer.length);
-    t.is(firstPart, (client as any).buffer.data);
-    let received = 0;
-    t.context.server.on('metric', (v) => {
-        if (received === 0) {
-            t.is(firstPart, v.toString());
-            received++;
-        } else {
-            t.is(secondPart, v.toString());
-            t.true((client as any).timeout !== null);
-            t.context.server.removeAllListeners('metric');
             clock.restore();
-            t.end();
-        }
+            resolve(0);
+        };
+        t.is(null, (client as any).timeout);
+        client.counter('hits');
+        t.true((client as any).timeoutActive);
+        const metric = 'hits:1|c';
+        t.is(Buffer.byteLength(metric), (client as any).buffer.length);
+        t.is(metric, (client as any).buffer.data);
+        clock.tick(10);
     });
-    clock.tick(1000);
+});
+
+test.serial('buffering mode', (t) => {
+    return new Promise((resolve) => {
+        t.plan(17);
+        const clock = sinon.useFakeTimers();
+        const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+        const client = new Client({
+            host,
+            bufferSize: 20,
+        });
+        const time = process.hrtime();
+        const flush = (client as any).flush.bind(client);
+        let count = 0;
+        (client as any).flush = () => {
+            const diff = process.hrtime(time);
+            flush();
+            const interval = diff[0] * 1e9 + diff[1];
+            if (count === 0) {
+                t.log(`flush called after: ${interval} nanosecods`);
+                t.true(interval === 1e8);
+                t.is(0, (client as any).buffer.length);
+                t.is('', (client as any).buffer.data);
+                t.false((client as any).timeoutActive);
+            } else if (count === 1) {
+                t.log(`flush called after: ${interval} nanosecods`);
+                t.true(interval === 4e8);
+                t.is(0, (client as any).buffer.length);
+                t.is('', (client as any).buffer.data);
+                t.false((client as any).timeoutActive);
+            }
+            count++;
+        };
+        t.is(null, (client as any).timeout);
+        const firstPart = 'hits:1|c\nhits:1|c';
+        const secondPart = 'hits:1|c';
+        client.counter('hits');
+        client.counter('hits');
+        setTimeout(() => {
+            client.counter('hits');
+            t.is(Buffer.byteLength(secondPart), (client as any).buffer.length);
+            t.is(secondPart, (client as any).buffer.data);
+        }, 300);
+        t.true((client as any).timeoutActive);
+        t.is(Buffer.byteLength(firstPart), (client as any).buffer.length);
+        t.is(firstPart, (client as any).buffer.data);
+        let received = 0;
+        t.context.server.on('metric', (v) => {
+            console.log('metric', v.toString());
+            if (received === 0) {
+                t.is(firstPart, v.toString());
+                received++;
+            } else {
+                t.is(secondPart, v.toString());
+                t.true((client as any).timeout !== null);
+                t.context.server.removeAllListeners('metric');
+                clock.restore();
+                resolve(0);
+            }
+        });
+        clock.tick(1000);
+    });
 });
 
 test('getSupportedTypes test', (t) => {
@@ -448,7 +487,7 @@ test('getSupportedTypes test', (t) => {
     });
 });
 
-// Integration test TCP
+// // Integration test TCP
 test('should instanciate TCP socket', (t) => {
     const host = new URL(`tcp://127.0.0.1:${t.context.address.port}`);
     const client = new Client({
@@ -458,64 +497,68 @@ test('should instanciate TCP socket', (t) => {
     t.true((client as any).socket instanceof SocketTcp);
 });
 
-test.cb('counter with sampling tcp', (t) => {
+test('counter with sampling tcp', (t) => {
     const host = new URL(
         `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
     );
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-
-    client.connect().then(() => {
-        t.context.serverTcp.on('metric', (metric) => {
-            t.is(`${namespace}.some.metric:1|c|@10\n`, metric.toString());
-            client.close(() => t.end());
-        });
-        client.counter('some.metric', 1, 10);
-    });
-});
-
-test.cb('set tcp', (t) => {
-    const host = new URL(
-        `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
-    );
-    const namespace = 'ns1';
-    const client = new Client({ host, namespace });
-
-    client.connect().then(() => {
-        t.context.serverTcp.on('metric', (metric) => {
-            t.is(`${namespace}.some.metric:1|s\n`, metric.toString());
-            client.close(() => t.end());
-        });
-        client.set('some.metric', 1);
-    });
-});
-
-test.cb('tcp reconnection', (t) => {
-    t.plan(2);
-    const host = new URL(
-        `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
-    );
-    const namespace = 'ns1';
-    const client = new Client({ host, namespace });
-
-    // To refactor
-    client.connect().then(() => {
-        t.context.serverTcp.once('metric', (metric) => {
-            t.is(`${namespace}.some.metric:1|s\n`, metric.toString());
-            t.context.serverTcp.disconnectSocket();
-            t.context.serverTcp.once('metric', (me) => {
-                t.is(`${namespace}.some.metric:1|s\n`, me.toString());
-                client.close(() => t.end());
+    return new Promise((resolve) => {
+        client.connect().then(() => {
+            t.context.serverTcp.on('metric', (metric) => {
+                t.is(`${namespace}.some.metric:1|c|@10\n`, metric.toString());
+                client.close(() => resolve(0));
             });
-            setTimeout(() => {
-                client.set('some.metric', 1);
-            }, 1500);
+            client.counter('some.metric', 1, 10);
         });
-        client.set('some.metric', 1);
     });
 });
 
-test.cb('tcp reconnection should not reconnect if closed', (t) => {
+test('set tcp', (t) => {
+    const host = new URL(
+        `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
+    );
+    const namespace = 'ns1';
+    const client = new Client({ host, namespace });
+
+    return new Promise((resolve) => {
+        client.connect().then(() => {
+            t.context.serverTcp.on('metric', (metric) => {
+                t.is(`${namespace}.some.metric:1|s\n`, metric.toString());
+                client.close(() => resolve(0));
+            });
+            client.set('some.metric', 1);
+        });
+    });
+});
+
+test('tcp reconnection', (t) => {
+    t.plan(2);
+    const host = new URL(
+        `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
+    );
+    const namespace = 'ns1';
+    const client = new Client({ host, namespace });
+    // To refactor
+    return new Promise((resolve) => {
+        client.connect().then(() => {
+            t.context.serverTcp.once('metric', (metric) => {
+                t.is(`${namespace}.some.metric:1|s\n`, metric.toString());
+                t.context.serverTcp.disconnectSocket();
+                t.context.serverTcp.once('metric', (me) => {
+                    t.is(`${namespace}.some.metric:1|s\n`, me.toString());
+                    client.close(() => resolve(0));
+                });
+                setTimeout(() => {
+                    client.set('some.metric', 1);
+                }, 1500);
+            });
+            client.set('some.metric', 1);
+        });
+    });
+});
+
+test('tcp reconnection should not reconnect if closed', (t) => {
     t.plan(2);
     const host = new URL(
         `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
@@ -523,16 +566,18 @@ test.cb('tcp reconnection should not reconnect if closed', (t) => {
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
 
-    client.connect().then(() => {
-        client.close(() => {
-            t.is((client as any).socket.isConnected(), false);
-            t.is((client as any).socket.closing, true);
-            setTimeout(() => t.end(), 1000);
+    return new Promise((resolve) => {
+        client.connect().then(() => {
+            client.close(() => {
+                t.is((client as any).socket.isConnected(), false);
+                t.is((client as any).socket.closing, true);
+                setTimeout(() => resolve(0), 1000);
+            });
         });
     });
 });
 
-// UDP socket
+// // UDP socket
 
 test('UDP does not throw for two close calls', async (t) => {
     const host = new URL(
@@ -545,7 +590,7 @@ test('UDP does not throw for two close calls', async (t) => {
     await t.notThrowsAsync(socket.close());
 });
 
-// TCP socket
+// // TCP socket
 test('TCP socket should throws', (t) => {
     t.is(
         t.throws(() => new SocketTcp(new URL('tcp://localhost'))).message,
@@ -650,28 +695,31 @@ test('if TCP connect fail then the socket should not reconnect', async (t) => {
     socket.close();
 });
 
-test.cb('TCP reconnect should not create UnhandledRejection', (t) => {
+test('TCP reconnect should not create UnhandledRejection', (t) => {
     const host = new URL(
         `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
     );
     const sockMock = sinon.fake(net.createConnection);
     const socket = new SocketTcp(host, undefined, null, sockMock);
-    socket.connect().then(() => {
-        t.context.serverTcp.stop().then(() => {
-            setTimeout(() => {
-                socket.close();
-                t.false(sockMock.calledOnce);
-                t.end();
-            }, 1000);
-        });
-    });
 
     process.on('unhandledRejection', () => {
         t.fail();
     });
+
+    return new Promise((resolve) => {
+        socket.connect().then(() => {
+            t.context.serverTcp.stop().then(() => {
+                setTimeout(() => {
+                    socket.close();
+                    t.false(sockMock.calledOnce);
+                    resolve(0);
+                }, 1000);
+            });
+        });
+    });
 });
 
-test.cb('UDP dns cache should work', (t) => {
+test('UDP dns cache should work', (t) => {
     t.plan(3);
     const host = new URL(`udp://blabla:${t.context.address.port}`);
     const mock = sinon.fake(function () {
@@ -690,15 +738,17 @@ test.cb('UDP dns cache should work', (t) => {
     // @ts-ignore
     const socket = new SocketUdp(host, undefined, true, 120, null, cachable);
     socket.connect();
-    t.context.server.on('metric', (metric) => {
-        t.is(`some.metric`, metric.toString());
-        t.true(mock.called);
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`some.metric`, metric.toString());
+            t.true(mock.called);
+            return resolve(0);
+        });
+        socket.send('some.metric');
     });
-    socket.send('some.metric');
 });
 
-test.cb('UDP dns cache can be disabled', (t) => {
+test('UDP dns cache can be disabled', (t) => {
     t.plan(2);
     const host = new URL(`udp://localhost:${t.context.address.port}`);
     const mock = sinon.fake(function () {
@@ -722,12 +772,14 @@ test.cb('UDP dns cache can be disabled', (t) => {
         cachable
     );
     socket.connect();
-    t.context.server.on('metric', (metric) => {
-        t.is(`some.metric`, metric.toString());
-        t.true(mock.notCalled);
-        t.end();
+    return new Promise((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(`some.metric`, metric.toString());
+            t.true(mock.notCalled);
+            resolve(0);
+        });
+        socket.send('some.metric');
     });
-    socket.send('some.metric');
 });
 
 test.serial('UDP dns cache TTL should work', async (t) => {
@@ -782,70 +834,77 @@ test.serial('UDP dns cache TTL should work', async (t) => {
     clock.restore();
 });
 
-test.cb('dns-cache should work', (t) => {
-    const lookup = buildLookupFunction(1000, 'localhost');
-    lookup(null, 4, (err, addr) => {
-        t.is(addr, '127.0.0.1');
-    });
-    lookup(null, 6, (err, addr) => {
-        t.is(addr, '::1');
-        t.end();
+test('dns-cache should work', (t) => {
+    return new Promise((resolve) => {
+        const lookup = buildLookupFunction(1000, 'localhost');
+        lookup(null, 4, (err, addr) => {
+            t.is(addr, '127.0.0.1');
+        });
+        lookup(null, 6, (err, addr) => {
+            t.is(addr, '::1');
+            resolve(0);
+        });
     });
 });
 
-// IPv6 tests
-test.cb('should work udp6', (t) => {
+// // IPv6 tests
+test('should work udp6', (t) => {
     const host = new URL(`udp6://localhost:${t.context.addressUdp6.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    t.context.serverUdp6.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.serverUdp6.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+            resolve(0);
+        });
+        client.counter('some.metric', 1, 10);
     });
-    client.counter('some.metric', 1, 10);
 });
 
-test.cb('should work udp6 with ip', (t) => {
+test('should work udp6 with ip', (t) => {
     const host = new URL(`udp6://[::1]:${t.context.addressUdp6.port}`);
     const namespace = 'ns1';
     const client = new Client({
         host,
         namespace,
     });
-    t.context.serverUdp6.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-        t.end();
+    return new Promise((resolve) => {
+        t.context.serverUdp6.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+            resolve(0);
+        });
+        client.counter('some.metric', 1, 10);
     });
-    client.counter('some.metric', 1, 10);
 });
 
-test.cb('should work udp6 with ip without passing udp version', (t) => {
+test('should work udp6 with ip without passing udp version', (t) => {
     const host = new URL(`udp://[::1]:${t.context.addressUdp6.port}`);
     const namespace = 'ns1';
     const client = new Client({
         host,
         namespace,
     });
-    t.context.serverUdp6.on('metric', (metric) => {
-        t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-        t.end();
-    });
-    client.counter('some.metric', 1, 10);
-});
-
-test.cb(
-    'If udp version and ip address mismatch should follow the IP version',
-    (t) => {
-        const host = new URL(`udp4://[::1]:${t.context.addressUdp6.port}`);
-        const namespace = 'ns1';
-        const client = new Client({
-            host,
-            namespace,
-        });
+    return new Promise((resolve) => {
         t.context.serverUdp6.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
-            t.end();
+            resolve(0);
         });
         client.counter('some.metric', 1, 10);
-    }
-);
+    });
+});
+
+test('If udp version and ip address mismatch should follow the IP version', (t) => {
+    const host = new URL(`udp4://[::1]:${t.context.addressUdp6.port}`);
+    const namespace = 'ns1';
+    const client = new Client({
+        host,
+        namespace,
+    });
+    return new Promise((resolve) => {
+        t.context.serverUdp6.on('metric', (metric) => {
+            t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
+            resolve(0);
+        });
+        client.counter('some.metric', 1, 10);
+    });
+});
