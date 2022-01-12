@@ -423,7 +423,6 @@ test.serial.cb('buffering mode', (t) => {
     t.is(firstPart, (client as any).buffer.data);
     let received = 0;
     t.context.server.on('metric', (v) => {
-        console.log('metric', v.toString());
         if (received === 0) {
             t.is(firstPart, v.toString());
             received++;
@@ -746,7 +745,7 @@ test.serial('UDP dns cache TTL should work', async (t) => {
     const ttl = 1;
 
     const cachable = (ttl, hostname) =>
-        buildLookupFunction(ttl, hostname, (mock as unknown) as typeof lookup);
+        buildLookupFunction(ttl, hostname, mock as unknown as typeof lookup);
 
     const socket = new SocketUdp(
         host,
