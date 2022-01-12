@@ -209,12 +209,12 @@ class Client {
         this.createMetric(Types.counter, key, value, sampling);
     }
 
-    gauge(key: string, value?: number, sampling?: number): void {
-        this.createMetric(Types.gauge, key, value, sampling);
+    gauge(key: string, value?: number): void {
+        this.createMetric(Types.gauge, key, value);
     }
 
-    set(key: string, value?: number, sampling?: number): void {
-        this.createMetric(Types.set, key, value, sampling);
+    set(key: string, value?: number): void {
+        this.createMetric(Types.set, key, value);
     }
 
     timing(key: string, value?: number, sampling?: number): void {
