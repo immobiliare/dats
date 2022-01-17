@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1642414807685,
+  "lastUpdate": 1642415176849,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -924,6 +924,72 @@ window.BENCHMARK_DATA = {
             "range": "±2.25%",
             "unit": "ops/sec",
             "extra": "86 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "fb6a3fcb96cef50d3e33146a360fc18b7bb5ae0f",
+          "message": "chore(deps-dev): bump ava from 3.15.0 to 4.0.1\n\nBumps [ava](https://github.com/avajs/ava) from 3.15.0 to 4.0.1.\n- [Release notes](https://github.com/avajs/ava/releases)\n- [Commits](https://github.com/avajs/ava/compare/v3.15.0...v4.0.1)\n\n---\nupdated-dependencies:\n- dependency-name: ava\n  dependency-type: direct:development\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\n\nfix: refactored to remove callback interface",
+          "timestamp": "2022-01-17T11:24:49+01:00",
+          "tree_id": "4cbc007d12fb69aea06c0ea72588577b195c6b86",
+          "url": "https://github.com/immobiliare/dats/commit/fb6a3fcb96cef50d3e33146a360fc18b7bb5ae0f"
+        },
+        "date": 1642415176288,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 106807,
+            "range": "±0.72%",
+            "unit": "ops/sec",
+            "extra": "91 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 1070454,
+            "range": "±1.78%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 1067000,
+            "range": "±1.75%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 1068724,
+            "range": "±1.70%",
+            "unit": "ops/sec",
+            "extra": "91 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 1035093,
+            "range": "±1.24%",
+            "unit": "ops/sec",
+            "extra": "95 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1816306,
+            "range": "±6.86%",
+            "unit": "ops/sec",
+            "extra": "81 samples"
           }
         ]
       }
