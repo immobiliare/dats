@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1642427862661,
+  "lastUpdate": 1642515309007,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -1122,6 +1122,72 @@ window.BENCHMARK_DATA = {
             "range": "±6.32%",
             "unit": "ops/sec",
             "extra": "75 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "70216130df6794ea8c0374e91e5bee4514a87b66",
+          "message": "chore(deps-dev): bump @semantic-release/npm from 8.0.3 to 9.0.0\n\nBumps [@semantic-release/npm](https://github.com/semantic-release/npm) from 8.0.3 to 9.0.0.\n- [Release notes](https://github.com/semantic-release/npm/releases)\n- [Commits](https://github.com/semantic-release/npm/compare/v8.0.3...v9.0.0)\n\n---\nupdated-dependencies:\n- dependency-name: \"@semantic-release/npm\"\n  dependency-type: direct:development\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-18T15:13:33+01:00",
+          "tree_id": "1c429f70c448b4dcc7fd48ba457a04c14bf15568",
+          "url": "https://github.com/immobiliare/dats/commit/70216130df6794ea8c0374e91e5bee4514a87b66"
+        },
+        "date": 1642515307886,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 98771,
+            "range": "±1.59%",
+            "unit": "ops/sec",
+            "extra": "79 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 854955,
+            "range": "±2.85%",
+            "unit": "ops/sec",
+            "extra": "81 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 874014,
+            "range": "±1.98%",
+            "unit": "ops/sec",
+            "extra": "81 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 879764,
+            "range": "±2.36%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 866011,
+            "range": "±2.04%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1725861,
+            "range": "±7.52%",
+            "unit": "ops/sec",
+            "extra": "77 samples"
           }
         ]
       }
