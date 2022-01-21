@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1642685536318,
+  "lastUpdate": 1642768361371,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -1716,6 +1716,72 @@ window.BENCHMARK_DATA = {
             "range": "±6.82%",
             "unit": "ops/sec",
             "extra": "73 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "c799b825b4ba5794485e0a51c00e542aa87a1542",
+          "message": "chore(deps-dev): bump typescript from 4.5.4 to 4.5.5\n\nBumps [typescript](https://github.com/Microsoft/TypeScript) from 4.5.4 to 4.5.5.\n- [Release notes](https://github.com/Microsoft/TypeScript/releases)\n- [Commits](https://github.com/Microsoft/TypeScript/compare/v4.5.4...v4.5.5)\n\n---\nupdated-dependencies:\n- dependency-name: typescript\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-21T13:31:17+01:00",
+          "tree_id": "d69d3c685d3aa0475f17f7478bf8942752a04189",
+          "url": "https://github.com/immobiliare/dats/commit/c799b825b4ba5794485e0a51c00e542aa87a1542"
+        },
+        "date": 1642768360893,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 106305,
+            "range": "±0.71%",
+            "unit": "ops/sec",
+            "extra": "93 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 1055520,
+            "range": "±1.73%",
+            "unit": "ops/sec",
+            "extra": "91 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 1051143,
+            "range": "±1.47%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 1060245,
+            "range": "±1.20%",
+            "unit": "ops/sec",
+            "extra": "91 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 1020896,
+            "range": "±1.18%",
+            "unit": "ops/sec",
+            "extra": "93 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1715207,
+            "range": "±7.34%",
+            "unit": "ops/sec",
+            "extra": "74 samples"
           }
         ]
       }
