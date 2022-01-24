@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1642775828068,
+  "lastUpdate": 1643027682181,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -1914,6 +1914,72 @@ window.BENCHMARK_DATA = {
             "range": "±7.64%",
             "unit": "ops/sec",
             "extra": "80 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "c3c978a3c3b7fa815fd41feb1bdb0dfb7edf9216",
+          "message": "chore(deps-dev): bump lint-staged from 12.2.2 to 12.3.1\n\nBumps [lint-staged](https://github.com/okonet/lint-staged) from 12.2.2 to 12.3.1.\n- [Release notes](https://github.com/okonet/lint-staged/releases)\n- [Commits](https://github.com/okonet/lint-staged/compare/v12.2.2...v12.3.1)\n\n---\nupdated-dependencies:\n- dependency-name: lint-staged\n  dependency-type: direct:development\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-24T13:33:06+01:00",
+          "tree_id": "cc666174ce664842f13729513c120ee086c6bf90",
+          "url": "https://github.com/immobiliare/dats/commit/c3c978a3c3b7fa815fd41feb1bdb0dfb7edf9216"
+        },
+        "date": 1643027681734,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 86961,
+            "range": "±1.29%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 767529,
+            "range": "±2.38%",
+            "unit": "ops/sec",
+            "extra": "84 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 778653,
+            "range": "±2.05%",
+            "unit": "ops/sec",
+            "extra": "87 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 770316,
+            "range": "±1.79%",
+            "unit": "ops/sec",
+            "extra": "87 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 743198,
+            "range": "±1.72%",
+            "unit": "ops/sec",
+            "extra": "89 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1669446,
+            "range": "±7.88%",
+            "unit": "ops/sec",
+            "extra": "74 samples"
           }
         ]
       }
