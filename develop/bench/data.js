@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1643183322615,
+  "lastUpdate": 1643183326297,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -2112,6 +2112,72 @@ window.BENCHMARK_DATA = {
             "range": "±4.99%",
             "unit": "ops/sec",
             "extra": "82 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "4690fc366011ca7737fc0c48d5e777b9d2e4f9c1",
+          "message": "chore(deps-dev): bump @typescript-eslint/eslint-plugin\n\nBumps [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/HEAD/packages/eslint-plugin) from 5.10.0 to 5.10.1.\n- [Release notes](https://github.com/typescript-eslint/typescript-eslint/releases)\n- [Changelog](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/CHANGELOG.md)\n- [Commits](https://github.com/typescript-eslint/typescript-eslint/commits/v5.10.1/packages/eslint-plugin)\n\n---\nupdated-dependencies:\n- dependency-name: \"@typescript-eslint/eslint-plugin\"\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-26T08:47:22+01:00",
+          "tree_id": "110cf43d30ccb118c766f42fc3e6e26e629359c9",
+          "url": "https://github.com/immobiliare/dats/commit/4690fc366011ca7737fc0c48d5e777b9d2e4f9c1"
+        },
+        "date": 1643183325840,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 108819,
+            "range": "±0.57%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 1074682,
+            "range": "±1.59%",
+            "unit": "ops/sec",
+            "extra": "95 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 1070436,
+            "range": "±1.67%",
+            "unit": "ops/sec",
+            "extra": "92 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 1077963,
+            "range": "±1.41%",
+            "unit": "ops/sec",
+            "extra": "97 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 1037744,
+            "range": "±1.63%",
+            "unit": "ops/sec",
+            "extra": "94 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1869925,
+            "range": "±7.11%",
+            "unit": "ops/sec",
+            "extra": "76 samples"
           }
         ]
       }
