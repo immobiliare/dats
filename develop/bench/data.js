@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1643027682181,
+  "lastUpdate": 1643183321573,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -1980,6 +1980,72 @@ window.BENCHMARK_DATA = {
             "range": "±7.88%",
             "unit": "ops/sec",
             "extra": "74 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "4b7241079e045f3be95f38f71529b5d328938e79",
+          "message": "chore(deps-dev): bump @types/node from 17.0.10 to 17.0.12\n\nBumps [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) from 17.0.10 to 17.0.12.\n- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)\n- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)\n\n---\nupdated-dependencies:\n- dependency-name: \"@types/node\"\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-01-26T08:47:05+01:00",
+          "tree_id": "83fa71bf7a743935b7d7846c6a54dfc941e4d9ec",
+          "url": "https://github.com/immobiliare/dats/commit/4b7241079e045f3be95f38f71529b5d328938e79"
+        },
+        "date": 1643183320667,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 83975,
+            "range": "±1.33%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 726824,
+            "range": "±2.86%",
+            "unit": "ops/sec",
+            "extra": "80 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 760256,
+            "range": "±2.13%",
+            "unit": "ops/sec",
+            "extra": "86 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 719626,
+            "range": "±1.86%",
+            "unit": "ops/sec",
+            "extra": "82 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 677249,
+            "range": "±2.87%",
+            "unit": "ops/sec",
+            "extra": "80 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1476336,
+            "range": "±8.87%",
+            "unit": "ops/sec",
+            "extra": "72 samples"
           }
         ]
       }
