@@ -19,11 +19,9 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - uses: actions/setup-node@v2.5.0
               with:
+                  cache: 'npm'
                   node-version: ${{ matrix.node-version }}
-            - uses: bahmutov/npm-install@v1
-              with:
-                  useLockFile: false
-            - run: npm t
+            - run: npm it
 
     release:
         needs: [test]
@@ -31,12 +29,13 @@ jobs:
         steps:
             - uses: actions/setup-node@v2.5.0
               with:
+                  cache: 'npm'
                   node-version: 16
             - uses: actions/checkout@v2
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: bahmutov/npm-install@v1
+            - run: npm i
             - run: npm run build
 
             - name: Semantic release
