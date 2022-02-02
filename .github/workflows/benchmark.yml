@@ -16,14 +16,20 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+
             - uses: actions/setup-node@v2
               with:
+                  cache: 'npm'
                   node-version: '16'
-            - uses: bahmutov/npm-install@v1
+
+            - run: npm install
+
             - name: build
               run: npm run build
+
             - name: Run benchmark
               run: cd benchmark && npm ci && node bench.js | tee output.txt
+
             - name: Store benchmark result
               uses: benchmark-action/github-action-benchmark@v1
               if: ${{ (github.ref_name == 'develop' || github.ref_name == 'main') && github.event_name == 'push' }}
@@ -39,6 +45,7 @@ jobs:
                   comment-on-alert: true
                   fail-on-alert: true
                   alert-comment-cc-users: '@simonecorsi, @dnlup, @antoniomuso'
+
             - name: insert benchmark result comment
               uses: benchmark-action/github-action-benchmark@v1
               if: ${{ github.event_name == 'pull_request' }}
