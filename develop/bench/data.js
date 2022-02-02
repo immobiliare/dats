@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1643808759158,
+  "lastUpdate": 1643808777081,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -2838,6 +2838,72 @@ window.BENCHMARK_DATA = {
             "range": "±5.43%",
             "unit": "ops/sec",
             "extra": "74 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49699333+dependabot[bot]@users.noreply.github.com",
+            "name": "dependabot[bot]",
+            "username": "dependabot[bot]"
+          },
+          "committer": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "distinct": true,
+          "id": "6461c2707046903e9ecae1ce01515f01237545e6",
+          "message": "chore(deps-dev): bump sinon from 13.0.0 to 13.0.1\n\nBumps [sinon](https://github.com/sinonjs/sinon) from 13.0.0 to 13.0.1.\n- [Release notes](https://github.com/sinonjs/sinon/releases)\n- [Changelog](https://github.com/sinonjs/sinon/blob/master/docs/changelog.md)\n- [Commits](https://github.com/sinonjs/sinon/compare/v13.0.0...v13.0.1)\n\n---\nupdated-dependencies:\n- dependency-name: sinon\n  dependency-type: direct:development\n  update-type: version-update:semver-patch\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>",
+          "timestamp": "2022-02-02T14:31:09+01:00",
+          "tree_id": "44bb09af3e1afcd0ada99ec61bb593d2dcde9caa",
+          "url": "https://github.com/immobiliare/dats/commit/6461c2707046903e9ecae1ce01515f01237545e6"
+        },
+        "date": 1643808776168,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 64433,
+            "range": "±14.32%",
+            "unit": "ops/sec",
+            "extra": "60 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 509816,
+            "range": "±11.75%",
+            "unit": "ops/sec",
+            "extra": "46 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 593947,
+            "range": "±12.24%",
+            "unit": "ops/sec",
+            "extra": "57 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 535847,
+            "range": "±12.37%",
+            "unit": "ops/sec",
+            "extra": "51 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 557954,
+            "range": "±11.97%",
+            "unit": "ops/sec",
+            "extra": "55 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1081607,
+            "range": "±12.90%",
+            "unit": "ops/sec",
+            "extra": "61 samples"
           }
         ]
       }
