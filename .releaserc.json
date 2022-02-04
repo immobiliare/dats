@@ -12,6 +12,12 @@
             }
         ],
         "@semantic-release/github",
-        "@saithodev/semantic-release-backmerge"
+        [
+            "@saithodev/semantic-release-backmerge",
+            {
+                "branches": ["develop"],
+                "backmergeStrategy": "rebase"
+            }
+        ]
     ]
 }
