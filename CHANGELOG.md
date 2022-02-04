@@ -1,3 +1,24 @@
+# [2.0.0](https://github.com/immobiliare/dats/compare/v1.0.0...v2.0.0) (2022-02-04)
+
+
+### Bug Fixes
+
+* remove sampling parameter where is not used ([e3c6012](https://github.com/immobiliare/dats/commit/e3c6012f1db6399e40e3bea6cfa62a927a756127))
+* sanitize hostnames with dots ([23e34ec](https://github.com/immobiliare/dats/commit/23e34ec6f7c4ac93ff3f2f9ecd30a45907b156a6))
+* updates ts-eslint ([2738735](https://github.com/immobiliare/dats/commit/27387352bf37b430ed402914e59e023fbf314355))
+
+
+### Features
+
+* freezed getSupportedTypes output ([b08c082](https://github.com/immobiliare/dats/commit/b08c0826f655988212456b27264015f7bc35c9f9))
+* **debug:** switch to nodejs debug mode ([2b0af11](https://github.com/immobiliare/dats/commit/2b0af117d1526793ea8bc9af8a9e1b8ddcfdbcc8))
+* **logo:** adds D logo w/ darkmode support ([225c121](https://github.com/immobiliare/dats/commit/225c12100e3a3c583763f75dcb4602d437f9508a))
+
+
+### BREAKING CHANGES
+
+* **debug:** switch to nodejs debug mode
+
 # 1.0.0 (2021-11-05)
 
 
