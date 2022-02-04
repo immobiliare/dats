@@ -19,7 +19,6 @@ jobs:
 
             - uses: actions/setup-node@v2
               with:
-                  cache: 'npm'
                   node-version: '16'
 
             - run: npm install
