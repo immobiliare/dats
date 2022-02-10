@@ -203,7 +203,7 @@ All sending errors are handled by the `onError` callback.
 
 ## Benchmarks
 
-The automatic benchmarking for every commit can be found at the following links: [develop](https://immobiliare.github.io/dats/develop/bench/index.html) and 
+The automatic benchmarking for every commit can be found at the following links: [next](https://immobiliare.github.io/dats/next/bench/index.html) and 
 [main](https://immobiliare.github.io/dats/main/bench/index.html).
 
 The tests were done using [autocannon](https://github.com/mcollina/autocannon) pointing to an HTTP node.js Server that sends at each request a count metric.
