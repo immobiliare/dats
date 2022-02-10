@@ -3,11 +3,11 @@ name: benchmarks
 on:
     push:
         branches:
-            - develop
+            - next
             - main
     pull_request:
         branches:
-            - develop
+            - next
             - main
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
 
             - name: Store benchmark result
               uses: benchmark-action/github-action-benchmark@v1
-              if: ${{ (github.ref_name == 'develop' || github.ref_name == 'main') && github.event_name == 'push' }}
+              if: ${{ (github.ref_name == 'next' || github.ref_name == 'main') && github.event_name == 'push' }}
               with:
                   name: Benchmarks
                   tool: 'benchmarkjs'
