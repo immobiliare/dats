@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1644396372248,
+  "lastUpdate": 1644507877159,
   "repoUrl": "https://github.com/immobiliare/dats",
   "entries": {
     "Benchmarks": [
@@ -3300,6 +3300,72 @@ window.BENCHMARK_DATA = {
             "range": "±4.88%",
             "unit": "ops/sec",
             "extra": "74 samples"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "simonecorsi.dev@gmail.com",
+            "name": "Simone Corsi",
+            "username": "simonecorsi"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "461484d5d547151072fbb7d666312c9cb0a28a11",
+          "message": "Merge pull request #160 from immobiliare/dependabot/npm_and_yarn/types/node-17.0.17\n\nchore(deps-dev): bump @types/node from 17.0.16 to 17.0.17",
+          "timestamp": "2022-02-10T16:43:05+01:00",
+          "tree_id": "ad05a08cedccc17b4a8b4296473c875f2734b32b",
+          "url": "https://github.com/immobiliare/dats/commit/461484d5d547151072fbb7d666312c9cb0a28a11"
+        },
+        "date": 1644507876619,
+        "tool": "benchmarkjs",
+        "benches": [
+          {
+            "name": "dats counter udp base",
+            "value": 93692,
+            "range": "±2.67%",
+            "unit": "ops/sec",
+            "extra": "83 samples"
+          },
+          {
+            "name": "dats counter udp buffered",
+            "value": 885287,
+            "range": "±3.07%",
+            "unit": "ops/sec",
+            "extra": "87 samples"
+          },
+          {
+            "name": "dats gauge udp buffered",
+            "value": 927303,
+            "range": "±1.25%",
+            "unit": "ops/sec",
+            "extra": "89 samples"
+          },
+          {
+            "name": "dats set udp buffered",
+            "value": 912766,
+            "range": "±1.33%",
+            "unit": "ops/sec",
+            "extra": "90 samples"
+          },
+          {
+            "name": "dats timing udp buffered",
+            "value": 870732,
+            "range": "±1.65%",
+            "unit": "ops/sec",
+            "extra": "87 samples"
+          },
+          {
+            "name": "dats counter tcp buffered",
+            "value": 1366937,
+            "range": "±6.70%",
+            "unit": "ops/sec",
+            "extra": "73 samples"
           }
         ]
       }
