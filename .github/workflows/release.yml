@@ -17,12 +17,9 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
-            - name: Downgrade npm
-              run: npm i -g npm@8.3
+
             - name: Install dependencies
-              run: npm i
-            - name: Run tests
-              run: npm t
+              run: npm it
 
     release:
         needs: [test]
@@ -35,8 +32,6 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Downgrade npm
-              run: npm i -g npm@8.3
             - name: Install dependencies
               run: npm i
 
@@ -45,6 +40,5 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-                  GIT_AUTHOR_NAME: "${{ github.actor }}"
-                  GIT_COMMITTER_NAME: "${{ github.actor }}"
-
+                  GIT_AUTHOR_NAME: '${{ github.actor }}'
+                  GIT_COMMITTER_NAME: '${{ github.actor }}'
