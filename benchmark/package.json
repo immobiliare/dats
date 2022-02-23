@@ -17,7 +17,7 @@
     "dependencies": {
         "autocannon": "^7.6.0",
         "benchmark": "^2.1.4",
-        "concurrently": "^6.3.0",
+        "concurrently": "^6.5.1",
         "hot-shots": "^8.5.2",
         "node-statsd": "^0.1.1",
         "statsd-client": "^0.4.7"
