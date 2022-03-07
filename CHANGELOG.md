@@ -1,3 +1,16 @@
+# [2.1.0](https://github.com/immobiliare/dats/compare/v2.0.0...v2.1.0) (2022-03-07)
+
+
+### Bug Fixes
+
+* upgrade autocannon from 7.5.0 to 7.6.0 ([4ea546c](https://github.com/immobiliare/dats/commit/4ea546cc942285cce6210b9ea48aab1e6021d0f0))
+* upgrade concurrently from 6.3.0 to 6.5.1 ([1db1c95](https://github.com/immobiliare/dats/commit/1db1c957456b0ae54022d8b46dc3fe607a54491f))
+
+
+### Features
+
+* **mock:** added dats mock ([8f78efe](https://github.com/immobiliare/dats/commit/8f78efef8dcb57409048320a949fb22738668a6a))
+
 # [2.0.0](https://github.com/immobiliare/dats/compare/v1.0.0...v2.0.0) (2022-02-04)
 
 
