@@ -12,7 +12,7 @@ jobs:
                   node-version: 16
             - uses: actions/checkout@v3
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.GH_OWNER_TOKEN }}
 
             - name: Install dependencies
               run: npm i
@@ -22,7 +22,7 @@ jobs:
               with:
                   dry_run: true
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
                   GIT_AUTHOR_NAME: '${{ github.actor }}'
                   GIT_COMMITTER_NAME: '${{ github.actor }}'

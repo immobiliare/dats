@@ -36,7 +36,7 @@ jobs:
                   name: Benchmarks
                   tool: 'benchmarkjs'
                   output-file-path: benchmark/output.txt
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  github-token: ${{ secrets.GH_OWNER_TOKEN }}
                   benchmark-data-dir-path: ${{ github.ref_name }}/bench
                   auto-push: true
                   # Show alert with commit comment on detecting possible performance regression
@@ -52,7 +52,7 @@ jobs:
                   name: Benchmarks
                   tool: 'benchmarkjs'
                   output-file-path: benchmark/output.txt
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  github-token: ${{ secrets.GH_OWNER_TOKEN }}
                   auto-push: false
                   comment-always: ${{ github.base_ref == 'main' }}
                   benchmark-data-dir-path: ${{ github.base_ref }}/bench
