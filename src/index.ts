@@ -29,6 +29,7 @@ export interface Options {
     debug?: DebugLoggerFunction;
     udpDnsCache?: boolean;
     udpDnsCacheTTL?: number;
+    customSocket?: Socket;
 }
 
 /**
@@ -36,18 +37,18 @@ export interface Options {
  * @alias module:dats.Client
  */
 class Client {
-    private bufferSize: number;
-    private bufferFlushTimeout: number;
-    private socket: Socket;
-    private buffer: { length: number; data: string };
+    protected bufferSize: number;
+    protected bufferFlushTimeout: number;
+    protected socket: Socket;
+    protected buffer: { length: number; data: string };
 
-    private timeout: NodeJS.Timeout;
-    private timeoutActive: boolean;
+    protected timeout: NodeJS.Timeout;
+    protected timeoutActive: boolean;
 
-    private host: URL;
-    private namespace: string;
-    private debug: DebugLogger;
-    private isDebug: boolean;
+    protected host: URL;
+    protected namespace: string;
+    protected debug: DebugLogger;
+    protected isDebug: boolean;
 
     constructor({
         host,
@@ -58,6 +59,7 @@ class Client {
         udpDnsCacheTTL = 120,
         debug = null,
         onError = () => undefined,
+        customSocket = null,
     }: Options = {}) {
         if (typeof namespace !== 'string') {
             throw new Error('A namespace string is required');
@@ -97,7 +99,10 @@ class Client {
         if (this.namespace !== '') {
             this.namespace += '.';
         }
-        if (this.host.protocol === 'tcp:') {
+
+        if (customSocket) {
+            this.socket = customSocket;
+        } else if (this.host.protocol === 'tcp:') {
             this.socket = new SocketTcp(this.host, onError, this.debug);
         } else {
             this.socket = new SocketUdp(
@@ -124,7 +129,7 @@ class Client {
         return Promise.resolve(true);
     }
 
-    private buildMetric(
+    protected buildMetric(
         type: Types,
         key: string,
         value?: number,
@@ -144,23 +149,23 @@ class Client {
     /**
      * @fires module:dats#error
      */
-    private send(metric: string) {
+    protected send(metric: string) {
         if (!this.socket.isConnected()) return;
         this.socket.send(metric);
     }
-    private refreshTimeout() {
+    protected refreshTimeout() {
         this.timeoutActive = true;
         this.timeout = this.timeout
             ? this.timeout.refresh()
             : setTimeout(() => this.onTimeout(), this.bufferFlushTimeout);
         this.timeout.unref();
     }
-    private onTimeout() {
+    protected onTimeout() {
         this.timeoutActive = false;
         this.flush();
     }
 
-    private push(string: string) {
+    protected push(string: string) {
         const chunk = this.buffer.data === '' ? string : `\n${string}`;
         const l = Buffer.byteLength(chunk);
         if (l + this.buffer.length > this.bufferSize) {
@@ -175,13 +180,13 @@ class Client {
     /**
      * Flush the buffer batch
      */
-    private flush() {
+    protected flush() {
         this.send(this.buffer.data);
         this.buffer.length = 0;
         this.buffer.data = '';
     }
 
-    private createMetric(
+    protected createMetric(
         type: Types,
         key: string,
         value?: number,

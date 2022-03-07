@@ -35,7 +35,7 @@ export abstract class Socket {
 
     abstract connect(): Promise<boolean>;
 
-    abstract send(data: string | Uint8Array): void;
+    abstract send(data: string): void;
 
     abstract close(): Promise<void>;
 }
@@ -100,7 +100,7 @@ export class SocketTcp extends Socket {
         });
     }
 
-    send(data: string | Uint8Array): void {
+    send(data: string): void {
         if (!this.connected || !data) return;
         this.socket.write(data + '\n', (error) => error && this.onError(error));
     }
@@ -179,7 +179,7 @@ export class SocketUdp extends Socket {
         return Promise.resolve(true);
     }
 
-    send(data: string | Uint8Array): void {
+    send(data: string): void {
         if (!this.connected || !data) return;
 
         return this.socket.send(

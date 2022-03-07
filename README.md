@@ -32,6 +32,7 @@ This client aims to have a simple [statsd](https://github.com/statsd/statsd) com
         -   [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
         -   [`Client.gauge(string, value)`](#clientgaugestring-value)
         -   [`Client.set(string, value)`](#clientsetstring-value)
+-   [Dats Mock](#dats-mock)
 -   [Benchmarks](#benchmarks)
 -   [Powered Apps](#powered-apps)
 -   [Support & Contribute](#support--contribute)
@@ -148,6 +149,7 @@ This module exports:
     -   `udpDnsCache`: Optional. Default true. Activate the cache DNS lookup for udp.
     -   `udpDnsCacheTTL`: Optional. Default `120`. Dns cache Time to live in seconds.
     -   `onError`: Optional. Default `(err) => void`. Called when there is an error. Allows you to check also send errors.
+    -   `customSocket`: Optional. Default `null`. Custom socket used by the client, this is a feature for mocking we do not recommend using it in production.
 
 #### `Client.close([cb])`
 
@@ -201,9 +203,44 @@ All sending errors are handled by the `onError` callback.
 
 All sending errors are handled by the `onError` callback.
 
+## Dats Mock
+
+Dats exports his mock, you can use it as follow:
+
+```ts
+import ClientMock from '@immobiliarelabs/dats/mock';
+
+const host = new URL(`udp://127.0.0.1:8232`);
+const namespace = 'ns1';
+const client = new ClientMock({ host, namespace });
+
+client.gauge('some.metric', 100);
+client.set('some.metric', 100);
+// metrics is an array with all metrics sent
+console.log(client.metrics);
+/* stdout:
+    [
+        'ns1.some.metric:100|g',
+        'ns1.some.metric:100|s',
+    ]
+*/
+// Check if a metric is in the metrics array
+client.hasSent('ns1.some.metric:100|s'); // -> true
+client.hasSent('ns1.some.metric:10|s'); // -> false
+client.hasSent(/ns1\.some\.metric:\d+\|s/); // -> true
+client.hasSent(/ns1\.some\.test:\d+\|s/); // -> false
+
+// Clean the metrics array with
+client.cleanMetrics();
+console.log(client.metrics);
+/* stdout:
+    []
+*/
+```
+
 ## Benchmarks
 
-The automatic benchmarking for every commit can be found at the following links: [next](https://immobiliare.github.io/dats/next/bench/index.html) and 
+The automatic benchmarking for every commit can be found at the following links: [next](https://immobiliare.github.io/dats/next/bench/index.html) and
 [main](https://immobiliare.github.io/dats/main/bench/index.html).
 
 The tests were done using [autocannon](https://github.com/mcollina/autocannon) pointing to an HTTP node.js Server that sends at each request a count metric.
