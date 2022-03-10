@@ -208,7 +208,7 @@ All sending errors are handled by the `onError` callback.
 Dats exports his mock, you can use it as follow:
 
 ```ts
-import ClientMock from '@immobiliarelabs/dats/mock';
+import ClientMock from '@immobiliarelabs/dats/dist/mock';
 
 const host = new URL(`udp://127.0.0.1:8232`);
 const namespace = 'ns1';
