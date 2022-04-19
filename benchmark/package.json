@@ -15,7 +15,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "autocannon": "^7.6.0",
+        "autocannon": "^7.8.0",
         "benchmark": "^2.1.4",
         "concurrently": "^6.5.1",
         "hot-shots": "^8.5.2",
