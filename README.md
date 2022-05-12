@@ -14,6 +14,8 @@ There are times when you have to gather metrics and you want something simple wi
 
 This client aims to have a simple [statsd](https://github.com/statsd/statsd) compliant API with some optional flavour for advanced usage, like: buffered metrics and either UDP/TCP transports!
 
+Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.x`.
+
 ## Table of Content
 
 <!-- toc -->
