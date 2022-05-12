@@ -52,7 +52,10 @@ test('should throw an error with invalid options', (t) => {
             () => {
                 new Client(pair[0]);
             },
-            { message: nodeVersion === 'v16' && pair[2] ? pair[2] : pair[1] }
+            {
+                message:
+                    nodeVersion.match(/v1[68]/) && pair[2] ? pair[2] : pair[1],
+            }
         );
     }
 });
@@ -256,14 +259,10 @@ test('error', (t) => {
         const timer = setInterval(() => {
             client.set('some.metric', 1);
         }, 200);
-        let called = nodeVersion !== 'v12';
         const onError = (error) => {
             clearInterval(timer);
-            if (nodeVersion === 'v12' && called) {
-                t.is('ERR_SOCKET_CANNOT_SEND', error.code);
-            } else t.is('ENOTFOUND', error.code);
-            if (called) return resolve(0);
-            called = true;
+            t.is('ENOTFOUND', error.code);
+            return resolve(0);
         };
         const client = new Client({
             host: 'udp://xfdfsfsdfs.xyzv.:4343',
