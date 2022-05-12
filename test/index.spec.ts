@@ -1,6 +1,6 @@
 import os from 'os';
 import sinon from 'sinon';
-import anyTest, { TestInterface } from 'ava';
+import anyTest, { TestFn } from 'ava';
 import Client from './../src/index';
 import StatsdMock from './helpers/server';
 import { AddressInfo } from 'net';
@@ -14,7 +14,7 @@ const sleep = promisify(setTimeout);
 
 const nodeVersion = process.version.split('.')[0];
 
-const test = anyTest as TestInterface<{
+const test = anyTest as TestFn<{
     hostname: string;
     pid: number;
     server: StatsdMock;
@@ -89,7 +89,7 @@ test('counter', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|c`, metric.toString());
             return resolve(0);
@@ -102,7 +102,7 @@ test('counter with sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|c|@10`, metric.toString());
             return resolve(0);
@@ -115,7 +115,7 @@ test('timing', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|ms`, metric.toString());
             return resolve(0);
@@ -128,7 +128,7 @@ test('timing with sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|ms|@10`, metric.toString());
             return resolve(0);
@@ -141,7 +141,7 @@ test('gauge', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|g`, metric.toString());
             return resolve(0);
@@ -154,12 +154,12 @@ test('gauge should ignore sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|g`, metric.toString());
             return resolve(0);
         });
-        client.gauge('some.metric', 1, 10);
+        client.gauge('some.metric', 1);
     });
 });
 
@@ -167,7 +167,7 @@ test('set', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|s`, metric.toString());
             return resolve(0);
@@ -180,12 +180,12 @@ test('set should ignore sampling', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|s`, metric.toString());
             return resolve(0);
         });
-        client.set('some.metric', 1, 10);
+        client.set('some.metric', 1);
     });
 });
 
@@ -195,7 +195,7 @@ test.serial('hostname substitution', (t) => {
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`ns1.some-host.some.metric:1|s`, metric.toString());
             hostname.restore();
@@ -211,7 +211,7 @@ test.serial('hostname with dots substitution', (t) => {
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some.host');
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`ns1.some_host.some.metric:1|s`, metric.toString());
             hostname.restore();
@@ -225,7 +225,7 @@ test('pid substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${pid}';
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`ns1.${t.context.pid}.some.metric:1|s`, metric.toString());
             return resolve(0);
@@ -240,7 +240,7 @@ test.serial('hostname and pid substitution', (t) => {
     const hostname = sinon.stub(os, 'hostname');
     hostname.onCall(0).returns('some-host');
     const client = new Client({ host, namespace });
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(
                 `ns1.some-host.${t.context.pid}.some.metric:1|s`,
@@ -254,7 +254,7 @@ test.serial('hostname and pid substitution', (t) => {
 });
 
 test('error', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         const namespace = 'ns1';
         const timer = setInterval(() => {
             client.set('some.metric', 1);
@@ -273,7 +273,7 @@ test('error', (t) => {
 });
 
 test('onError is noop by default', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         const namespace = 'ns1';
 
         const client = new Client({
@@ -344,7 +344,7 @@ test('getSupportedTypes test', (t) => {
 // Buffer tests
 
 test.serial('flushing buffer timeout', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.plan(8);
         const clock = sinon.useFakeTimers();
         const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
@@ -378,7 +378,7 @@ test.serial('flushing buffer timeout', (t) => {
 });
 
 test.serial('flushing full buffer', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.plan(8);
         const clock = sinon.useFakeTimers();
         const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
@@ -414,7 +414,7 @@ test.serial('flushing full buffer', (t) => {
 });
 
 test.serial('buffering mode', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.plan(17);
         const clock = sinon.useFakeTimers();
         const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
@@ -507,7 +507,7 @@ test('UDP dns cache should work', (t) => {
     // @ts-ignore
     const socket = new SocketUdp(host, undefined, true, 120, null, cachable);
     socket.connect();
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`some.metric`, metric.toString());
             t.true(mock.called);
@@ -541,7 +541,7 @@ test('UDP dns cache can be disabled', (t) => {
         cachable
     );
     socket.connect();
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`some.metric`, metric.toString());
             t.true(mock.notCalled);
@@ -604,7 +604,7 @@ test.serial('UDP dns cache TTL should work', async (t) => {
 });
 
 test('dns-cache should work', (t) => {
-    return new Promise((resolve) => {
+    return new Promise<number>((resolve) => {
         const lookup = buildLookupFunction(1000, 'localhost');
         lookup(null, 4, (err, addr) => {
             t.is(addr, '127.0.0.1');
