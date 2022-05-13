@@ -1,3 +1,23 @@
+# [3.0.0](https://github.com/immobiliare/dats/compare/v2.1.0...v3.0.0) (2022-05-12)
+
+
+### Bug Fixes
+
+* upgrade autocannon from 7.6.0 to 7.7.0 ([9cbce14](https://github.com/immobiliare/dats/commit/9cbce14dc611eb7cc6c8066975a6f71a4de92471))
+* upgrade autocannon from 7.7.0 to 7.7.2 ([0392586](https://github.com/immobiliare/dats/commit/0392586597bfb18d8348ec727c37c5757d427b52))
+* upgrade autocannon from 7.7.2 to 7.8.0 ([d2abc9e](https://github.com/immobiliare/dats/commit/d2abc9e26f2e38d8d39dda39639fff24d750c25b))
+* upgrade autocannon from 7.8.0 to 7.8.1 ([f47f1fa](https://github.com/immobiliare/dats/commit/f47f1fac15d1c8398bfa553b04858224e37feec7))
+
+
+### Features
+
+* updates node.js ([4a774d2](https://github.com/immobiliare/dats/commit/4a774d2a5eb6e549876d262680549b0f4f46b050))
+
+
+### BREAKING CHANGES
+
+* Node.js 12 is deprecated
+
 # [2.1.0](https://github.com/immobiliare/dats/compare/v2.0.0...v2.1.0) (2022-03-07)
 
 
