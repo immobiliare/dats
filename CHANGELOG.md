@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/immobiliare/dats/compare/v3.0.0...v3.0.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* upgrade autocannon from 7.8.1 to 7.9.0 ([3fd43bf](https://github.com/immobiliare/dats/commit/3fd43bf3c99ed9d5ac4743093d7cbaf086c8ccdc))
+
 # [3.0.0](https://github.com/immobiliare/dats/compare/v2.1.0...v3.0.0) (2022-05-12)
 
 
