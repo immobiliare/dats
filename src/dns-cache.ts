@@ -1,4 +1,4 @@
-import { lookup as defaultLookup } from 'dns';
+import { lookup as defaultLookup } from 'node:dns';
 
 export default function buildLookupFunction(
     time2live: number,

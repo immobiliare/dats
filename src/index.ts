@@ -1,7 +1,7 @@
-import { hostname } from 'os';
-import { URL } from 'url';
+import { hostname } from 'node:os';
+import { URL } from 'node:url';
+import { debuglog, DebugLoggerFunction } from 'node:util';
 import { SocketTcp, SocketUdp, Socket } from './socket';
-import { debuglog, DebugLoggerFunction } from 'util';
 
 interface DebugLogger extends DebugLoggerFunction {
     enabled?: boolean;

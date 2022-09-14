@@ -1,8 +1,9 @@
-import { createSocket, Socket as SocketUDP, SocketType } from 'dgram';
-import net, { Socket as SocketTCP, isIP } from 'net';
-import { URL } from 'url';
+import { createSocket, Socket as SocketUDP, SocketType } from 'node:dgram';
+import net, { Socket as SocketTCP, isIP } from 'node:net';
+import { URL } from 'node:url';
+import { debuglog, DebugLoggerFunction } from 'node:util';
 import buildLookupFunction from './dns-cache';
-import { debuglog, DebugLoggerFunction } from 'util';
+
 export abstract class Socket {
     protected hostname: string;
     protected port: number;

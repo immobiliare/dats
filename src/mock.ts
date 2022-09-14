@@ -1,7 +1,7 @@
+import { URL } from 'node:url';
+import { debuglog, DebugLoggerFunction } from 'node:util';
 import Dats, { Options } from './index';
 import { Socket } from './socket';
-import { URL } from 'url';
-import { debuglog, DebugLoggerFunction } from 'util';
 
 export default class DatsMock extends Dats {
     constructor(config: Options) {
