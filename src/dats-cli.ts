@@ -1,5 +1,18 @@
+import path from 'path';
 import { parseArgs } from 'util';
+import { readFileSync } from 'fs';
 import Client, { Types } from './index';
+
+function getFileConfigs(): Partial<Options> {
+    try {
+        const res = JSON.parse(
+            readFileSync(path.resolve(process.cwd(), '.datsrc'), 'utf-8')
+        );
+        return res;
+    } catch {
+        return {};
+    }
+}
 
 const TYPES = Object.keys(Types);
 
@@ -8,6 +21,7 @@ type Options = {
         type: string;
         default?: string | boolean;
         help?: string;
+        short?: string;
         validate?: (v: any) => boolean;
     };
 };
@@ -27,6 +41,11 @@ const options: Options = {
         help: 'Metric type can be one of: ' + TYPES.join(', '),
         validate: (v) => Boolean(v) && TYPES.includes(v),
     },
+    prefix: {
+        type: 'string',
+        help: 'Metric prefix',
+        default: '',
+    },
     namespace: {
         type: 'string',
         help: 'Metric full namespace, use dots `.` to separate metrics',
@@ -37,12 +56,24 @@ const options: Options = {
         help: 'Metric value',
         validate: (v) => Boolean(v),
     },
+    // utilities
+    quiet: {
+        type: 'boolean',
+        help: 'Suppress all console output',
+        short: 'q',
+    },
+    dryRun: {
+        type: 'boolean',
+        help: 'Metric wont be sent, use for debug',
+        short: 'd',
+    },
     help: {
         type: 'boolean',
+        short: 'h',
     },
 };
 
-function validateRequiredValues(values, opts: Options) {
+function validate(values, opts: Options) {
     let valid = true;
     for (const [k, opt] of Object.entries(opts)) {
         if (
@@ -69,22 +100,40 @@ function printHelp({ help, ...opts }: Options) {
 
 const { values } = parseArgs({ options } as any);
 
+if (values.quiet) {
+    console.log = () => undefined;
+    console.error = () => undefined;
+}
+
 if (values.help) {
     printHelp(options);
 }
 
-if (!validateRequiredValues(values, options)) {
+const configurations = {
+    ...values,
+    ...getFileConfigs(),
+};
+
+if (!validate(configurations, options)) {
     process.exit(1);
 }
 
-const { host, port, type, value, namespace } = values;
+const { host, port, type, value, prefix, namespace, dryRun, quiet } =
+    configurations;
+
+const ns = `${prefix}.${namespace}`;
 
 const client = new Client({
     host: new URL(`udp://${host}:${port}`),
 });
 
-if (!process.env.DRY_RUN) {
-    client[type as string](namespace, value);
+if (dryRun) {
+    console.log('[dry run]: Metric wont be sent');
 } else {
-    console.log(`[dry-run]: ${namespace}:${value}|${Types[type as string]}`);
+    client[type as string](ns, value);
+}
+
+// Usefull for debugging CI logs
+if (!quiet) {
+    console.log(`Sent metric: ${ns}:${value}|${Types[type as string]}`);
 }
