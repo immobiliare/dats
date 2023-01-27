@@ -4,22 +4,8 @@ on: [workflow_dispatch]
 
 jobs:
     test:
-        strategy:
-            matrix:
-                os: [ubuntu-latest, macos-latest, windows-latest]
-                node-version: [14.x, 16.x, 18.x]
-
-        runs-on: ${{ matrix.os }}
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Install dependencies
-              run: npm it
+        name: Run tests
+        uses: ./.github/workflows/test.yml
 
     release:
         needs: [test]
@@ -27,7 +13,8 @@ jobs:
         steps:
             - uses: actions/setup-node@v3
               with:
-                  node-version: lts/*
+                  node-version: 18
+
             - uses: actions/checkout@v3
               with:
                   token: ${{ secrets.GH_OWNER_TOKEN }}
@@ -40,7 +27,7 @@ jobs:
               run: npm run build
 
             - name: Semantic release
-              uses: codfish/semantic-release-action@v1
+              uses: codfish/semantic-release-action@v2
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
