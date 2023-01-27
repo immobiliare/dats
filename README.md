@@ -35,6 +35,8 @@ Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.
         -   [`Client.gauge(string, value)`](#clientgaugestring-value)
         -   [`Client.set(string, value)`](#clientsetstring-value)
 -   [Dats Mock](#dats-mock)
+-   [CLI Interface](#cli-interface)
+    -   [CLI Usage](#cli-usage)
 -   [Benchmarks](#benchmarks)
 -   [Powered Apps](#powered-apps)
 -   [Support & Contribute](#support--contribute)
@@ -238,6 +240,31 @@ console.log(client.metrics);
 /* stdout:
     []
 */
+```
+
+## CLI Interface
+
+dats is also exposed as a CLI that can both be installed as a npm global package or a precompiled binary.
+
+The precompile binary can be found in the [release section](https://github.com/immobiliare/dats/releases) for linux, macos or window.
+
+### CLI Usage
+
+```sh
+$ npm i -g @immobiliarelabs/dats
+dats --help
+# ℹ️  The following are required input flags:
+#
+#         --host {string} []
+#         --port {string} []
+#         --type {string} [Metric type can be one of: counter, timing, gauge, set]
+#         --prefix {string} [Metric prefix]
+#         --namespace {string} [Metric full namespace, use dots `.` to separate metrics]
+#         --value {string} [Metric value]
+#         --quiet {boolean} [Suppress all console output]
+#         --dryRun {boolean} [Metric wont be sent, use for debug]
+#
+# If unsure of output run the command prepended with `DRY_RUN=1`
 ```
 
 ## Benchmarks
