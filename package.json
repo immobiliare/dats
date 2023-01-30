@@ -50,8 +50,7 @@
     },
     "license": "MIT",
     "engines": {
-        "node": ">=10.2",
-        "npm": ">=6"
+        "node": ">=18.0.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.0.0",
