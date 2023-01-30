@@ -2,6 +2,9 @@
     "name": "@immobiliarelabs/dats",
     "version": "3.0.1",
     "description": "Minimalistic zero-dependencies UDP/TCP statsd client for Node.js",
+    "bin": {
+        "dats": "./dist/dats-cli.js"
+    },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "publishConfig": {
@@ -25,6 +28,8 @@
         "sampling"
     ],
     "scripts": {
+        "precompile": "npm run build",
+        "compile": "pkg dist/dats-cli.js --out-path .out",
         "build": "tsc -p tsconfig.json",
         "build:watch": "npm run build -- -w",
         "lint": "eslint --fix --ignore-path .gitignore .",
@@ -71,14 +76,15 @@
         "lint-staged": "^13.0.0",
         "markdown-toc": "^1.2.0",
         "nyc": "^15.0.1",
+        "pkg": "^5.8.0",
         "prettier": "^2.0.5",
         "sinon": "^15.0.0",
         "strip-ansi-cli": "^3.0.0",
         "ts-node-dev": "^2.0.0",
-        "typescript": "^4.2.3"
+        "typescript": "^4.9.4"
     },
     "volta": {
-        "node": "16.13.0",
+        "node": "18.13.0",
         "npm": "8.1.0"
     }
 }
