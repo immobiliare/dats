@@ -1,3 +1,23 @@
+# [4.0.0-next.1](https://github.com/immobiliare/dats/compare/v3.0.1...v4.0.0-next.1) (2023-01-30)
+
+
+### Bug Fixes
+
+* upgrade autocannon from 7.9.0 to 7.10.0 ([5a4df5e](https://github.com/immobiliare/dats/commit/5a4df5e6550febd35718309f943ce5c25ee44509))
+
+
+### Features
+
+* .datsrc config file ([38588aa](https://github.com/immobiliare/dats/commit/38588aafdc70fb0b3000bf8c4894f134b8f22eaf))
+* pin node lts ([31b1cfe](https://github.com/immobiliare/dats/commit/31b1cfe389889ce2fc8317e7215f6e6211215af9))
+* use as a cli ([12d45bb](https://github.com/immobiliare/dats/commit/12d45bbe42635f8c929a5baa7998ec711394a165))
+
+
+### BREAKING CHANGES
+
+* Engine set to Node.js 18, the package may work with
+older version tho
+
 ## [3.0.1](https://github.com/immobiliare/dats/compare/v3.0.0...v3.0.1) (2022-06-06)
 
 ### Bug Fixes
