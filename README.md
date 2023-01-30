@@ -37,6 +37,7 @@ Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.
 -   [Dats Mock](#dats-mock)
 -   [CLI Interface](#cli-interface)
     -   [CLI Usage](#cli-usage)
+    -   [Pre-compiled binary](#pre-compiled-binary)
 -   [Benchmarks](#benchmarks)
 -   [Powered Apps](#powered-apps)
 -   [Support & Contribute](#support--contribute)
@@ -265,6 +266,16 @@ dats --help
 #         --dryRun {boolean} [Metric wont be sent, use for debug]
 #
 # If unsure of output run the command prepended with `DRY_RUN=1`
+```
+
+### Pre-compiled binary
+
+If you want to use the precompiled binary get the correct link for your OS in the [release section](https://github.com/immobiliare/dats/releases) and do the following:
+
+```bash
+curl https://github.com/immobiliare/dats/releases/download/v{{VERSION_TAG}}/dats-cli-{{VERSION_OS}} -L -o dats-cli
+chmod +x dats-cli
+./dats-cli
 ```
 
 ## Benchmarks
