@@ -61,7 +61,7 @@ const options: Options = {
         help: 'Suppress all console output',
         short: 'q',
     },
-    dryRun: {
+    'dry-run': {
         type: 'boolean',
         help: 'Metric wont be sent, use for debug',
         short: 'd',
