@@ -1,3 +1,10 @@
+# [4.0.0-next.3](https://github.com/immobiliare/dats/compare/v4.0.0-next.2...v4.0.0-next.3) (2023-01-31)
+
+
+### Bug Fixes
+
+* --dry-run correct casing ([5de9798](https://github.com/immobiliare/dats/commit/5de9798cf67919f05af531e0b1c1ddddd903d51a))
+
 # [4.0.0-next.2](https://github.com/immobiliare/dats/compare/v4.0.0-next.1...v4.0.0-next.2) (2023-01-31)
 
 
