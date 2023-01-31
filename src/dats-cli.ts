@@ -44,7 +44,6 @@ const options: Options = {
     prefix: {
         type: 'string',
         help: 'Metric prefix',
-        default: '',
     },
     namespace: {
         type: 'string',
@@ -121,7 +120,7 @@ if (!validate(configurations, options)) {
 const { host, port, type, value, prefix, namespace, dryRun, quiet } =
     configurations;
 
-const ns = `${prefix}.${namespace}`;
+const ns = [prefix, namespace].filter(Boolean).join('.');
 
 const client = new Client({
     host: new URL(`udp://${host}:${port}`),
