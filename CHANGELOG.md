@@ -1,3 +1,10 @@
+# [4.0.0-next.2](https://github.com/immobiliare/dats/compare/v4.0.0-next.1...v4.0.0-next.2) (2023-01-31)
+
+
+### Bug Fixes
+
+* invalid namespace when using prefix ([517309f](https://github.com/immobiliare/dats/commit/517309f47c8caa0a26b2cfcc8fb7e9b7de7ed1f6))
+
 # [4.0.0-next.1](https://github.com/immobiliare/dats/compare/v3.0.1...v4.0.0-next.1) (2023-01-30)
 
 
