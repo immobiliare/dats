@@ -11,7 +11,7 @@ interface DebugLogger extends DebugLoggerFunction {
  * Enum of metrics types
  * @see https://github.com/statsd/statsd/blob/master/docs/metric_types.md
  */
-enum Types {
+export enum Types {
     counter = 'c',
     timing = 'ms',
     gauge = 'g',
