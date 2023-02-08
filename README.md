@@ -20,28 +20,28 @@ Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.
 
 <!-- toc -->
 
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Generic](#generic)
-    -   [Namespacing with Hostname/PID](#namespacing-with-hostnamepid)
-    -   [TCP Client](#tcp-client)
--   [API](#api)
-    -   [`Client`](#client)
-        -   [`new Client(options)`](#new-clientoptions)
-        -   [`Client.close([cb])`](#clientclosecb)
-        -   [`Client.connect()`](#clientconnect)
-        -   [`Client.counter(string[, value, sampling])`](#clientcounterstring-value-sampling)
-        -   [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
-        -   [`Client.gauge(string, value)`](#clientgaugestring-value)
-        -   [`Client.set(string, value)`](#clientsetstring-value)
--   [Dats Mock](#dats-mock)
--   [CLI Interface](#cli-interface)
-    -   [CLI Usage](#cli-usage)
-    -   [Pre-compiled binary](#pre-compiled-binary)
--   [Benchmarks](#benchmarks)
--   [Powered Apps](#powered-apps)
--   [Support & Contribute](#support--contribute)
--   [License](#license)
+- [Installation](#installation)
+- [Usage](#usage)
+  * [Generic](#generic)
+  * [Namespacing with Hostname/PID](#namespacing-with-hostnamepid)
+  * [TCP Client](#tcp-client)
+- [API](#api)
+  * [`Client`](#client)
+    + [`new Client(options)`](#new-clientoptions)
+    + [`Client.close([cb])`](#clientclosecb)
+    + [`Client.connect()`](#clientconnect)
+    + [`Client.counter(string[, value, sampling])`](#clientcounterstring-value-sampling)
+    + [`Client.timing(string, value[, sampling])`](#clienttimingstring-value-sampling)
+    + [`Client.gauge(string, value)`](#clientgaugestring-value)
+    + [`Client.set(string, value)`](#clientsetstring-value)
+- [Dats Mock](#dats-mock)
+- [CLI Interface](#cli-interface)
+  * [CLI Usage](#cli-usage)
+  * [Pre-compiled binary](#pre-compiled-binary)
+- [Benchmarks](#benchmarks)
+- [Powered Apps](#powered-apps)
+- [Support & Contribute](#support--contribute)
+- [License](#license)
 
 <!-- tocstop -->
 
@@ -247,7 +247,7 @@ console.log(client.metrics);
 
 dats is also exposed as a CLI that can both be installed as a npm global package or a precompiled binary.
 
-The precompile binary can be found in the [release section](https://github.com/immobiliare/dats/releases) for linux, macos or window.
+The precompile binary can be found in the [release section](https://github.com/immobiliare/dats/releases) for Linux, MacOS or Windows.
 
 ### CLI Usage
 
