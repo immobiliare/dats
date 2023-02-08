@@ -266,6 +266,15 @@ dats --help
 #
 # If unsure of output run the command prepended with `DRY_RUN=1`
 ```
+### datsrc
+
+Every command flag can also be specified in JSON format in the file `.datsrc`, the process at runtime will search it in the current working directory and merge both file config and flags before running!
+
+```json
+{
+  "prefix": "my_metric_prefix"
+}
+```
 
 ### Pre-compiled binary
 
