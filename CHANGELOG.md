@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/immobiliare/dats/compare/v4.0.0...v4.1.0) (2023-02-13)
+
+
+### Features
+
+* **cli:** adds alpine distro ([b9c1252](https://github.com/immobiliare/dats/commit/b9c125229ed0d6942234954bfc03f47a20054dbc))
+
 # [4.0.0](https://github.com/immobiliare/dats/compare/v3.0.1...v4.0.0) (2023-02-08)
 
 
