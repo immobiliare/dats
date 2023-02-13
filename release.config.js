@@ -6,7 +6,7 @@ const assets = files.map((f) => {
     const [, , distro] = f.split('-');
     return {
         path: `.out/${f}`,
-        label: `${distro} distribution`,
+        label: `${distro.replace('.exe', '')} distribution`,
     };
 });
 
