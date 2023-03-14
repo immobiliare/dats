@@ -35,7 +35,7 @@ module.exports = {
         [
             '@saithodev/semantic-release-backmerge',
             {
-                branches: [{ from: 'main', to: 'next' }],
+                backmergeBranches: [{ from: 'main', to: 'next' }],
                 clearWorkspace: true,
             },
         ],
