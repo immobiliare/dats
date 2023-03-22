@@ -209,11 +209,11 @@ test.serial('hostname with dots substitution', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1.${hostname}';
     const hostname = sinon.stub(os, 'hostname');
-    hostname.onCall(0).returns('some.host');
+    hostname.onCall(0).returns('some.nice.host');
     const client = new Client({ host, namespace });
     return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
-            t.is(`ns1.some_host.some.metric:1|s`, metric.toString());
+            t.is(`ns1.some_nice_host.some.metric:1|s`, metric.toString());
             hostname.restore();
             return resolve(0);
         });
