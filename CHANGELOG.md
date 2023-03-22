@@ -1,3 +1,17 @@
+# [5.0.0](https://github.com/immobiliare/dats/compare/v4.1.0...v5.0.0) (2023-03-22)
+
+
+### Bug Fixes
+
+* build remove .exe ([ef65194](https://github.com/immobiliare/dats/commit/ef6519463df5b0a6824cca3fb7e8ebdaf4099c7f))
+* **hostname:** fixed sanitize hostnames with multiple dots. ([4b3fa20](https://github.com/immobiliare/dats/commit/4b3fa20b1bf4bf797f637b9e0963346ecf7f1c9f))
+
+
+### BREAKING CHANGES
+
+* **hostname:** Now the Namespacing with Hostname feature 'myGrafanaNamespace.${hostname}' replace all the dots with `_`: now 'myGrafanaNamespace.custom_host_net', before
+'myGrafanaNamespace.custom_host.net'
+
 # [4.1.0](https://github.com/immobiliare/dats/compare/v4.0.0...v4.1.0) (2023-02-13)
 
 
