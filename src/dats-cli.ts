@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import path from 'path';
 import { parseArgs } from 'util';
 import { readFileSync } from 'fs';
@@ -22,7 +24,7 @@ type Options = {
         default?: string | boolean;
         help?: string;
         short?: string;
-        validate?: (v: any) => boolean;
+        validate?: (v: unknown) => boolean;
     };
 };
 
@@ -33,13 +35,13 @@ const options: Options = {
     },
     port: {
         type: 'string',
-        validate: (v) => Boolean(v) && isFinite(v),
+        validate: (v) => Boolean(v) && isFinite(v as number),
     },
     // metric
     type: {
         type: 'string',
         help: 'Metric type can be one of: ' + TYPES.join(', '),
-        validate: (v) => Boolean(v) && TYPES.includes(v),
+        validate: (v) => Boolean(v) && TYPES.includes(v as string),
     },
     prefix: {
         type: 'string',
@@ -87,7 +89,7 @@ function validate(values, opts: Options) {
     return valid;
 }
 
-function printHelp({ help, ...opts }: Options) {
+function printHelp({ ...opts }: Options) {
     console.log(
         'ℹ️  The following are required input flags: \n\n%s\n\nIf unsure of output run the command prepended with `DRY_RUN=1`',
         Object.entries(opts)
@@ -97,7 +99,7 @@ function printHelp({ help, ...opts }: Options) {
     return process.exit(0);
 }
 
-const { values } = parseArgs({ options } as any);
+const { values } = parseArgs({ options } as unknown);
 
 if (values.quiet) {
     console.log = () => undefined;
