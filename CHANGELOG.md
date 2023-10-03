@@ -1,3 +1,12 @@
+## [5.0.1](https://github.com/immobiliare/dats/compare/v5.0.0...v5.0.1) (2023-10-03)
+
+
+### Bug Fixes
+
+* **cli:** added missing shebang ([57b2762](https://github.com/immobiliare/dats/commit/57b27626c046956e461fdf2cd5f7618d102e8fe4))
+* upgrade autocannon from 7.10.0 to 7.11.0 ([01b4d9d](https://github.com/immobiliare/dats/commit/01b4d9dd58275a2cb140429e5cf2e0c52ca8bac0))
+* upgrade autocannon from 7.11.0 to 7.12.0 ([48931ca](https://github.com/immobiliare/dats/commit/48931ca765a045974a029598edb8dbbf45cba693))
+
 # [5.0.0](https://github.com/immobiliare/dats/compare/v4.1.0...v5.0.0) (2023-03-22)
 
 
