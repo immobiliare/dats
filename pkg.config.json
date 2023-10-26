@@ -1,6 +1,6 @@
 {
     "pkg": {
         "outputPath": ".out",
-        "targets": ["linux", "alpine", "macos", "windows"]
+        "targets": ["linux-x64", "linux-arm64", "macos", "win", "alpine"]
     }
 }
