@@ -1,3 +1,10 @@
+## [5.0.2](https://github.com/immobiliare/dats/compare/v5.0.1...v5.0.2) (2023-10-26)
+
+
+### Bug Fixes
+
+* release more architectures ([3a7f630](https://github.com/immobiliare/dats/commit/3a7f630efaa06b2ef16efa5840a590cf13cce26e))
+
 ## [5.0.1](https://github.com/immobiliare/dats/compare/v5.0.0...v5.0.1) (2023-10-03)
 
 
