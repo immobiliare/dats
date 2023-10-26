@@ -36,6 +36,7 @@ Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.
 - [Dats Mock](#dats-mock)
 - [CLI Interface](#cli-interface)
   * [CLI Usage](#cli-usage)
+  * [datsrc](#datsrc)
   * [Pre-compiled binary](#pre-compiled-binary)
 - [Benchmarks](#benchmarks)
 - [Powered Apps](#powered-apps)
@@ -266,13 +267,16 @@ dats --help
 #
 # If unsure of output run the command prepended with `DRY_RUN=1`
 ```
+
 ### datsrc
 
 Every command flag can also be specified in JSON format in the file `.datsrc`, the process at runtime will search it in the current working directory and merge both file config and flags before running!
 
 ```json
 {
-  "prefix": "my_metric_prefix"
+    "host": "123.123.123.123",
+    "port": "1234",
+    "prefix": "my_metric_prefix"
 }
 ```
 
