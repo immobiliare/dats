@@ -9,7 +9,6 @@ const assets = files.map((f) => {
     };
 });
 
-console.log('assets :>> ', assets);
 module.exports = {
     branches: [
         { name: 'main' },
