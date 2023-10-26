@@ -3,13 +3,13 @@ const { readdirSync } = require('fs');
 const files = readdirSync('.out');
 
 const assets = files.map((f) => {
-    const [, , distro] = f.split('-');
     return {
         path: `.out/${f}`,
-        label: `${distro.replace('.exe', '')} distribution`,
+        label: f,
     };
 });
 
+console.log('assets :>> ', assets);
 module.exports = {
     branches: [
         { name: 'main' },
