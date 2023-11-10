@@ -27,7 +27,7 @@ jobs:
               run: npm run compile
 
             - name: Semantic release
-              uses: codfish/semantic-release-action@v2
+              uses: codfish/semantic-release-action@v3
               env:
                   GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
