@@ -155,6 +155,7 @@ This module exports:
     -   `udpDnsCacheTTL`: Optional. Default `120`. Dns cache Time to live in seconds.
     -   `onError`: Optional. Default `(err) => void`. Called when there is an error. Allows you to check also send errors.
     -   `customSocket`: Optional. Default `null`. Custom socket used by the client, this is a feature for mocking we do not recommend using it in production.
+    -   `tags`: Optional Default `null`. If provided, metrics will include tags in the form `#key1:value1,key2:value2`.
 
 #### `Client.close([cb])`
 
@@ -328,5 +329,5 @@ If you have any questions on how to use dats, bugs and enhancement please feel f
 
 ## License
 
-dats is licensed under the MIT license.  
+dats is licensed under the MIT license.
 See the [LICENSE](./LICENSE) file for more information.
