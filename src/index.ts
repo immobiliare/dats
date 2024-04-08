@@ -20,6 +20,8 @@ export enum Types {
 
 Object.freeze(Types);
 
+export type Tags = { [key: string]: string } | string[];
+
 export interface Options {
     host?: string | URL;
     namespace?: string;
@@ -30,6 +32,7 @@ export interface Options {
     udpDnsCache?: boolean;
     udpDnsCacheTTL?: number;
     customSocket?: Socket;
+    tags?: Tags;
 }
 
 /**
@@ -49,6 +52,7 @@ class Client {
     protected namespace: string;
     protected debug: DebugLogger;
     protected isDebug: boolean;
+    protected tags: Tags;
 
     constructor({
         host,
@@ -60,6 +64,7 @@ class Client {
         debug = null,
         onError = () => undefined,
         customSocket = null,
+        tags = null,
     }: Options = {}) {
         if (typeof namespace !== 'string') {
             throw new Error('A namespace string is required');
@@ -122,6 +127,7 @@ class Client {
         this.bufferFlushTimeout = bufferFlushTimeout;
         this.timeout = null;
         this.timeoutActive = false;
+        this.tags = tags;
     }
 
     connect(): Promise<boolean> {
@@ -142,6 +148,17 @@ class Client {
         let metric = this.namespace + key + ':' + value + '|' + type;
         if (sampling && (Types.timing === type || Types.counter === type)) {
             metric += '|@' + sampling;
+        }
+
+        if (this.tags) {
+            if (Array.isArray(this.tags)) {
+                metric += `|#${this.tags.join(',')}`;
+            } else {
+                const tags = Object.keys(this.tags)
+                    .map((tag) => `${tag}:${this.tags[tag]}`)
+                    .join(',');
+                metric += `|#${tags}`;
+            }
         }
 
         return metric;
