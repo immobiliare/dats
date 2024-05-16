@@ -20,7 +20,7 @@ export enum Types {
 
 Object.freeze(Types);
 
-export type Tags = { [key: string]: string } | string[];
+export type Tags = { [key: string]: string | null } | string[];
 
 export interface Options {
     host?: string | URL;
@@ -132,7 +132,7 @@ class Client {
                 this.tags = tags.join(',');
             } else {
                 this.tags = Object.keys(tags)
-                    .map((tag) => `${tag}:${tags[tag]}`)
+                    .map((tag) => (tags[tag] ? `${tag}:${tags[tag]}` : tag))
                     .join(',');
             }
         }
