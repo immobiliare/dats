@@ -52,7 +52,7 @@ class Client {
     protected namespace: string;
     protected debug: DebugLogger;
     protected isDebug: boolean;
-    protected tags: Tags;
+    protected tags: string;
 
     constructor({
         host,
@@ -127,7 +127,15 @@ class Client {
         this.bufferFlushTimeout = bufferFlushTimeout;
         this.timeout = null;
         this.timeoutActive = false;
-        this.tags = tags;
+        if (tags) {
+            if (Array.isArray(tags)) {
+                this.tags = tags.join(',');
+            } else {
+                this.tags = Object.keys(tags)
+                    .map((tag) => `${tag}:${tags[tag]}`)
+                    .join(',');
+            }
+        }
     }
 
     connect(): Promise<boolean> {
@@ -151,14 +159,7 @@ class Client {
         }
 
         if (this.tags) {
-            if (Array.isArray(this.tags)) {
-                metric += `|#${this.tags.join(',')}`;
-            } else {
-                const tags = Object.keys(this.tags)
-                    .map((tag) => `${tag}:${this.tags[tag]}`)
-                    .join(',');
-                metric += `|#${tags}`;
-            }
+            metric += `|#${this.tags}`;
         }
 
         return metric;
