@@ -1,95 +1,95 @@
-## [5.0.2](https://github.com/immobiliare/dats/compare/v5.0.1...v5.0.2) (2023-10-26)
-
+# [5.1.0](https://github.com/immobiliare/dats/compare/v5.0.2...v5.1.0) (2024-05-21)
 
 ### Bug Fixes
 
-* release more architectures ([3a7f630](https://github.com/immobiliare/dats/commit/3a7f630efaa06b2ef16efa5840a590cf13cce26e))
+-   commitlint ([2fac4aa](https://github.com/immobiliare/dats/commit/2fac4aa7bfe7b9363c3c897aa145c62f256c098a))
+-   upgrade autocannon from 7.12.0 to 7.14.0 ([3d07078](https://github.com/immobiliare/dats/commit/3d070780567f8206e34ec266b93d652c60bc9da5))
+
+### Features
+
+-   **client:** add support for tags ([3c6a0de](https://github.com/immobiliare/dats/commit/3c6a0de0eaf216020182eb54b2961d3106f888cd))
+-   **client:** move tag serialization into constructor ([d1f4915](https://github.com/immobiliare/dats/commit/d1f4915631d3bb475f11108423baafc89ddbc24e))
+-   **client:** support simple tags ([8a753ff](https://github.com/immobiliare/dats/commit/8a753ff717790397d48cbb2bc9c79eae48152059))
+
+## [5.0.2](https://github.com/immobiliare/dats/compare/v5.0.1...v5.0.2) (2023-10-26)
+
+### Bug Fixes
+
+-   release more architectures ([3a7f630](https://github.com/immobiliare/dats/commit/3a7f630efaa06b2ef16efa5840a590cf13cce26e))
 
 ## [5.0.1](https://github.com/immobiliare/dats/compare/v5.0.0...v5.0.1) (2023-10-03)
 
-
 ### Bug Fixes
 
-* **cli:** added missing shebang ([57b2762](https://github.com/immobiliare/dats/commit/57b27626c046956e461fdf2cd5f7618d102e8fe4))
-* upgrade autocannon from 7.10.0 to 7.11.0 ([01b4d9d](https://github.com/immobiliare/dats/commit/01b4d9dd58275a2cb140429e5cf2e0c52ca8bac0))
-* upgrade autocannon from 7.11.0 to 7.12.0 ([48931ca](https://github.com/immobiliare/dats/commit/48931ca765a045974a029598edb8dbbf45cba693))
+-   **cli:** added missing shebang ([57b2762](https://github.com/immobiliare/dats/commit/57b27626c046956e461fdf2cd5f7618d102e8fe4))
+-   upgrade autocannon from 7.10.0 to 7.11.0 ([01b4d9d](https://github.com/immobiliare/dats/commit/01b4d9dd58275a2cb140429e5cf2e0c52ca8bac0))
+-   upgrade autocannon from 7.11.0 to 7.12.0 ([48931ca](https://github.com/immobiliare/dats/commit/48931ca765a045974a029598edb8dbbf45cba693))
 
 # [5.0.0](https://github.com/immobiliare/dats/compare/v4.1.0...v5.0.0) (2023-03-22)
 
-
 ### Bug Fixes
 
-* build remove .exe ([ef65194](https://github.com/immobiliare/dats/commit/ef6519463df5b0a6824cca3fb7e8ebdaf4099c7f))
-* **hostname:** fixed sanitize hostnames with multiple dots. ([4b3fa20](https://github.com/immobiliare/dats/commit/4b3fa20b1bf4bf797f637b9e0963346ecf7f1c9f))
-
+-   build remove .exe ([ef65194](https://github.com/immobiliare/dats/commit/ef6519463df5b0a6824cca3fb7e8ebdaf4099c7f))
+-   **hostname:** fixed sanitize hostnames with multiple dots. ([4b3fa20](https://github.com/immobiliare/dats/commit/4b3fa20b1bf4bf797f637b9e0963346ecf7f1c9f))
 
 ### BREAKING CHANGES
 
-* **hostname:** Now the Namespacing with Hostname feature 'myGrafanaNamespace.${hostname}' replace all the dots with `_`: now 'myGrafanaNamespace.custom_host_net', before
-'myGrafanaNamespace.custom_host.net'
+-   **hostname:** Now the Namespacing with Hostname feature 'myGrafanaNamespace.${hostname}' replace all the dots with `_`: now 'myGrafanaNamespace.custom_host_net', before
+    'myGrafanaNamespace.custom_host.net'
 
 # [4.1.0](https://github.com/immobiliare/dats/compare/v4.0.0...v4.1.0) (2023-02-13)
 
-
 ### Features
 
-* **cli:** adds alpine distro ([b9c1252](https://github.com/immobiliare/dats/commit/b9c125229ed0d6942234954bfc03f47a20054dbc))
+-   **cli:** adds alpine distro ([b9c1252](https://github.com/immobiliare/dats/commit/b9c125229ed0d6942234954bfc03f47a20054dbc))
 
 # [4.0.0](https://github.com/immobiliare/dats/compare/v3.0.1...v4.0.0) (2023-02-08)
 
-
 ### Bug Fixes
 
-* --dry-run correct casing ([5de9798](https://github.com/immobiliare/dats/commit/5de9798cf67919f05af531e0b1c1ddddd903d51a))
-* invalid namespace when using prefix ([517309f](https://github.com/immobiliare/dats/commit/517309f47c8caa0a26b2cfcc8fb7e9b7de7ed1f6))
-* upgrade autocannon from 7.9.0 to 7.10.0 ([5a4df5e](https://github.com/immobiliare/dats/commit/5a4df5e6550febd35718309f943ce5c25ee44509))
-
+-   --dry-run correct casing ([5de9798](https://github.com/immobiliare/dats/commit/5de9798cf67919f05af531e0b1c1ddddd903d51a))
+-   invalid namespace when using prefix ([517309f](https://github.com/immobiliare/dats/commit/517309f47c8caa0a26b2cfcc8fb7e9b7de7ed1f6))
+-   upgrade autocannon from 7.9.0 to 7.10.0 ([5a4df5e](https://github.com/immobiliare/dats/commit/5a4df5e6550febd35718309f943ce5c25ee44509))
 
 ### Features
 
-* .datsrc config file ([38588aa](https://github.com/immobiliare/dats/commit/38588aafdc70fb0b3000bf8c4894f134b8f22eaf))
-* pin node lts ([31b1cfe](https://github.com/immobiliare/dats/commit/31b1cfe389889ce2fc8317e7215f6e6211215af9))
-* use as a cli ([12d45bb](https://github.com/immobiliare/dats/commit/12d45bbe42635f8c929a5baa7998ec711394a165))
-
+-   .datsrc config file ([38588aa](https://github.com/immobiliare/dats/commit/38588aafdc70fb0b3000bf8c4894f134b8f22eaf))
+-   pin node lts ([31b1cfe](https://github.com/immobiliare/dats/commit/31b1cfe389889ce2fc8317e7215f6e6211215af9))
+-   use as a cli ([12d45bb](https://github.com/immobiliare/dats/commit/12d45bbe42635f8c929a5baa7998ec711394a165))
 
 ### BREAKING CHANGES
 
-* Engine set to Node.js 18, the package may work with
-older version tho
+-   Engine set to Node.js 18, the package may work with
+    older version tho
 
 # [4.0.0-next.3](https://github.com/immobiliare/dats/compare/v4.0.0-next.2...v4.0.0-next.3) (2023-01-31)
 
-
 ### Bug Fixes
 
-* --dry-run correct casing ([5de9798](https://github.com/immobiliare/dats/commit/5de9798cf67919f05af531e0b1c1ddddd903d51a))
+-   --dry-run correct casing ([5de9798](https://github.com/immobiliare/dats/commit/5de9798cf67919f05af531e0b1c1ddddd903d51a))
 
 # [4.0.0-next.2](https://github.com/immobiliare/dats/compare/v4.0.0-next.1...v4.0.0-next.2) (2023-01-31)
 
-
 ### Bug Fixes
 
-* invalid namespace when using prefix ([517309f](https://github.com/immobiliare/dats/commit/517309f47c8caa0a26b2cfcc8fb7e9b7de7ed1f6))
+-   invalid namespace when using prefix ([517309f](https://github.com/immobiliare/dats/commit/517309f47c8caa0a26b2cfcc8fb7e9b7de7ed1f6))
 
 # [4.0.0-next.1](https://github.com/immobiliare/dats/compare/v3.0.1...v4.0.0-next.1) (2023-01-30)
 
-
 ### Bug Fixes
 
-* upgrade autocannon from 7.9.0 to 7.10.0 ([5a4df5e](https://github.com/immobiliare/dats/commit/5a4df5e6550febd35718309f943ce5c25ee44509))
-
+-   upgrade autocannon from 7.9.0 to 7.10.0 ([5a4df5e](https://github.com/immobiliare/dats/commit/5a4df5e6550febd35718309f943ce5c25ee44509))
 
 ### Features
 
-* .datsrc config file ([38588aa](https://github.com/immobiliare/dats/commit/38588aafdc70fb0b3000bf8c4894f134b8f22eaf))
-* pin node lts ([31b1cfe](https://github.com/immobiliare/dats/commit/31b1cfe389889ce2fc8317e7215f6e6211215af9))
-* use as a cli ([12d45bb](https://github.com/immobiliare/dats/commit/12d45bbe42635f8c929a5baa7998ec711394a165))
-
+-   .datsrc config file ([38588aa](https://github.com/immobiliare/dats/commit/38588aafdc70fb0b3000bf8c4894f134b8f22eaf))
+-   pin node lts ([31b1cfe](https://github.com/immobiliare/dats/commit/31b1cfe389889ce2fc8317e7215f6e6211215af9))
+-   use as a cli ([12d45bb](https://github.com/immobiliare/dats/commit/12d45bbe42635f8c929a5baa7998ec711394a165))
 
 ### BREAKING CHANGES
 
-* Engine set to Node.js 18, the package may work with
-older version tho
+-   Engine set to Node.js 18, the package may work with
+    older version tho
 
 ## [3.0.1](https://github.com/immobiliare/dats/compare/v3.0.0...v3.0.1) (2022-06-06)
 
