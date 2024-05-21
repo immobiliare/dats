@@ -38,7 +38,7 @@
         "test": "nyc --reporter=lcov --reporter=text-summary ava -v && nyc check-coverage --lines 95",
         "test:watch": "ava -w",
         "toc": "markdown-toc -i README.md",
-        "prepare": "node prepare.js || echo 'Skipping prepare'"
+        "prepare": "node prepare.mjs || echo 'Skipping prepare'"
     },
     "repository": {
         "type": "git",
