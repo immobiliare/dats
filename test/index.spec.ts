@@ -111,6 +111,23 @@ test('counter with sampling', (t) => {
     });
 });
 
+test('counter with tags', (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1';
+    const tags = { tag1: 'value1', tag2: null, tag3: 'value3' };
+    const client = new Client({ host, namespace, tags });
+    return new Promise<number>((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(
+                `${namespace}.some.metric:1|c|@10|#tag1:value1,tag2,tag3:value3`,
+                metric.toString()
+            );
+            return resolve(0);
+        });
+        client.counter('some.metric', 1, 10);
+    });
+});
+
 test('timing', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
@@ -131,6 +148,23 @@ test('timing with sampling', (t) => {
     return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|ms|@10`, metric.toString());
+            return resolve(0);
+        });
+        client.timing('some.metric', 1, 10);
+    });
+});
+
+test('timing with tags', (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1';
+    const tags = { tag1: 'value1', tag2: null, tag3: 'value3' };
+    const client = new Client({ host, namespace, tags });
+    return new Promise<number>((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(
+                `${namespace}.some.metric:1|ms|@10|#tag1:value1,tag2,tag3:value3`,
+                metric.toString()
+            );
             return resolve(0);
         });
         client.timing('some.metric', 1, 10);
@@ -163,6 +197,23 @@ test('gauge should ignore sampling', (t) => {
     });
 });
 
+test('gauge with tags', (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1';
+    const tags = { tag1: 'value1', tag2: null, tag3: 'value3' };
+    const client = new Client({ host, namespace, tags });
+    return new Promise<number>((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(
+                `${namespace}.some.metric:1|g|#tag1:value1,tag2,tag3:value3`,
+                metric.toString()
+            );
+            return resolve(0);
+        });
+        client.gauge('some.metric', 1);
+    });
+});
+
 test('set', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const namespace = 'ns1';
@@ -183,6 +234,23 @@ test('set should ignore sampling', (t) => {
     return new Promise<number>((resolve) => {
         t.context.server.on('metric', (metric) => {
             t.is(`${namespace}.some.metric:1|s`, metric.toString());
+            return resolve(0);
+        });
+        client.set('some.metric', 1);
+    });
+});
+
+test('set with tags', (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1';
+    const tags = { tag1: 'value1', tag2: null, tag3: 'value3' };
+    const client = new Client({ host, namespace, tags });
+    return new Promise<number>((resolve) => {
+        t.context.server.on('metric', (metric) => {
+            t.is(
+                `${namespace}.some.metric:1|s|#tag1:value1,tag2,tag3:value3`,
+                metric.toString()
+            );
             return resolve(0);
         });
         client.set('some.metric', 1);
