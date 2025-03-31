@@ -3,7 +3,8 @@ import net, { Socket as SocketTCP, isIP } from 'net';
 import { URL } from 'url';
 import buildLookupFunction from './dns-cache';
 import { debuglog, DebugLoggerFunction } from 'util';
-export abstract class Socket {
+import EventEmitter, { once } from 'events';
+export abstract class Socket extends EventEmitter {
     protected hostname: string;
     protected port: number;
     protected connected: boolean;
@@ -15,6 +16,7 @@ export abstract class Socket {
         onError: (error: Error) => void = () => undefined,
         debug: DebugLoggerFunction = debuglog('dats')
     ) {
+        super();
         if (!url.port) {
             throw new Error('A port is required');
         }
@@ -127,6 +129,7 @@ type IPFamily = 4 | 6;
 export class SocketUdp extends Socket {
     private socket: SocketUDP;
     private udpVersion: IPFamily;
+    private _pendingMessages: number;
     lookup: (
         _: string,
         __: unknown,
@@ -147,7 +150,7 @@ export class SocketUdp extends Socket {
     ) {
         super(url, onError, debug);
         this.socket = null;
-
+        this._pendingMessages = 0;
         // Removed parenthesis if host name is ipv6 IP.
         if (this.hostname.startsWith('[') && this.hostname.endsWith(']')) {
             /* istanbul ignore next */
@@ -167,6 +170,13 @@ export class SocketUdp extends Socket {
         this.lookup = dnsCache ? buildLookup(dnsCacheTTL, this.hostname) : null;
     }
 
+    get pendingMessages() {
+        return this._pendingMessages;
+    }
+    get idle() {
+        return this._pendingMessages === 0;
+    }
+
     connect(): Promise<boolean> {
         this.socket = createSocket({
             type: `udp${this.udpVersion}` as SocketType,
@@ -181,19 +191,31 @@ export class SocketUdp extends Socket {
 
     send(data: string): void {
         if (!this.connected || !data) return;
-
-        return this.socket.send(
-            data,
-            this.port,
-            this.hostname,
-            (err) => err && this.onError(err)
-        );
+        this._pendingMessages += 1;
+        return this.socket.send(data, this.port, this.hostname, (err) => {
+            if (this._pendingMessages) {
+                this._pendingMessages -= 1;
+            }
+            if (err) {
+                try {
+                    this.onError(err);
+                } catch (e) {
+                    this.debug('Exception on this.onError function', e);
+                }
+            }
+            if (this._pendingMessages === 0) {
+                this.emit('idle');
+            }
+        });
     }
 
-    close(): Promise<void> {
-        if (!this.connected) return Promise.resolve();
-        return new Promise((res) => {
-            this.socket.close(res);
+    async close(): Promise<void> {
+        if (!this.connected) return;
+        if (!this.idle) {
+            await once(this, 'idle');
+        }
+        await new Promise((res) => {
+            this.socket.close(res as () => void);
             this.connected = false;
         });
     }
