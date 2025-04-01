@@ -4,6 +4,11 @@ import { URL } from 'url';
 import buildLookupFunction from './dns-cache';
 import { debuglog, DebugLoggerFunction } from 'util';
 import EventEmitter, { once } from 'events';
+
+/**
+ * @emits idle The socket has no more pending messages. We use this event
+ * to be sure the socket is not active anymore before closing it.
+ */
 export abstract class Socket extends EventEmitter {
     protected hostname: string;
     protected port: number;
@@ -37,9 +42,16 @@ export abstract class Socket extends EventEmitter {
         return this.connected;
     }
 
+    /**
+     * Number of messages that are still being sent.
+     */
     get pendingMessages() {
         return this._pendingMessages;
     }
+    /**
+     * Whether the socket has pending messages or not.
+     * Used to check if the socket is still active.
+     */
     get idle() {
         return this._pendingMessages === 0;
     }
@@ -209,7 +221,7 @@ export class SocketUdp extends Socket {
     send(data: string): void {
         if (!this.connected || !data) return;
         this._pendingMessages += 1;
-        return this.socket.send(data, this.port, this.hostname, (err) => {
+        this.socket.send(data, this.port, this.hostname, (err) => {
             if (this._pendingMessages) {
                 this._pendingMessages -= 1;
             }
