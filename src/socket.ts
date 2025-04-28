@@ -16,6 +16,7 @@ export abstract class Socket extends EventEmitter {
     protected debug: typeof console.log;
     protected onError: (error: Error) => void;
     protected _pendingMessages: number;
+    protected closeTimeout: number;
 
     protected constructor(
         url: URL,
@@ -36,6 +37,7 @@ export abstract class Socket extends EventEmitter {
         this.hostname = url.hostname;
         this.port = parseInt(url.port, 10);
         this.connected = false;
+        this.closeTimeout = 5000;
     }
 
     isConnected(): boolean {
@@ -146,7 +148,12 @@ export class SocketTcp extends Socket {
     async close(): Promise<void> {
         if (this.closing) return Promise.resolve();
         if (!this.idle) {
-            await once(this, 'idle');
+            await Promise.race([
+                once(this, 'idle'),
+                new Promise((resolve) =>
+                    setTimeout(resolve, this.closeTimeout)
+                ),
+            ]);
         }
         this.connected = false;
         this.closing = true;
@@ -241,7 +248,12 @@ export class SocketUdp extends Socket {
     async close(): Promise<void> {
         if (!this.connected) return;
         if (!this.idle) {
-            await once(this, 'idle');
+            await Promise.race([
+                once(this, 'idle'),
+                new Promise((resolve) =>
+                    setTimeout(resolve, this.closeTimeout)
+                ),
+            ]);
         }
         await new Promise((res) => {
             this.socket.close(res as () => void);
