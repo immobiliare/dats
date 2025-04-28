@@ -398,6 +398,28 @@ test('close with promise multiple times', async (t) => {
     t.pass();
 });
 
+test('close with queued messages should wait', async (t) => {
+    const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
+    const namespace = 'ns1.${hostname}.${pid}';
+    const client = new Client({ host, namespace });
+    t.plan(6);
+    client.connect();
+    client.counter('some');
+    client.counter('some');
+    client.counter('some');
+    client.counter('some');
+    //@ts-expect-error Just for tests
+    t.is(client.socket.pendingMessages, 4);
+    //@ts-expect-error Just for tests
+    const emit = sinon.spy(client.socket, 'emit');
+    await t.notThrowsAsync(client.close() as Promise<void>);
+    //@ts-expect-error Just for tests
+    t.is(client.socket.pendingMessages, 0);
+    t.notThrows(() => client.timing('time', 1));
+    t.true(emit.calledOnceWith('idle'));
+    t.pass();
+});
+
 test('getSupportedTypes test', (t) => {
     const host = new URL(`udp://127.0.0.1:${t.context.address.port}`);
     const client = new Client({

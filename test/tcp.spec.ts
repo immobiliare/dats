@@ -1,4 +1,3 @@
-import os from 'os';
 import sinon from 'sinon';
 import anyTest, { TestInterface } from 'ava';
 import Client from '../src/index';
@@ -110,6 +109,28 @@ test('TCP does not send if connection is closed', async (t) => {
     const sendFun = sinon.spy((socket as any).socket, 'write');
     socket.send('something');
     t.true(sendFun.notCalled);
+    t.is(socket.pendingMessages, 0);
+    t.is(socket.idle, true);
+});
+
+test('TCP close should wait', async (t) => {
+    const host = new URL(
+        `tcp://127.0.0.1:${(t.context.addressTcp as AddressInfo).port || 0}`
+    );
+    const socket = new SocketTcp(host);
+    await socket.connect();
+    socket.send('something');
+    socket.send('something');
+    socket.send('something');
+    socket.send('something');
+    t.is(socket.pendingMessages, 4);
+    t.false(socket.idle);
+    const emit = sinon.spy(socket, 'emit');
+    await socket.close();
+    socket.send('something');
+    t.is(socket.pendingMessages, 0);
+    t.is(socket.idle, true);
+    t.true(emit.calledOnceWith('idle'));
 });
 
 test('TCP _connect function doesnt create new connections if there is another connection active', async (t) => {

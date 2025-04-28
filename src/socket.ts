@@ -3,18 +3,27 @@ import net, { Socket as SocketTCP, isIP } from 'net';
 import { URL } from 'url';
 import buildLookupFunction from './dns-cache';
 import { debuglog, DebugLoggerFunction } from 'util';
-export abstract class Socket {
+import EventEmitter, { once } from 'events';
+
+/**
+ * @emits idle The socket has no more pending messages. We use this event
+ * to be sure the socket is not active anymore before closing it.
+ */
+export abstract class Socket extends EventEmitter {
     protected hostname: string;
     protected port: number;
     protected connected: boolean;
     protected debug: typeof console.log;
     protected onError: (error: Error) => void;
+    protected _pendingMessages: number;
+    protected closeTimeout: number;
 
     protected constructor(
         url: URL,
         onError: (error: Error) => void = () => undefined,
         debug: DebugLoggerFunction = debuglog('dats')
     ) {
+        super();
         if (!url.port) {
             throw new Error('A port is required');
         }
@@ -22,15 +31,31 @@ export abstract class Socket {
             throw new Error('The hostname is required');
         }
 
+        this._pendingMessages = 0;
         this.onError = onError.bind(null);
         this.debug = debug;
         this.hostname = url.hostname;
         this.port = parseInt(url.port, 10);
         this.connected = false;
+        this.closeTimeout = 5000;
     }
 
     isConnected(): boolean {
         return this.connected;
+    }
+
+    /**
+     * Number of messages that are still being sent.
+     */
+    get pendingMessages() {
+        return this._pendingMessages;
+    }
+    /**
+     * Whether the socket has pending messages or not.
+     * Used to check if the socket is still active.
+     */
+    get idle() {
+        return this._pendingMessages === 0;
     }
 
     abstract connect(): Promise<boolean>;
@@ -102,17 +127,39 @@ export class SocketTcp extends Socket {
 
     send(data: string): void {
         if (!this.connected || !data) return;
-        this.socket.write(data + '\n', (error) => error && this.onError(error));
+        this._pendingMessages += 1;
+        this.socket.write(data + '\n', (err) => {
+            if (this._pendingMessages) {
+                this._pendingMessages -= 1;
+            }
+            if (err) {
+                try {
+                    this.onError(err);
+                } catch (e) {
+                    this.debug('Exception on this.onError function', e);
+                }
+            }
+            if (this._pendingMessages === 0) {
+                this.emit('idle');
+            }
+        });
     }
 
-    close(): Promise<void> {
+    async close(): Promise<void> {
         if (this.closing) return Promise.resolve();
+        if (!this.idle) {
+            await Promise.race([
+                once(this, 'idle'),
+                new Promise((resolve) =>
+                    setTimeout(resolve, this.closeTimeout)
+                ),
+            ]);
+        }
         this.connected = false;
         this.closing = true;
         this.socket.removeListener('close', this.reconnectCb);
         this.socket.end();
         this.socket.destroy();
-        return Promise.resolve();
     }
 }
 
@@ -147,7 +194,6 @@ export class SocketUdp extends Socket {
     ) {
         super(url, onError, debug);
         this.socket = null;
-
         // Removed parenthesis if host name is ipv6 IP.
         if (this.hostname.startsWith('[') && this.hostname.endsWith(']')) {
             /* istanbul ignore next */
@@ -181,19 +227,36 @@ export class SocketUdp extends Socket {
 
     send(data: string): void {
         if (!this.connected || !data) return;
-
-        return this.socket.send(
-            data,
-            this.port,
-            this.hostname,
-            (err) => err && this.onError(err)
-        );
+        this._pendingMessages += 1;
+        this.socket.send(data, this.port, this.hostname, (err) => {
+            if (this._pendingMessages) {
+                this._pendingMessages -= 1;
+            }
+            if (err) {
+                try {
+                    this.onError(err);
+                } catch (e) {
+                    this.debug('Exception on this.onError function', e);
+                }
+            }
+            if (this._pendingMessages === 0) {
+                this.emit('idle');
+            }
+        });
     }
 
-    close(): Promise<void> {
-        if (!this.connected) return Promise.resolve();
-        return new Promise((res) => {
-            this.socket.close(res);
+    async close(): Promise<void> {
+        if (!this.connected) return;
+        if (!this.idle) {
+            await Promise.race([
+                once(this, 'idle'),
+                new Promise((resolve) =>
+                    setTimeout(resolve, this.closeTimeout)
+                ),
+            ]);
+        }
+        await new Promise((res) => {
+            this.socket.close(res as () => void);
             this.connected = false;
         });
     }
