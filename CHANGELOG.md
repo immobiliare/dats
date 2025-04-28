@@ -1,3 +1,11 @@
+## [5.1.1](https://github.com/immobiliare/dats/compare/v5.1.0...v5.1.1) (2025-04-28)
+
+### Bug Fixes
+
+-   add safaguard timeout to idle event ([0f23654](https://github.com/immobiliare/dats/commit/0f23654e27304f71557c0d32e6c3b9cdd640d84f))
+-   align tcp and udp sockets ([0e2cde7](https://github.com/immobiliare/dats/commit/0e2cde7c4747b94766a536e6a7e65ddf52a3659f))
+-   ensure udp messages are sent on close ([dbe88c6](https://github.com/immobiliare/dats/commit/dbe88c66b6ddc133c15a2fa5d3d7d5b0d10e33f8))
+
 ## [5.1.1-next.1](https://github.com/immobiliare/dats/compare/v5.1.0...v5.1.1-next.1) (2025-04-08)
 
 ### Bug Fixes
