@@ -1,6 +1,6 @@
 name: tests
 
-on: [workflow_call]
+on: [ workflow_call ]
 
 jobs:
     conventional-commit-checker:
@@ -15,8 +15,8 @@ jobs:
     test:
         strategy:
             matrix:
-                os: [ubuntu-latest, macos-latest]
-                node-version: [16.x, 18.x]
+                os: [ ubuntu-latest, macos-latest ]
+                node-version: [ 24.x ]
         runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v4

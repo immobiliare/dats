@@ -1,35 +1,35 @@
 name: Release
 
-on: [workflow_dispatch]
+on: [ workflow_dispatch ]
 
 jobs:
-    test:
-        name: Run tests
-        uses: ./.github/workflows/test.yml
+  test:
+    name: Run tests
+    uses: ./.github/workflows/test.yml
 
-    release:
-        needs: [test]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 18
+  release:
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-            - uses: actions/checkout@v4
-              with:
-                  token: ${{ secrets.GH_OWNER_TOKEN }}
-                  persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_OWNER_TOKEN }}
+          persist-credentials: false
 
-            - name: Install dependencies
-              run: npm i
+      - name: Install dependencies
+        run: npm i
 
-            - name: Build
-              run: npm run compile
+      - name: Build
+        run: npm run compile
 
-            - name: Semantic release
-              uses: codfish/semantic-release-action@v3
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-                  GIT_AUTHOR_NAME: '${{ github.actor }}'
-                  GIT_COMMITTER_NAME: '${{ github.actor }}'
+      - name: Semantic release
+        uses: codfish/semantic-release-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          GIT_AUTHOR_NAME: "${{ github.actor }}"
+          GIT_COMMITTER_NAME: "${{ github.actor }}"
