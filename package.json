@@ -74,6 +74,9 @@
         "tap": "^21.7.2",
         "typescript": "^6.0.2"
     },
+    "tap": {
+        "coverage-threshold": 90
+    },
     "volta": {
         "node": "24.15.0",
         "npm": "11.14.0"
