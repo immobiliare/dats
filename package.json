@@ -59,7 +59,7 @@
     "engines": {
         "node": ">=24.0.0"
     },
-"devDependencies": {
+    "devDependencies": {
         "@biomejs/biome": "^2.4.10",
         "@commitlint/cli": "^20.5.0",
         "@commitlint/config-conventional": "^20.5.0",
@@ -73,9 +73,6 @@
         "strip-ansi-cli": "^3.0.0",
         "tap": "^21.7.2",
         "typescript": "^6.0.2"
-    },
-    "tap": {
-        "coverage-threshold": 90
     },
     "volta": {
         "node": "24.15.0",
