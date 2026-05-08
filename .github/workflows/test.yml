@@ -16,15 +16,15 @@ jobs:
         strategy:
             matrix:
                 os: [ ubuntu-latest, macos-latest ]
-                node-version: [ 24.x ]
         runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v4
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
+            - uses: oven-sh/setup-bun@v2
 
             - name: Install dependencies
-              run: npm it
+              run: bun install
+
+            - name: Run tests
+              run: bun run test
