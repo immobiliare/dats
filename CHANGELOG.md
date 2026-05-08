@@ -1,3 +1,10 @@
+# [6.0.0-next.2](https://github.com/immobiliare/dats/compare/v6.0.0-next.1...v6.0.0-next.2) (2026-05-08)
+
+
+### Bug Fixes
+
+* adds missing build step ([3b8f798](https://github.com/immobiliare/dats/commit/3b8f79835b234082d5913576f20ca44ae1959676))
+
 # [6.0.0-next.1](https://github.com/immobiliare/dats/compare/v5.1.1...v6.0.0-next.1) (2026-05-08)
 
 
