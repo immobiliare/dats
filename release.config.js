@@ -1,4 +1,4 @@
-const { readdirSync } = require('fs');
+import { readdirSync } from 'fs';
 
 const files = readdirSync('.out');
 
@@ -9,7 +9,7 @@ const assets = files.map((f) => {
     };
 });
 
-module.exports = {
+export default {
     branches: [
         { name: 'main' },
         { name: 'next', channel: 'next', prerelease: true },

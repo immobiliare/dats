@@ -1,4 +1,5 @@
 .out
+.tap
 # Logs
 logs
 *.log
