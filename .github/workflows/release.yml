@@ -1,6 +1,6 @@
 name: Release
 
-on: [ workflow_dispatch ]
+on: [workflow_dispatch]
 
 jobs:
   test:
@@ -8,7 +8,7 @@ jobs:
     uses: ./.github/workflows/test.yml
 
   release:
-    needs: [ test ]
+    needs: [test]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: bun install
@@ -33,7 +33,7 @@ jobs:
         run: bun run compile
 
       - name: Semantic release
-        uses: codfish/semantic-release-action@v3
+        uses: codfish/semantic-release-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
           GIT_AUTHOR_NAME: "${{ github.actor }}"
