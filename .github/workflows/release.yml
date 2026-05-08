@@ -29,7 +29,10 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build NPM package
+        run: bun run build
+
+      - name: Build CLI executable
         run: bun run compile
 
       - name: Semantic release
