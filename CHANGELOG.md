@@ -1,3 +1,21 @@
+# [6.0.0-next.1](https://github.com/immobiliare/dats/compare/v5.1.1...v6.0.0-next.1) (2026-05-08)
+
+
+* chore!: replace eslint/prettier/husky/ava/nyc with biome/lefthook ([01b3bb7](https://github.com/immobiliare/dats/commit/01b3bb7120062b8151b29ff722279b6f096e3b73))
+* feat!: ship ESM-only package, require Node.js >=24, upgrade to TypeScript 6 ([df4e1ca](https://github.com/immobiliare/dats/commit/df4e1ca6418efe8147ec8d090f6547b2686d96e4))
+
+
+### BREAKING CHANGES
+
+* Development toolchain completely replaced. ESLint, Prettier,
+Husky, lint-staged, NYC, Ava, pkg, czrc, and commitlint config removed.
+Biome (linter+formatter) and lefthook (git hooks) added instead.
+* Package is now ESM-only. CommonJS output has been removed.
+Node.js >=24.0.0 is now required (leverages native CJS→ESM interoperability).
+TypeScript 6 with NodeNext module resolution. CLI binaries now built with
+bun build --compile instead of pkg. Also fixes close() not cancelling the
+buffer flush timeout, which could cause timer leaks after the client is closed.
+
 ## [5.1.1](https://github.com/immobiliare/dats/compare/v5.1.0...v5.1.1) (2025-04-28)
 
 ### Bug Fixes
