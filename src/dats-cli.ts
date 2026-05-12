@@ -126,8 +126,16 @@ if (!validate(configurations, options)) {
   process.exit(1);
 }
 
-const { host, port, type, value, prefix, namespace, dryRun, quiet } =
-  configurations;
+const {
+  host,
+  port,
+  type,
+  value,
+  prefix,
+  namespace,
+  "dry-run": dryRun,
+  quiet,
+} = configurations;
 
 const ns = [prefix, namespace].filter(Boolean).join(".");
 
