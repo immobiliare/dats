@@ -1,6 +1,6 @@
 {
     "name": "@immobiliarelabs/dats",
-    "version": "6.0.0-next.2",
+    "version": "6.0.0-next.3",
     "description": "Minimalistic zero-dependencies UDP/TCP statsd client for Node.js",
     "type": "module",
     "bin": {
