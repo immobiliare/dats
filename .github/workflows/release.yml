@@ -35,8 +35,20 @@ jobs:
         run: bun run compile
 
       - name: Semantic release
+        id: semantic
         uses: codfish/semantic-release-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
           GIT_AUTHOR_NAME: "${{ github.actor }}"
           GIT_COMMITTER_NAME: "${{ github.actor }}"
+
+      - name: Backmerge main into next
+        if: steps.semantic.outputs.new-release-published == 'true'
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${{ secrets.GH_OWNER_TOKEN }}@github.com/${{ github.repository }}"
+          git fetch origin next
+          git checkout next
+          git merge origin/main --no-edit
+          git push origin next

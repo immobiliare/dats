@@ -31,12 +31,5 @@ export default {
                 assets,
             },
         ],
-        [
-            '@saithodev/semantic-release-backmerge',
-            {
-                backmergeBranches: [{ from: 'main', to: 'next' }],
-                clearWorkspace: true,
-            },
-        ],
     ],
 };
