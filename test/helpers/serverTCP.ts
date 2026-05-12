@@ -39,8 +39,9 @@ export default class StatsdMock extends EventEmitter {
   stop(): Promise<null> {
     if (this.stopped) return Promise.resolve(null);
     this.stopped = true;
+    this.disconnectSocket();
+    if (!this.server?.listening) return Promise.resolve(null);
     return new Promise((resolve) => {
-      this.disconnectSocket();
       this.server.close(() => {
         resolve(null);
       });
