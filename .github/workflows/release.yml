@@ -3,33 +3,40 @@ name: Release
 on: [workflow_dispatch]
 
 jobs:
-    test:
-        name: Run tests
-        uses: ./.github/workflows/test.yml
+  test:
+    name: Run tests
+    uses: ./.github/workflows/test.yml
 
-    release:
-        needs: [test]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 18
+  release:
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_OWNER_TOKEN }}
+          persist-credentials: false
 
-            - uses: actions/checkout@v4
-              with:
-                  token: ${{ secrets.GH_OWNER_TOKEN }}
-                  persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
 
-            - name: Install dependencies
-              run: npm i
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-            - name: Build
-              run: npm run compile
+      - name: Install dependencies
+        run: bun install
 
-            - name: Semantic release
-              uses: codfish/semantic-release-action@v3
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-                  GIT_AUTHOR_NAME: '${{ github.actor }}'
-                  GIT_COMMITTER_NAME: '${{ github.actor }}'
+      - name: Build NPM package
+        run: bun run build
+
+      - name: Build CLI executable
+        run: bun run compile
+
+      - name: Semantic release
+        uses: codfish/semantic-release-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
+          GIT_AUTHOR_NAME: "${{ github.actor }}"
+          GIT_COMMITTER_NAME: "${{ github.actor }}"

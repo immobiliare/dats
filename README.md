@@ -13,7 +13,7 @@ There are times when you have to gather metrics and you want something simple wi
 
 This client aims to have a simple [statsd](https://github.com/statsd/statsd) compliant API with some optional flavour for advanced usage, like: buffered metrics and either UDP/TCP transports!
 
-Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.x`.
+Supports Node.js `>=24.0.0`.
 
 ## Table of Content
 
@@ -49,22 +49,13 @@ Supports Node.js `>=14.0.0`, if you are a Node.js `v12` user refer to `dats@2.x.
 
 The package is available at [npm](https://www.npmjs.com/package/@immobiliarelabs/dats).
 
-You can install it with `npm`
+You can install it with `npm` or your prefered pacakge manager
 
 ```bash
 # lastest stable version
 $ npm i -S @immobiliarelabs/dats
 # latest development version
 $ npm i -S @immobiliarelabs/dats@next
-```
-
-or `yarn`
-
-```bash
-# lastest stable version
-$ yarn add @immobiliarelabs/dats
-# latest development version
-$ yarn @immobiliarelabs/dats@next
 ```
 
 ## Usage
@@ -214,7 +205,7 @@ All sending errors are handled by the `onError` callback.
 Dats exports his mock, you can use it as follow:
 
 ```ts
-import ClientMock from '@immobiliarelabs/dats/dist/mock';
+import ClientMock from '@immobiliarelabs/dats/mock';
 
 const host = new URL(`udp://127.0.0.1:8232`);
 const namespace = 'ns1';
@@ -246,7 +237,7 @@ console.log(client.metrics);
 
 ## CLI Interface
 
-dats is also exposed as a CLI that can both be installed as a npm global package or a precompiled binary.
+You can use `dats` also as a CLI! You can either install the npm global package or get the precompiled binary for you architecture!
 
 The precompile binary can be found in the [release section](https://github.com/immobiliare/dats/releases) for Linux, MacOS or Windows.
 
@@ -256,17 +247,16 @@ The precompile binary can be found in the [release section](https://github.com/i
 $ npm i -g @immobiliarelabs/dats
 dats --help
 # ℹ️  The following are required input flags:
-#
 #         --host {string} []
 #         --port {string} []
 #         --type {string} [Metric type can be one of: counter, timing, gauge, set]
 #         --prefix {string} [Metric prefix]
 #         --namespace {string} [Metric full namespace, use dots `.` to separate metrics]
 #         --value {string} [Metric value]
-#         --quiet {boolean} [Suppress all console output]
-#         --dryRun {boolean} [Metric wont be sent, use for debug]
+#         --quiet, -q {boolean} [Suppress all console output]
+#         --dry-run, -d {boolean} [Metric wont be sent, use for debug]
 #
-# If unsure of output run the command prepended with `DRY_RUN=1`
+# If unsure of output run the command with `--dry-run`
 ```
 
 ### datsrc
@@ -285,10 +275,20 @@ Every command flag can also be specified in JSON format in the file `.datsrc`, t
 
 If you want to use the precompiled binary get the correct link for your OS in the [release section](https://github.com/immobiliare/dats/releases) and do the following:
 
+Available binaries per platform:
+
+| Platform       | Binary name            |
+| -------------- | ---------------------- |
+| Linux x64      | `dats-linux-x64`       |
+| Linux arm64    | `dats-linux-arm64`     |
+| macOS x64      | `dats-darwin-x64`      |
+| macOS arm64    | `dats-darwin-arm64`    |
+| Windows x64    | `dats-windows-x64.exe` |
+
 ```bash
-curl https://github.com/immobiliare/dats/releases/download/v{{VERSION_TAG}}/dats-cli-{{VERSION_OS}} -L -o dats-cli
-chmod +x dats-cli
-./dats-cli
+curl https://github.com/immobiliare/dats/releases/download/v{{VERSION_TAG}}/dats-{{VERSION_OS}} -L -o dats
+chmod +x dats
+./dats
 ```
 
 ## Benchmarks

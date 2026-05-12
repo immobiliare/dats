@@ -1,5 +1,0 @@
-version: '2'
-exclude_patterns:
-    - 'coverage/**'
-    - 'tests/**'
-    - 'node_modules/**'
