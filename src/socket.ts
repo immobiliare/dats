@@ -251,6 +251,7 @@ export class SocketUdp extends Socket {
 
   async close(): Promise<void> {
     if (!this.connected) return;
+    this.connected = false;
     if (!this.idle) {
       await Promise.race([
         once(this, "idle"),
@@ -259,7 +260,6 @@ export class SocketUdp extends Socket {
     }
     await new Promise((res) => {
       this.socket.close(res as () => void);
-      this.connected = false;
     });
   }
 }
