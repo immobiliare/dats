@@ -148,6 +148,7 @@ export class SocketTcp extends Socket {
 
   async close(): Promise<void> {
     if (this.closing) return Promise.resolve();
+    this.closing = true;
     if (!this.idle) {
       await Promise.race([
         once(this, "idle"),
@@ -155,7 +156,6 @@ export class SocketTcp extends Socket {
       ]);
     }
     this.connected = false;
-    this.closing = true;
     this.socket.removeListener("close", this.reconnectCb);
     this.socket.end();
     this.socket.destroy();
