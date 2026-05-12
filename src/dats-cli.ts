@@ -91,7 +91,7 @@ function validate(values: Record<string, unknown>, opts: CliOptions) {
 
 function printHelp({ ...opts }: CliOptions) {
   console.log(
-    "ℹ️  The following are required input flags: \n\n%s\n\nIf unsure of output run the command prepended with `DRY_RUN=1`",
+    "ℹ️  The following are required input flags: \n\n%s\n\nIf unsure of output run the command with `--dry-run`",
     Object.entries(opts)
       .map(([k, v]) => `\t--${k} {${v.type}} [${v?.help || ""}]`)
       .join("\n"),
@@ -152,7 +152,7 @@ if (dryRun) {
 }
 
 // Usefull for debugging CI logs
-if (!quiet) {
+if (!quiet && !dryRun) {
   console.log(
     `Sent metric: ${ns}:${value}|${Types[type as keyof typeof Types]}`,
   );
