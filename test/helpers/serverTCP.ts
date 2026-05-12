@@ -4,6 +4,7 @@ import { AddressInfo, createServer, Server, Socket } from "net";
 export default class StatsdMock extends EventEmitter {
   private server!: Server;
   private sockets: Socket[];
+  private stopped = false;
   constructor() {
     super();
     this.sockets = [];
@@ -36,6 +37,8 @@ export default class StatsdMock extends EventEmitter {
   }
 
   stop(): Promise<null> {
+    if (this.stopped) return Promise.resolve(null);
+    this.stopped = true;
     return new Promise((resolve) => {
       this.disconnectSocket();
       this.server.close(() => {
