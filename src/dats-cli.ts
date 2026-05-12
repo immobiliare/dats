@@ -118,8 +118,8 @@ if (values.help) {
 }
 
 const configurations: Record<string, unknown> = {
-  ...values,
   ...getFileConfigs(),
+  ...values,
 };
 
 if (!validate(configurations, options)) {
