@@ -256,6 +256,9 @@ class Client {
     if (!this.socket.isConnected()) {
       return hasCallback ? setImmediate(done) : Promise.resolve();
     }
+    if (this.buffer.data) {
+      this.flush();
+    }
     return hasCallback ? this.socket.close().then(done) : this.socket.close();
   }
 }
