@@ -7,7 +7,7 @@ jobs:
         name: Conventional Commit Checker
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - uses: webiny/action-conventional-commits@v1.2.0
@@ -18,7 +18,7 @@ jobs:
                 os: [ ubuntu-latest, macos-latest ]
         runs-on: ${{ matrix.os }}
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - uses: oven-sh/setup-bun@v2
