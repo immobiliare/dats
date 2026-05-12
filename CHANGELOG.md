@@ -1,3 +1,36 @@
+# [6.0.0](https://github.com/immobiliare/dats/compare/v5.1.1...v6.0.0) (2026-05-12)
+
+
+* chore!: replace eslint/prettier/husky/ava/nyc with biome/lefthook ([01b3bb7](https://github.com/immobiliare/dats/commit/01b3bb7120062b8151b29ff722279b6f096e3b73))
+* feat!: ship ESM-only package, require Node.js >=24, upgrade to TypeScript 6 ([df4e1ca](https://github.com/immobiliare/dats/commit/df4e1ca6418efe8147ec8d090f6547b2686d96e4))
+
+
+### Bug Fixes
+
+* adds missing build step ([3b8f798](https://github.com/immobiliare/dats/commit/3b8f79835b234082d5913576f20ca44ae1959676))
+* **cli:** replace DRY_RUN=1 hint with --dry-run and suppress sent log on dry-run ([429023e](https://github.com/immobiliare/dats/commit/429023e96b2156480756f0d7c51d32513ab862ad))
+* coerce port flag value to number before validation ([39a5ede](https://github.com/immobiliare/dats/commit/39a5ede41ea42f5460ef42eef4764c9745146699))
+* destructure dry-run key correctly so --dry-run flag activates ([1978d6f](https://github.com/immobiliare/dats/commit/1978d6fbab407b929880f2a4947eef3d53e12fb3))
+* ensure CLI args take precedence over file configs ([c92264e](https://github.com/immobiliare/dats/commit/c92264ee66e6401231b92a72c537fd58fd98c72d))
+* flush buffered metrics before closing socket ([358f139](https://github.com/immobiliare/dats/commit/358f139c2a191789a417eb69b33850742bf2f5ed))
+* **socket:** set closing flag before await to prevent double-close TOCTOU ([92a0d5e](https://github.com/immobiliare/dats/commit/92a0d5eb739cf9daf695d4c4d2083c25e6fae7c2))
+* **socket:** set connected flag before awaits to prevent TOCTOU race in close ([e6a0f02](https://github.com/immobiliare/dats/commit/e6a0f02f929c4f950bb90d82a3f189996a33d07f))
+* **test:** guard ServerTCP.stop() against double invocation ([1bcb6f4](https://github.com/immobiliare/dats/commit/1bcb6f4bde882583efbbcce52ffcf2aab0b31e9f))
+* **test:** guard ServerTCP.stop() against uninitialized or non-listening server ([88e97e6](https://github.com/immobiliare/dats/commit/88e97e65d52ea4fad969395be215d34a14f68370))
+* upgrade autocannon from 7.14.0 to 7.15.0 ([e8c1672](https://github.com/immobiliare/dats/commit/e8c1672d8cb0343b3ebe2a27bf275e379ce9b832))
+
+
+### BREAKING CHANGES
+
+* Development toolchain completely replaced. ESLint, Prettier,
+Husky, lint-staged, NYC, Ava, pkg, czrc, and commitlint config removed.
+Biome (linter+formatter) and lefthook (git hooks) added instead.
+* Package is now ESM-only. CommonJS output has been removed.
+Node.js >=24.0.0 is now required (leverages native CJS→ESM interoperability).
+TypeScript 6 with NodeNext module resolution. CLI binaries now built with
+bun build --compile instead of pkg. Also fixes close() not cancelling the
+buffer flush timeout, which could cause timer leaks after the client is closed.
+
 # [6.0.0-next.3](https://github.com/immobiliare/dats/compare/v6.0.0-next.2...v6.0.0-next.3) (2026-05-12)
 
 
