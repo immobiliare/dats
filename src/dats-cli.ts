@@ -35,7 +35,10 @@ const options: CliOptions = {
   },
   port: {
     type: "string",
-    validate: (v) => Boolean(v) && Number.isFinite(v as number),
+    validate: (v) => {
+      const n = Number(v);
+      return Number.isFinite(n) && n >= 1 && n <= 65535;
+    },
   },
   // metric
   type: {
