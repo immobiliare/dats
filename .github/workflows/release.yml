@@ -33,11 +33,3 @@ jobs:
 
       - name: Build CLI executable
         run: bun run compile
-
-      - name: Semantic release
-        id: semantic
-        uses: codfish/semantic-release-action@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_OWNER_TOKEN }}
-          GIT_AUTHOR_NAME: "${{ github.actor }}"
-          GIT_COMMITTER_NAME: "${{ github.actor }}"
